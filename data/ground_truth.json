@@ -26,6 +26,93 @@
       "T1218.005": "System Binary Proxy Execution: Mshta - mshta.exe executes attacker-supplied JavaScript",
       "T1059.007": "Command and Scripting Interpreter: JavaScript - JavaScript code is run via the javascript: protocol"
     }
+  },
+  "_stage9_protocol": "Entries below were written on 13 Oct 2026 from the attack commands (Sysmon EID 1) and the Mordor/Atomic test names only, and committed BEFORE the pipeline was run on these logs. Rule: expected = the technique the test simulates + any other technique clearly and specifically shown by an attack command.",
+  "logon_script_userinit.json": {
+    "split": "dev",
+    "source": "mordor_dataset/datasets/persistance/cmd_userinitmprlogonscript_batch_2020-10-1922471810.json",
+    "attack_summary": "reg.exe adds HKCU\\Environment UserInitMprLogonScript pointing to a .bat file in Temp (Atomic Red Team T1037.001). Dev, not test: parser/detector rules were written after seeing this log.",
+    "techniques": {
+      "T1037.001": "Boot or Logon Initialization Scripts: Logon Script (Windows) - UserInitMprLogonScript set to a batch file"
+    }
+  },
+  "ie_version_registry.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/discovery/cmd_discover_iexplorer_version_registry_2020-10-2123281491.json",
+    "attack_summary": "cmd.exe runs 'reg query HKLM\\Software\\Microsoft\\Internet Explorer /v svcVersion' to find the browser version (Atomic Red Team T1518).",
+    "techniques": {
+      "T1518": "Software Discovery - reads the installed Internet Explorer version",
+      "T1012": "Query Registry - uses reg query to read the value"
+    }
+  },
+  "wuauclt_dll_injection.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/defense_evasion/covenant_lolbin_wuauclt_createremotethread_2020-10-12183248.json",
+    "attack_summary": "A Covenant implant runs wuauclt.exe /UpdateDeploymentProvider with an attacker DLL (SimpleInjection.dll) and /RunHandlerComServer; the DLL injects into a spawned notepad.exe via CreateRemoteThread.",
+    "techniques": {
+      "T1218": "System Binary Proxy Execution - signed wuauclt.exe loads and runs an attacker DLL",
+      "T1055": "Process Injection - the DLL injects code into notepad.exe (CreateRemoteThread)"
+    }
+  },
+  "reg_save_sam.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/credential_access/empire_shell_reg_dump_sam_2020-09-22042823.json",
+    "attack_summary": "An Empire PowerShell agent runs 'reg.exe save HKLM\\sam sam' to copy the SAM hive for offline credential extraction.",
+    "techniques": {
+      "T1003.002": "OS Credential Dumping: Security Account Manager - the SAM hive is saved to a file"
+    }
+  },
+  "dumpert_lsass.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/credential_access/credential_access.json",
+    "attack_summary": "cmd.exe runs Outflank-Dumpert.exe, which dumps LSASS process memory using direct system calls.",
+    "techniques": {
+      "T1003.001": "OS Credential Dumping: LSASS Memory - LSASS memory is dumped"
+    }
+  },
+  "ntdsutil_ntds_dump.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/credential_access/cmd_dumping_ntds_dit_file_ntdsutil.json",
+    "attack_summary": "ntdsutil \"ac i ntds\" \"ifm\" \"create full C:\\Windows\\Temp\\...\" copies the Active Directory database (NTDS.dit) via a shadow copy (Atomic Red Team T1003.003).",
+    "techniques": {
+      "T1003.003": "OS Credential Dumping: NTDS - ntdsutil IFM creates a copy of NTDS.dit"
+    }
+  },
+  "vbs_launcher_powershell.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/execution/empire_launcher_vbs_2020-09-04160940.json",
+    "attack_summary": "WScript.exe runs launcher.vbs, which starts an encoded PowerShell Empire stager; the agent then runs whoami.exe.",
+    "techniques": {
+      "T1059.005": "Command and Scripting Interpreter: Visual Basic - wscript.exe runs launcher.vbs",
+      "T1059.001": "Command and Scripting Interpreter: PowerShell - powershell.exe -enc stager",
+      "T1033": "System Owner/User Discovery - whoami.exe"
+    }
+  },
+  "dcom_excel4_macro.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/lateral_movement/covenant_dcom_executeexcel4macro_blocked_2020-09-17173147.json",
+    "attack_summary": "A Covenant implant runs MoveExcel4.exe against a remote host (172.18.39.6) to execute an Excel 4.0 macro over DCOM (lateral movement attempt; execution blocked on the target).",
+    "techniques": {
+      "T1021.003": "Remote Services: Distributed Component Object Model - Excel DCOM object used to execute on a remote host"
+    }
+  },
+  "uac_bypass_fodhelper.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/privilege_escalation/empire_uac_shellapi_fodhelper_2020-09-04032946.json",
+    "attack_summary": "An Empire agent runs whoami /groups, then fodhelper.exe, which auto-elevates and launches hidden encoded PowerShell read from the registry (UAC bypass).",
+    "techniques": {
+      "T1548.002": "Abuse Elevation Control Mechanism: Bypass User Account Control - fodhelper.exe auto-elevation",
+      "T1059.001": "Command and Scripting Interpreter: PowerShell - hidden encoded powershell.exe",
+      "T1033": "System Owner/User Discovery - whoami /groups"
+    }
+  },
+  "ldap_domain_users.json": {
+    "split": "test",
+    "source": "mordor_dataset/datasets/discovery/covenant_ldap_searchrequest_domainuser_2020-08-06121307.json",
+    "attack_summary": "A Covenant implant sends LDAP search requests to enumerate domain user accounts. The log has no process-creation events, so detection may find nothing; kept to report that honestly.",
+    "techniques": {
+      "T1087.002": "Account Discovery: Domain Account - LDAP queries for domain users"
+    }
   }
 
 }
