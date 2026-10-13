@@ -21,6 +21,7 @@ def check_ollama() -> bool:
             base_url=config.OLLAMA_BASE_URL,
             temperature=config.LLM_TEMPERATURE,
             keep_alive=config.OLLAMA_KEEP_ALIVE,
+            num_gpu=config.OLLAMA_NUM_GPU,
         )
         start = time.time()
         reply = llm.invoke("Reply with exactly one short sentence: what is Sysmon?")
@@ -28,7 +29,11 @@ def check_ollama() -> bool:
         return True
     except Exception as e:
         print(f"[Ollama] FAILED: {e}")
-        print("         Is Ollama running? Try 'ollama list' and 'ollama pull mistral'.")
+        if "CUDA" in str(e):
+            print("         GPU error: restart Ollama (tray icon -> Quit, then reopen) or the PC,")
+            print("         or set OLLAMA_NUM_GPU = 0 in config.py to run on CPU only.")
+        else:
+            print("         Is Ollama running? Try 'ollama list' and 'ollama pull mistral'.")
         return False
 
 

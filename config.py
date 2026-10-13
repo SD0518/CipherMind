@@ -16,6 +16,9 @@ LLM_MODEL = "mistral"
 LLM_TEMPERATURE = 0.1  # low = more consistent, factual reports
 # Keep Mistral loaded in memory between calls so the demo avoids the ~30 s reload
 OLLAMA_KEEP_ALIVE = "30m"
+# GPU layers for Mistral: None = let Ollama decide (GPU + CPU), 0 = CPU only.
+# Use 0 if Ollama fails with "CUDA error" (CPU is ~25% slower but always works).
+OLLAMA_NUM_GPU = None
 
 # --- Embeddings ---
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
