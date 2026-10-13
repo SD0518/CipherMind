@@ -24,12 +24,20 @@ def main() -> None:
 
     totals = {n: {"predicted": set(), "expected": set()} for n in TOP_N_SETTINGS}
     for log_path in sorted(config.LOGS_DIR.glob("*.json")):
-        state = run_investigation(log_path)
+        # Retrieval only: no Mistral, nothing written to MongoDB
+        state = run_investigation(log_path, save_to_db=False, use_llm=False)
         for error in state.get("errors", []):
             print(f"[ERROR] {error}")
 
         print("=" * 90)
-        print(state["report"])
+        print(f"Investigation of {log_path.name}: "
+              f"{len(state['suspicious'])} suspicious of {len(state['events'])} events\n")
+        for event in state["suspicious"]:
+            print(f"[{event['event_id']}] {event['sentence'][:160]}")
+            print(f"    why flagged: {'; '.join(event['reasons'])}")
+            for match in event["matches"][:3]:
+                print(f"    {match['score']:.3f}  {match['technique_id']}  {match['name']}")
+            print()
 
         expected = set(truth.get(log_path.name, {}).get("techniques", {}))
         print(f"Retrieval-only score for {log_path.name} (expected {sorted(expected)}):")

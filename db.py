@@ -14,6 +14,8 @@ import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
 
+from bson import ObjectId
+from bson.errors import InvalidId
 from pymongo import ASCENDING, DESCENDING, MongoClient
 from pymongo.errors import PyMongoError
 
@@ -136,6 +138,24 @@ def get_history(limit: int = 20) -> list[dict]:
         return [{**doc, "_id": str(doc["_id"])} for doc in cursor]
     except PyMongoError as e:
         raise RuntimeError(f"Could not read history: {e}") from e
+
+
+def get_investigation(investigation_id: str) -> dict | None:
+    """One full investigation (including the report) by its id."""
+    try:
+        doc = get_db()[config.INVESTIGATIONS_COLLECTION].find_one({"_id": ObjectId(investigation_id)})
+    except (PyMongoError, InvalidId) as e:
+        raise RuntimeError(f"Could not read investigation {investigation_id}: {e}") from e
+    return {**doc, "_id": str(doc["_id"])} if doc else None
+
+
+def set_investigation_metrics(investigation_id: str, metrics: dict) -> None:
+    """Attach precision/recall/F1 to a saved investigation (shown in the History tab)."""
+    try:
+        get_db()[config.INVESTIGATIONS_COLLECTION].update_one(
+            {"_id": ObjectId(investigation_id)}, {"$set": {"metrics": metrics}})
+    except (PyMongoError, InvalidId) as e:
+        raise RuntimeError(f"Could not update investigation {investigation_id}: {e}") from e
 
 
 def count_logs(log_id: str) -> int:

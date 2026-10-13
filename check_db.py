@@ -35,9 +35,11 @@ def main() -> bool:
     print(f"[MongoDB] Connected to {config.MONGO_URI}, database '{config.MONGO_DB}'")
 
     # 1. logs: the ingest step saves every kept event with its sentence
-    state = run_investigation(TEST_LOG)
+    #    (no Mistral; the investigation below is saved by this script as a test document)
+    state = run_investigation(TEST_LOG, save_to_db=False, use_llm=False)
     for error in state.get("errors", []):
         print(f"[Pipeline] {error}")
+    db.save_logs(state["log_id"], state["log_file"], state["raw_events"], state["events"])
     stored = db.count_logs(state["log_id"])
     expected = len(state["raw_events"])
     print(f"[logs]           {stored} documents for {TEST_LOG.name} (expected {expected}) "

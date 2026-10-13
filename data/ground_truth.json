@@ -1,6 +1,7 @@
 {
   "_about": "Expected MITRE ATT&CK technique IDs per log file in data/logs/. Used by evaluate.py for precision/recall/F1. Source logs: Cyber-Agent mordor_dataset (OTRF Security-Datasets, Atomic Red Team simulations).",
   "bitsadmin_download.json": {
+    "split": "dev",
     "source": "mordor_dataset/datasets/defense_evasion/cmd_bitsadmin_download_psh_script_2020-10-2302365189.json",
     "attack_summary": "cmd.exe runs 'bitsadmin.exe /transfer' to download a file from GitHub into the user's folder (Atomic Red Team T1197).",
     "techniques": {
@@ -9,6 +10,7 @@
     }
   },
   "service_mod_fax.json": {
+    "split": "dev",
     "source": "mordor_dataset/datasets/privilege_escalation/cmd_service_mod_fax_2020-10-2120454410.json",
     "attack_summary": "'sc config Fax binPath=' points the Fax service at powershell.exe, 'sc start Fax' runs it as SYSTEM, then the binPath is restored (Atomic Red Team T1543.003).",
     "techniques": {
@@ -17,6 +19,7 @@
     }
   },
   "mshta_javascript.json": {
+    "split": "test",
     "source": "mordor_dataset/datasets/defense_evasion/cmd_mshta_javascript_getobject_sct_2020-10-2202214475.json",
     "attack_summary": "cmd.exe runs mshta.exe with a javascript: one-liner that loads a remote .sct scriptlet from GitHub via GetObject, which launches calc.exe (Atomic Red Team T1218.005). Held-out test: no rules tuned on this log.",
     "techniques": {

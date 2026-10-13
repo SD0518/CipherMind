@@ -31,9 +31,31 @@ def build_graph():
 _graph = None
 
 
-def run_investigation(log_path: str, save_to_db: bool = True) -> InvestigationState:
-    """Run the full pipeline on one log file and return the final state."""
+def _get_graph():
     global _graph
     if _graph is None:
         _graph = build_graph()
-    return _graph.invoke({"log_path": str(log_path), "save_to_db": save_to_db, "errors": []})
+    return _graph
+
+
+def run_investigation(log_path: str, save_to_db: bool = True, use_llm: bool = True) -> InvestigationState:
+    """
+    Run the full pipeline on one log file and return the final state.
+    save_to_db=False skips MongoDB; use_llm=False skips Mistral (retrieval-only report).
+    """
+    return _get_graph().invoke({"log_path": str(log_path), "save_to_db": save_to_db,
+                                "use_llm": use_llm, "errors": []})
+
+
+def stream_investigation(log_path: str, save_to_db: bool = True, use_llm: bool = True,
+                         progress_callback=None):
+    """
+    Same pipeline, but yields (node name, state so far) after each step,
+    so the UI can show progress: ingest -> detect -> classify -> report.
+    """
+    state = {"log_path": str(log_path), "save_to_db": save_to_db, "use_llm": use_llm,
+             "progress_callback": progress_callback, "errors": []}
+    for step in _get_graph().stream(state, stream_mode="updates"):
+        for node, update in step.items():
+            state.update(update)
+            yield node, state

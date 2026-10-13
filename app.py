@@ -1,326 +1,247 @@
-#!/usr/bin/env python3
 """
-Streamlit Web App for Cybersecurity Agent Pipeline
+CipherMind web app (Stage 8): Gradio UI with tabs Analyze, Retrieval, Report, History.
 
-A simple web interface for uploading log files and running the cybersecurity analysis pipeline
-with different LLM models.
+Run: python app.py      then open http://127.0.0.1:7860
+
+Everything runs locally: Mistral via Ollama, ChromaDB on disk, MongoDB on localhost.
 """
 
 import os
-import sys
 import tempfile
-import shutil
-import time
-import streamlit as st
+import threading
+from datetime import timezone
 from pathlib import Path
-from typing import Dict, Any, Optional
 
-# Add project root to path for agent imports
-project_root = Path(__file__).parent
-sys.path.insert(0, str(project_root))
+os.environ.setdefault("GRADIO_ANALYTICS_ENABLED", "False")  # fully local: no usage pings
 
-from src.full_pipeline.simple_pipeline import analyze_log_file
+import gradio as gr  # noqa: E402
 
-from dotenv import load_dotenv
-from huggingface_hub import login as huggingface_login
-from huggingface_hub.utils import HfHubHTTPError
+import config  # noqa: E402
+import db  # noqa: E402
+from agents.graph import stream_investigation  # noqa: E402
+from tools.knowledge_base import get_collection, load_embedder  # noqa: E402
+from tools.metrics import precision_recall_f1  # noqa: E402
+from tools.report_writer import warm_up_llm  # noqa: E402
 
-load_dotenv()
-
-
-def get_model_providers() -> Dict[str, Dict[str, str]]:
-    """Get available model providers and their models."""
-    return {
-        "Google GenAI": {
-            "gemini-2.0-flash": "google_genai:gemini-2.0-flash",
-            "gemini-2.0-flash-lite": "google_genai:gemini-2.0-flash-lite",
-            "gemini-2.5-flash-lite": "google_genai:gemini-2.5-flash-lite",
-        },
-        "Groq": {
-            "openai/gpt-oss-120b": "groq:openai/gpt-oss-120b",
-            "moonshotai/kimi-k2-instruct-0905": "groq:moonshotai/kimi-k2-instruct-0905",
-        },
-        "OpenAI": {
-            "gpt-5-mini": "openai:gpt-5-mini",
-            "gpt-5": "openai:gpt-5",
-            "gpt-4.1-mini": "openai:gpt-4.1-mini",
-        },
-    }
+STEP_LABELS = {
+    "ingest": "1/4 Ingest: parsed the log into readable sentences",
+    "detect": "2/4 Detect: flagged suspicious events",
+    "classify": "3/4 Classify: retrieved ATT&CK techniques from ChromaDB",
+    "report": "4/4 Report: cited report written and saved",
+}
+RETRIEVAL_HEADERS = ["Event ID", "Time (UTC)", "Event", "Why flagged", "Top-5 retrieved (similarity)", "Mistral chose"]
+HISTORY_HEADERS = ["When (UTC)", "Log file", "Suspicious", "Techniques", "F1"]
 
 
-def get_api_key_help() -> Dict[str, str]:
-    """Get API key help information for each provider."""
-    return {
-        "Google GenAI": "https://aistudio.google.com/app/apikey",
-        "Groq": "https://console.groq.com/keys",
-        "OpenAI": "https://platform.openai.com/api-keys",
-    }
+# ---------- startup ----------
 
-
-def setup_temp_directories(temp_dir: str) -> Dict[str, str]:
-    """Setup temporary directories for the pipeline."""
-    log_files_dir = os.path.join(temp_dir, "log_files")
-    analysis_dir = os.path.join(temp_dir, "analysis")
-    final_response_dir = os.path.join(temp_dir, "final_response")
-
-    os.makedirs(log_files_dir, exist_ok=True)
-    os.makedirs(analysis_dir, exist_ok=True)
-    os.makedirs(final_response_dir, exist_ok=True)
-
-    return {
-        "log_files": log_files_dir,
-        "analysis": analysis_dir,
-        "final_response": final_response_dir,
-    }
-
-
-def save_uploaded_file(uploaded_file, temp_dir: str) -> str:
-    """Save uploaded file to temporary directory."""
-    log_files_dir = os.path.join(temp_dir, "log_files")
-    file_path = os.path.join(log_files_dir, uploaded_file.name)
-
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
-
-    return file_path
-
-
-def run_analysis(
-    log_file_path: str,
-    model_name: str,
-    query: str,
-    temp_dirs: Dict[str, str],
-    api_key: str,
-    provider: str,
-    max_log_analysis_iterations: int,
-    max_retrieval_iterations: int,
-    progress_callback=None,
-) -> Dict[str, Any]:
-    """Run the cybersecurity analysis pipeline."""
-
-    # Set environment variable for API key
-    if provider == "Google GenAI":
-        os.environ["GOOGLE_API_KEY"] = api_key
-    elif provider == "Groq":
-        os.environ["GROQ_API_KEY"] = api_key
-    elif provider == "OpenAI":
-        os.environ["OPENAI_API_KEY"] = api_key
-
+def load_ground_truth() -> dict:
+    """Map log content fingerprint -> ground-truth entry, so uploads of known logs can be scored."""
+    import json
     try:
-        # Run the analysis pipeline
-        result = analyze_log_file(
-            log_file=log_file_path,
-            query=query,
-            tactic=None,
-            model_name=model_name,
-            temperature=0.1,
-            max_log_analysis_iterations=max_log_analysis_iterations,
-            max_retrieval_iterations=max_retrieval_iterations,
-            log_agent_output_dir=temp_dirs["analysis"],
-            response_agent_output_dir=temp_dirs["final_response"],
-            progress_callback=progress_callback,
-        )
-        return {"success": True, "result": result}
-    except Exception as e:
-        return {"success": False, "error": str(e)}
+        with open(config.GROUND_TRUTH_JSON, encoding="utf-8") as f:
+            truth = json.load(f)
+    except (OSError, ValueError):
+        return {}
+    by_id = {}
+    for name, entry in truth.items():
+        path = config.LOGS_DIR / name
+        if not name.startswith("_") and path.exists():
+            by_id[db.log_id_for(path)] = {**entry, "log_file": name}
+    return by_id
 
 
-@st.cache_resource
-def initialize_hf_login():
-    """Initialize Hugging Face login only once."""
-    hf_token = os.getenv("HF_TOKEN")
-    if hf_token:
-        try:
-            # Check if already logged in by trying to get user info
-            from huggingface_hub import whoami
+GROUND_TRUTH = load_ground_truth()
 
-            whoami()
-            return True
-        except (HfHubHTTPError, Exception):
-            # Not logged in, try to login
+
+def warm_up() -> None:
+    """Load the embedding model, ChromaDB and Mistral in the background so the first run is fast."""
+    try:
+        load_embedder()
+        get_collection()
+    except RuntimeError as e:
+        print(f"[Startup] {e}")
+    if warm_up_llm():
+        print("[Startup] Mistral loaded")
+
+
+def service_status() -> str:
+    """One-line health check shown at the top of the page."""
+    parts = []
+    try:
+        parts.append(f"✅ ChromaDB: {get_collection().count()} ATT&CK techniques")
+    except RuntimeError:
+        parts.append("❌ ChromaDB: run `python build_kb.py`")
+    parts.append("✅ MongoDB" if db.ping() else "⚠️ MongoDB offline (results will not be saved)")
+    parts.append(f"🧠 LLM: Ollama `{config.LLM_MODEL}` (local)")
+    return " &nbsp;|&nbsp; ".join(parts)
+
+
+# ---------- Analyze ----------
+
+def _retrieval_rows(suspicious: list[dict]) -> list[list]:
+    rows = []
+    for e in suspicious:
+        matches = "; ".join(f"{m['technique_id']} {m['name']} ({m['score']:.2f})" for m in e.get("matches", []))
+        chose = ", ".join(e.get("llm", {}).get("accepted_ids", [])) or ("-" if "llm" in e else "")
+        rows.append([e["event_id"], e["timestamp"], e["sentence"][:220], "; ".join(e["reasons"]), matches, chose])
+    return rows
+
+
+def _overview(state: dict, metrics: dict | None) -> str:
+    names = {tid: f["names"][tid] for f in state.get("findings", []) for tid in f["technique_ids"]}
+    md = [f"### {state.get('log_file', '')}",
+          f"- **Events kept:** {len(state.get('events', []))} unique sentences "
+          f"from {len(state.get('raw_events', []))} Sysmon events",
+          f"- **Suspicious:** {len(state.get('suspicious', []))}",
+          f"- **Techniques identified:** "
+          + (", ".join(f"`{t}` {names.get(t, '')}" for t in state.get("predicted_ids", [])) or "none"),
+          f"- **Grounding check:** {len(state.get('grounding_removed', []))} un-retrieved IDs removed",
+          f"- **Mistral time:** {state.get('llm_seconds', 0)} s"]
+    if metrics:
+        md.append(f"- **Score vs ground truth:** precision {metrics['precision']:.2f}, "
+                  f"recall {metrics['recall']:.2f}, **F1 {metrics['f1']:.2f}** "
+                  f"(missed: {', '.join(metrics['missed']) or 'none'})")
+    else:
+        md.append("- **Score:** no ground truth for this log (only known logs in data/ are scored)")
+    if state.get("investigation_id"):
+        md.append(f"- **Saved to MongoDB:** investigation `{state['investigation_id']}`")
+    for error in state.get("errors", []):
+        md.append(f"- ⚠️ {error}")
+    return "\n".join(md)
+
+
+def _save_report_file(state: dict) -> str:
+    folder = Path(tempfile.gettempdir()) / "ciphermind_reports"
+    folder.mkdir(exist_ok=True)
+    path = folder / f"{Path(state['log_file']).stem}_report.md"
+    path.write_text(state.get("report", ""), encoding="utf-8")
+    return str(path)
+
+
+def analyze(uploaded: str | None, sample: str | None, use_llm: bool, progress=gr.Progress()):
+    """Run the pipeline step by step, updating the UI after each step."""
+    path = uploaded or (str(config.LOGS_DIR / sample) if sample else None)
+    if not path:
+        yield "⚠️ Upload a log file or pick a sample log first.", "", [], "", None
+        return
+
+    def on_progress(done: int, total: int, message: str) -> None:
+        progress((done, total), desc=message)
+
+    done_steps = []
+    state = {}
+    try:
+        for node, state in stream_investigation(path, use_llm=use_llm, progress_callback=on_progress):
+            done_steps.append(STEP_LABELS.get(node, node))
+            status = "\n".join(f"- ✅ {s}" for s in done_steps)
+            if node == "classify" and use_llm:
+                status += "\n- ⏳ 4/4 Report: Mistral is mapping each event (about 15-20 s per event)..."
+            yield status, "", _retrieval_rows(state.get("suspicious", [])), "", None
+    except Exception as e:  # keep the UI alive and show what went wrong
+        yield f"❌ Analysis failed: {e}", "", [], "", None
+        return
+
+    # Score against ground truth if this is one of the known logs
+    metrics = None
+    truth = GROUND_TRUTH.get(state.get("log_id", ""))
+    if truth:
+        metrics = precision_recall_f1(set(state.get("predicted_ids", [])), set(truth["techniques"]))
+        if state.get("investigation_id"):
             try:
-                huggingface_login(token=hf_token)
-                return True
-            except Exception as e:
-                st.warning(f"Failed to login to Hugging Face: {e}")
-                return False
-    return False
+                db.set_investigation_metrics(state["investigation_id"], metrics)
+                db.save_evaluation({"log_file": truth["log_file"], "split": truth.get("split", "dev"),
+                                    "method": "app", "investigation_id": state["investigation_id"],
+                                    "expected_ids": sorted(truth["techniques"]),
+                                    "predicted_ids": state.get("predicted_ids", []), "metrics": metrics})
+            except RuntimeError as e:
+                state["errors"].append(f"Score not saved: {e}")
+
+    status = "\n".join(f"- ✅ {s}" for s in done_steps) + "\n\n**Done.** See the Retrieval and Report tabs."
+    yield (status, _overview(state, metrics), _retrieval_rows(state.get("suspicious", [])),
+           state.get("report", ""), _save_report_file(state))
 
 
-def main():
-    """Main Streamlit app."""
+# ---------- History ----------
 
-    # Initialize HF login (cached)
-    initialize_hf_login()
+def load_history():
+    """Latest investigations from MongoDB, for the table and the 'open report' dropdown."""
+    try:
+        items = db.get_history(limit=50)
+    except RuntimeError as e:
+        return [], gr.update(choices=[], value=None), f"⚠️ {e}"
+    rows, choices = [], []
+    for item in items:
+        when = item["created_at"].replace(tzinfo=timezone.utc).strftime("%Y-%m-%d %H:%M")
+        f1 = item.get("metrics", {}).get("f1")
+        rows.append([when, item.get("log_file", ""), item.get("suspicious_count", ""),
+                     ", ".join(item.get("predicted_ids", [])), "" if f1 is None else f"{f1:.2f}"])
+        choices.append((f"{when} | {item.get('log_file', '')}", item["_id"]))
+    return rows, gr.update(choices=choices, value=None), f"{len(items)} investigations"
 
-    st.set_page_config(
-        page_title="Cybersecurity Agent Pipeline", page_icon="🛡️", layout="wide"
-    )
 
-    st.title("Cybersecurity Agent Pipeline")
-    st.markdown(
-        "Upload a log file and analyze it using advanced LLM-based cybersecurity agents."
-    )
+def open_report(investigation_id: str | None) -> str:
+    if not investigation_id:
+        return ""
+    try:
+        doc = db.get_investigation(investigation_id)
+    except RuntimeError as e:
+        return f"⚠️ {e}"
+    return doc.get("report", "_No report stored._") if doc else "_Not found._"
 
-    # Sidebar for configuration
-    with st.sidebar:
-        st.header("Configuration")
 
-        # Model selection
-        providers = get_model_providers()
-        selected_provider = st.selectbox(
-            "Select Model Provider", list(providers.keys())
-        )
+# ---------- layout ----------
 
-        available_models = providers[selected_provider]
-        selected_model_display = st.selectbox(
-            "Select Model", list(available_models.keys())
-        )
-        selected_model = available_models[selected_model_display]
+THEME = gr.themes.Soft(
+    primary_hue="emerald", neutral_hue="slate",
+    font=["ui-sans-serif", "system-ui", "Segoe UI", "sans-serif"],       # local fonts only
+    font_mono=["ui-monospace", "Consolas", "monospace"],
+)
+FORCE_DARK = "() => { document.body.classList.add('dark'); }"
+CSS = ".cm-header h1 {margin-bottom: 0} .cm-header p {opacity: .75; margin-top: 4px}"
 
-        # API Key input with help
-        st.subheader("API Key")
-        api_key_help = get_api_key_help()
+with gr.Blocks(title="CipherMind", theme=THEME, js=FORCE_DARK, css=CSS, analytics_enabled=False) as demo:
+    gr.Markdown("# 🛡️ CipherMind\nLocal RAG assistant for Sysmon log investigation: "
+                "MITRE ATT&CK retrieval + Mistral, with cited, traceable findings.", elem_classes="cm-header")
+    status_bar = gr.Markdown()
 
-        with st.expander("How to get API key", expanded=False):
-            st.markdown(f"**{selected_provider}**:")
-            st.markdown(f"[Get API Key]({api_key_help[selected_provider]})")
+    with gr.Tab("Analyze"):
+        with gr.Row():
+            with gr.Column(scale=1):
+                upload = gr.File(label="Upload a Sysmon log (Mordor JSON lines)", file_types=[".json"], type="filepath")
+                sample = gr.Dropdown(choices=sorted(p.name for p in config.LOGS_DIR.glob("*.json")),
+                                     label="...or pick a sample log", value=None)
+                use_llm = gr.Checkbox(value=True, label="Use Mistral (untick for a fast retrieval-only report)")
+                run_btn = gr.Button("Analyze log", variant="primary")
+            with gr.Column(scale=2):
+                progress_md = gr.Markdown("Pick a log and press **Analyze log**.")
+                overview_md = gr.Markdown()
 
-        api_key = st.text_input(
-            f"Enter {selected_provider} API Key",
-            type="password",
-            help=f"Your {selected_provider} API key",
-        )
+    with gr.Tab("Retrieval"):
+        gr.Markdown("Suspicious events, why they were flagged, the top ATT&CK techniques retrieved from "
+                    "ChromaDB, and which one Mistral chose (it may only choose from these).")
+        retrieval_table = gr.Dataframe(headers=RETRIEVAL_HEADERS, wrap=True, interactive=False)
 
-    # Main content area
-    col1, col2 = st.columns([2, 1])
+    with gr.Tab("Report"):
+        report_md = gr.Markdown("_Run an analysis to see the report._")
+        report_file = gr.File(label="Download report (.md)")
 
-    with col1:
-        st.header("Upload Log File")
-        uploaded_file = st.file_uploader(
-            "Choose a JSON log file",
-            type=["json"],
-            help="Upload a JSON log file from the Mordor dataset or similar security logs",
-        )
+    with gr.Tab("History"):
+        with gr.Row():
+            refresh_btn = gr.Button("Refresh", scale=0)
+            history_info = gr.Markdown()
+        history_table = gr.Dataframe(headers=HISTORY_HEADERS, wrap=True, interactive=False)
+        pick = gr.Dropdown(label="Open a past report", choices=[])
+        past_report = gr.Markdown()
 
-    with col2:
-        st.header("Analysis Status")
-        if uploaded_file is not None:
-            st.success(f"File uploaded: {uploaded_file.name}")
-            st.info(f"Size: {uploaded_file.size:,} bytes")
-        else:
-            st.warning("Please upload a log file")
-
-    # Run analysis button
-    if st.button(
-        "Run Analysis", type="primary", disabled=not (uploaded_file and api_key)
-    ):
-        if not uploaded_file:
-            st.error("Please upload a log file first.")
-            return
-
-        if not api_key:
-            st.error("Please enter your API key.")
-            return
-
-        # Create temporary directory
-        temp_dir = tempfile.mkdtemp(prefix="cyber_agent_")
-
-        try:
-            # Setup directories
-            temp_dirs = setup_temp_directories(temp_dir)
-
-            # Save uploaded file
-            log_file_path = save_uploaded_file(uploaded_file, temp_dir)
-
-            # Show progress
-            progress_bar = st.progress(0)
-            status_text = st.empty()
-
-            status_text.text("Initializing analysis...")
-            progress_bar.progress(10)
-
-            # Start timing
-            start_time = time.time()
-
-            # Create progress callback
-            def update_progress(progress: int, message: str):
-                progress_bar.progress(progress)
-                status_text.text(message)
-
-            # Run analysis
-            analysis_result = run_analysis(
-                log_file_path=log_file_path,
-                model_name=selected_model,
-                query="",
-                temp_dirs=temp_dirs,
-                api_key=api_key,
-                provider=selected_provider,
-                max_log_analysis_iterations=2,
-                max_retrieval_iterations=2,
-                progress_callback=update_progress,
-            )
-
-            # Calculate execution time
-            end_time = time.time()
-            execution_time = end_time - start_time
-
-            progress_bar.progress(90)
-            status_text.text("Finalizing results...")
-
-            if analysis_result["success"]:
-                progress_bar.progress(100)
-                status_text.text("Analysis completed successfully!")
-
-                # Display results
-                st.header("Analysis Results")
-
-                result = analysis_result["result"]
-
-                # Show key metrics
-                col1, col2, col3 = st.columns(3)
-
-                with col1:
-                    assessment = result.get("log_analysis_result", {}).get(
-                        "overall_assessment", "Unknown"
-                    )
-                    st.metric("Overall Assessment", assessment)
-
-                with col2:
-                    abnormal_events = result.get("log_analysis_result", {}).get(
-                        "abnormal_events", []
-                    )
-                    st.metric("Abnormal Events", len(abnormal_events))
-
-                with col3:
-                    st.metric("Execution Time", f"{execution_time:.2f}s")
-
-                # Show markdown report
-                markdown_report = result.get("markdown_report", "")
-                if markdown_report:
-                    st.header("Detailed Report")
-                    st.markdown(markdown_report)
-                else:
-                    st.warning("No detailed report generated.")
-
-            else:
-                st.error(f"Analysis failed: {analysis_result['error']}")
-                st.exception(analysis_result["error"])
-
-        finally:
-            # Cleanup temporary directory
-            try:
-                shutil.rmtree(temp_dir)
-            except Exception as e:
-                st.warning(f"Could not clean up temporary directory: {e}")
-
-    # Footer
-    st.markdown("---")
-    st.markdown(
-        "**Cybersecurity Agent Pipeline** - Powered by LangGraph and LangChain | "
-        "Built for educational purposes demonstrating LLM-based multi-agent systems"
-    )
+    run_btn.click(analyze, inputs=[upload, sample, use_llm],
+                  outputs=[progress_md, overview_md, retrieval_table, report_md, report_file])
+    refresh_btn.click(load_history, outputs=[history_table, pick, history_info])
+    pick.change(open_report, inputs=pick, outputs=past_report)
+    demo.load(service_status, outputs=status_bar)
+    demo.load(load_history, outputs=[history_table, pick, history_info])
 
 
 if __name__ == "__main__":
-    main()
+    threading.Thread(target=warm_up, daemon=True).start()
+    demo.queue().launch(server_name="127.0.0.1", server_port=7860, inbrowser=True)
