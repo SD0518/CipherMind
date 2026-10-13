@@ -15,5 +15,14 @@
       "T1543.003": "Create or Modify System Process: Windows Service - Fax service binPath is changed",
       "T1059.001": "Command and Scripting Interpreter: PowerShell - powershell.exe is launched by services.exe"
     }
+  },
+  "mshta_javascript.json": {
+    "source": "mordor_dataset/datasets/defense_evasion/cmd_mshta_javascript_getobject_sct_2020-10-2202214475.json",
+    "attack_summary": "cmd.exe runs mshta.exe with a javascript: one-liner that loads a remote .sct scriptlet from GitHub via GetObject, which launches calc.exe (Atomic Red Team T1218.005). Held-out test: no rules tuned on this log.",
+    "techniques": {
+      "T1218.005": "System Binary Proxy Execution: Mshta - mshta.exe executes attacker-supplied JavaScript",
+      "T1059.007": "Command and Scripting Interpreter: JavaScript - JavaScript code is run via the javascript: protocol"
+    }
   }
+
 }
