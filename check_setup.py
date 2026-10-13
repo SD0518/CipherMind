@@ -7,10 +7,9 @@ Run: python check_setup.py
 import time
 
 from langchain_ollama import ChatOllama
-from pymongo import MongoClient
-from pymongo.errors import PyMongoError
 
 import config
+import db
 
 
 def check_ollama() -> bool:
@@ -37,13 +36,10 @@ def check_mongo() -> bool:
     """Ping MongoDB and list the collections in the CipherMind database."""
     print(f"[MongoDB] Connecting to {config.MONGO_URI} ...")
     try:
-        client = MongoClient(config.MONGO_URI, serverSelectionTimeoutMS=config.MONGO_TIMEOUT_MS)
-        client.admin.command("ping")
-        collections = client[config.MONGO_DB].list_collection_names()
+        collections = db.list_collections()
         print(f"[MongoDB] OK. Database '{config.MONGO_DB}' collections: {collections or '(none yet)'}")
-        client.close()
         return True
-    except PyMongoError as e:
+    except RuntimeError as e:
         print(f"[MongoDB] FAILED: {e}")
         print("          Is the MongoDB service running? Check Windows Services or 'mongosh'.")
         return False

@@ -7,6 +7,7 @@ Errors are collected in state["errors"] instead of crashing the whole run.
 
 from pathlib import Path
 
+import db
 from agents.state import InvestigationState
 from tools.detector import detect
 from tools.retriever import retrieve
@@ -14,14 +15,25 @@ from tools.sysmon_parser import parse_log
 
 
 def ingest_node(state: InvestigationState) -> dict:
-    """Parse the log file into raw events and normalized sentences."""
+    """Parse the log file into raw events and normalized sentences, then save them to MongoDB."""
     path = Path(state["log_path"])
+    errors = list(state.get("errors", []))
     try:
         raw_events, events = parse_log(path)
-    except RuntimeError as e:
+        log_id = db.log_id_for(path)
+    except (RuntimeError, OSError) as e:
         return {"log_file": path.name, "raw_events": [], "events": [],
-                "errors": state.get("errors", []) + [f"Ingest failed: {e}"]}
-    return {"log_file": path.name, "raw_events": raw_events, "events": events}
+                "errors": errors + [f"Ingest failed: {e}"]}
+
+    # Saving is optional: if MongoDB is down the analysis still runs
+    if state.get("save_to_db", True):
+        try:
+            db.save_logs(log_id, path.name, raw_events, events)
+        except RuntimeError as e:
+            errors.append(f"Logs not saved to MongoDB: {e}")
+
+    return {"log_file": path.name, "log_id": log_id, "raw_events": raw_events,
+            "events": events, "errors": errors}
 
 
 def detect_node(state: InvestigationState) -> dict:

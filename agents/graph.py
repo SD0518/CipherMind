@@ -31,9 +31,9 @@ def build_graph():
 _graph = None
 
 
-def run_investigation(log_path: str) -> InvestigationState:
+def run_investigation(log_path: str, save_to_db: bool = True) -> InvestigationState:
     """Run the full pipeline on one log file and return the final state."""
     global _graph
     if _graph is None:
         _graph = build_graph()
-    return _graph.invoke({"log_path": str(log_path), "errors": []})
+    return _graph.invoke({"log_path": str(log_path), "save_to_db": save_to_db, "errors": []})
