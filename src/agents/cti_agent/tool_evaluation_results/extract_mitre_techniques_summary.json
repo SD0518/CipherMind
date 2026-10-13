@@ -1,0 +1,12 @@
+{
+  "macro_precision": 0.5440542328042329,
+  "macro_recall": 0.5296301359459255,
+  "macro_f1": 0.5290994928728809,
+  "micro_precision": 0.5181347150259067,
+  "micro_recall": 0.5037783375314862,
+  "micro_f1": 0.5108556832694764,
+  "total_samples": 60,
+  "total_tp": 200,
+  "total_fp": 186,
+  "total_fn": 197
+}

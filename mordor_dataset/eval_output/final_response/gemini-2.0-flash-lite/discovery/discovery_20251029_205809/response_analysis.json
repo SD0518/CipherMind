@@ -1,0 +1,116 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified several events related to registry modification and audit log clearing, indicating potential malicious activity. The primary focus is on registry access and modification, along with attempts to hide activity. The mapping quality is medium, with a few direct matches and some logical correlations. The confidence is medium due to the nature of the events and the retrieved techniques.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 7,
+    "total_techniques_retrieved": 6,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event description directly matches the technique description. Clearing the audit log is a direct attempt to remove evidence of malicious activity.",
+        "recommendations": [
+          "Implement stricter audit logging policies to prevent unauthorized clearing of logs.",
+          "Monitor for event ID 1102 and alert on its occurrence.",
+          "Investigate the user wardog and reg.exe activity timeline to determine the scope of the activity."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: reg.exe querying the Internet Explorer registry key.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "The event involves reg.exe querying the registry, which is a direct action related to registry modification. While not a direct modification, it's a precursor to it and aligns with the technique's intent.",
+        "recommendations": [
+          "Monitor for reg.exe activity, especially when accessing registry keys related to Internet Explorer.",
+          "Analyze the specific registry keys being queried to identify potential malicious modifications.",
+          "Investigate the user wardog and reg.exe activity timeline to determine the scope of the activity."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested for \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "Requesting a handle to a registry key is a step towards modifying it. This aligns with the technique's objective of modifying the registry.",
+        "recommendations": [
+          "Monitor for handle requests to sensitive registry keys, especially those related to Internet Explorer.",
+          "Analyze the context of the handle request to determine the purpose of the access.",
+          "Investigate the user wardog and reg.exe activity timeline to determine the scope of the activity."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object for \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "Attempting to access a registry key is a direct action related to registry modification. This aligns with the technique's objective of modifying the registry.",
+        "recommendations": [
+          "Monitor for attempts to access sensitive registry keys, especially those related to Internet Explorer.",
+          "Analyze the context of the access attempt to determine the purpose of the access.",
+          "Investigate the user wardog and reg.exe activity timeline to determine the scope of the activity."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set by explorer.exe.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event directly describes a registry modification, which is the core of the technique.",
+        "recommendations": [
+          "Monitor explorer.exe registry modifications for suspicious changes.",
+          "Analyze the specific registry keys and values being modified to identify potential malicious activity.",
+          "Investigate the user wardog and reg.exe activity timeline to determine the scope of the activity."
+        ],
+        "_original_llm_confidence": 0.75
+      }
+    ],
+    "unmapped_events": [
+      "4658",
+      "10"
+    ],
+    "overall_recommendations": [
+      "Implement a robust SIEM solution to correlate events and detect suspicious activity.",
+      "Establish a baseline of normal registry activity to identify deviations.",
+      "Regularly review and update security policies and procedures to address emerging threats.",
+      "Conduct regular vulnerability assessments and penetration testing to identify and remediate weaknesses."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T20:58:09.345689",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 7,
+    "total_techniques_retrieved": 6
+  }
+}

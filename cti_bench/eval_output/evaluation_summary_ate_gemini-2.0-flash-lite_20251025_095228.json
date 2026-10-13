@@ -1,0 +1,18 @@
+{
+  "evaluation_timestamp": "2025-10-25T09:52:28.164257",
+  "dataset_type": "ate",
+  "model_name": "gemini-2.0-flash-lite",
+  "source_csv": "c:\\Users\\Admin\\Desktop\\Cyber-Agent\\cti_bench\\eval_output\\cti-ate_gemini-2.0-flash-lite_20251024_193022.csv",
+  "metrics": {
+    "macro_f1": 0.5749395643111472,
+    "macro_precision": 0.6700270178993583,
+    "macro_recall": 0.5186262319241042,
+    "micro_f1": 0.5557655954631381,
+    "micro_precision": 0.6391304347826087,
+    "micro_recall": 0.4916387959866221,
+    "exact_match_ratio": 0.06382978723404255,
+    "success_rate": 1.0,
+    "total_samples": 47,
+    "total_techniques": 100
+  }
+}

@@ -1,0 +1,5 @@
+model_name,total_files_analyzed,total_files_detected,total_files_missed,total_abnormal_events_detected,total_tactics_tested,tactics_with_detection,tactics_with_zero_detection,detection_rate_percent,coverage_percent,accuracy,precision,recall,f1_score,effectiveness_score,grade
+gemini-2.0-flash,24,16,8,189,7,7,0,66.6667,100.0,0.6667,0.7024,0.7024,0.7024,77.7381,GOOD
+gemini-2.0-flash-lite,24,11,13,173,7,6,1,45.8333,85.7143,0.4583,0.4286,0.4286,0.4286,56.9048,FAIR
+gemini-2.5-flash-lite,27,12,15,153,7,5,2,44.4444,71.4286,0.4444,0.4279,0.4279,0.4279,52.0431,FAIR
+gpt-oss-120b,22,7,15,86,7,4,3,31.8182,57.1429,0.3182,0.2738,0.2738,0.2738,38.0844,POOR

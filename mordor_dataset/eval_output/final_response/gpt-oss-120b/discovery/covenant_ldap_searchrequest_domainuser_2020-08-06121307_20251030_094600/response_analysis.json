@@ -1,0 +1,121 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "All six logged events have clear, direct semantic matches to the retrieved MITRE ATT&CK techniques. The mappings are high‑confidence for privilege‑use, privilege‑assignment, LSA secret access, registry query, user‑executed binary, and Kerberos ticket request. No events required forced or weak correlations.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 6,
+    "total_techniques_retrieved": 7,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4673",
+        "event_description": "Sensitive Privilege Use – LOCAL SERVICE account invoked a privileged operation via C:\\Windows\\System32\\svchost.exe.",
+        "mitre_technique": "T1068",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event logs a low‑privilege service account exercising SeProfileSingleProcessPrivilege, which is a classic indicator of exploiting a privilege‑escalation vulnerability as described by T1068.",
+        "recommendations": [
+          "Audit and restrict the SeProfileSingleProcessPrivilege to only required accounts.",
+          "Deploy host‑based intrusion detection to alert on any Sensitive Privilege Use (EventID 4673) by service accounts."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4672",
+        "event_description": "Special Privileges Assigned – SYSTEM and MORDORDC$ accounts were granted a full set of system privileges.",
+        "mitre_technique": "T1098",
+        "technique_name": "Account Manipulation",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Bulk assignment of high‑impact privileges (e.g., SeDebugPrivilege, SeBackupPrivilege) to accounts matches the Account Manipulation technique, which describes hardening a foothold by granting extra rights.",
+        "recommendations": [
+          "Implement just‑in‑time privileged access and require approval for any bulk privilege assignment.",
+          "Monitor EventID 4672 for non‑system‑initiated privilege grants and generate alerts."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4662",
+        "event_description": "Object Access – LOCAL SERVICE accessed the secret $MACHINE.ACC in the Policy\\Secrets store.",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.865,
+        "mapping_rationale": "Access to the LSA Secrets hive ($MACHINE.ACC) is explicitly described by the LSA Secrets technique for credential dumping.",
+        "recommendations": [
+          "Restrict read access to the Policy\\Secrets registry hive to only trusted system processes.",
+          "Enable auditing of Registry accesses (EventID 4662) to LSA Secrets and alert on accesses by service accounts."
+        ],
+        "_original_llm_confidence": 0.93
+      },
+      {
+        "event_id": "4656",
+        "event_description": "Object Access – services.exe accessed the ServicesActive registry key.",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Reading the ServicesActive key is a direct example of querying the registry to enumerate installed services, which aligns with T1012.",
+        "recommendations": [
+          "Log and alert on Registry reads of HKLM\\SYSTEM\\CurrentControlSet\\Services\\* by non‑system processes.",
+          "Correlate such reads with other reconnaissance activity to identify potential discovery phases."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4769",
+        "event_description": "Kerberos Service Ticket – A service ticket was issued for a service principal.",
+        "mitre_technique": "T1558.003",
+        "technique_name": "Kerberoasting",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "Issuance of a Kerberos service ticket (TGS) for a service principal is the first step of Kerberoasting, where the attacker later extracts and cracks the ticket offline.",
+        "recommendations": [
+          "Monitor EventID 4769 for unusual service‑principal ticket requests, especially from accounts that rarely request them.",
+          "Enforce strong, random service‑account passwords and consider disabling Kerberos pre‑authentication for high‑value accounts."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "7",
+        "event_description": "Process Creation – User pgustavo executed `GruntHTTP.exe` from their desktop.",
+        "mitre_technique": "T1204",
+        "technique_name": "User Execution",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "A user manually launching an unknown binary from a personal folder matches the User Execution technique, which describes adversary reliance on a user to run malicious code.",
+        "recommendations": [
+          "Implement application whitelisting (e.g., Windows AppLocker) to block execution of unknown binaries from user profile directories.",
+          "Educate users on the risks of running executables from non‑trusted locations and enforce least‑privilege user rights."
+        ],
+        "_original_llm_confidence": 0.9
+      }
+    ],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Adopt a strict least‑privilege model for service accounts and regularly review assigned privileges.",
+      "Enable comprehensive auditing for privilege use (EventIDs 4672, 4673), registry access (4662, 4656), and Kerberos ticket requests (4769) with real‑time alerting.",
+      "Deploy endpoint detection and response (EDR) solutions that can detect abnormal process creations and correlate them with credential‑access behaviors.",
+      "Enforce strong, unique passwords for service accounts and consider using managed service identities or group‑managed service accounts to reduce reliance on stored LSA secrets.",
+      "Conduct periodic red‑team exercises focused on privilege escalation, credential dumping, and Kerberoasting to validate detection controls."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:46:00.077393",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 6,
+    "total_techniques_retrieved": 7
+  }
+}

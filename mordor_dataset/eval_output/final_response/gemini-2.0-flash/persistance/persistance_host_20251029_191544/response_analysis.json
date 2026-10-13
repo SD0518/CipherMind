@@ -1,0 +1,97 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on directly mapping log events to MITRE ATT&CK techniques, prioritizing retrieved techniques and semantic matches. High confidence mappings were prioritized, with lower confidence events left unmapped. The retrieval success was high, as the retrieved techniques directly addressed the observed events.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 7,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event description directly matches the technique description, indicating an attempt to hide malicious activity by clearing audit logs.",
+        "recommendations": [
+          "Implement stricter access controls for event log clearing.",
+          "Monitor for unusual event log clearing activity.",
+          "Investigate the source of the log clearing event immediately."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: REG.exe ADD HKCU\\Environment /v UserInitMprLogonScript /t REG_SZ /d C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat /f",
+        "mitre_technique": "T1547.001",
+        "technique_name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder",
+        "tactic": [
+          "persistance",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event shows the modification of the `UserInitMprLogonScript` registry key using `reg.exe`, which directly aligns with the technique's description of achieving persistence through registry modification for autostart execution.",
+        "recommendations": [
+          "Monitor registry keys related to autostart execution for unauthorized modifications.",
+          "Implement restrictions on the use of `reg.exe` to prevent unauthorized registry changes.",
+          "Scan the system for the presence of the `art.bat` file and remove it."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "11",
+        "event_description": "File created: C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat",
+        "mitre_technique": "T1059.003",
+        "technique_name": "Command and Scripting Interpreter: Windows Command Shell",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "The creation of a batch file (`art.bat`) in the Temp directory, especially when combined with the registry modification, indicates the use of the Windows Command Shell to execute malicious commands. While not a perfect match, the batch file will be executed by cmd.exe.",
+        "recommendations": [
+          "Monitor for the creation of executable files in temporary directories.",
+          "Analyze the contents of the `art.bat` file to determine its purpose.",
+          "Implement application control policies to restrict the execution of unauthorized scripts."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "104",
+        "event_description": "The System log file was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event description directly matches the technique description, indicating an attempt to hide malicious activity by clearing system logs.",
+        "recommendations": [
+          "Implement stricter access controls for event log clearing.",
+          "Monitor for unusual event log clearing activity.",
+          "Investigate the source of the log clearing event immediately."
+        ],
+        "_original_llm_confidence": 0.95
+      }
+    ],
+    "unmapped_events": [
+      "1",
+      "5",
+      "5156"
+    ],
+    "overall_recommendations": [
+      "Strengthen event log monitoring and alerting to detect and respond to log clearing attempts.",
+      "Implement stricter access controls for registry modification to prevent unauthorized persistence mechanisms.",
+      "Monitor for the creation and execution of suspicious scripts in temporary directories.",
+      "Investigate the source and purpose of the `art.bat` file and any associated network connections."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T19:15:44.406938",
+    "overall_assessment": "CRITICAL",
+    "total_abnormal_events": 7,
+    "total_techniques_retrieved": 5
+  }
+}

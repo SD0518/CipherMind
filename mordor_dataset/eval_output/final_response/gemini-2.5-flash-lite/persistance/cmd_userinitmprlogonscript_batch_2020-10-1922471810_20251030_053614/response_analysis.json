@@ -1,0 +1,135 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified several critical and high-severity events that directly map to MITRE ATT&CK techniques. Notably, the clearing of audit logs and the modification of registry keys for persistence are strong indicators of malicious activity. The use of a temporary directory for a batch script further supports this. The Azure guest agent network activity, while low severity, is noted for contextual awareness. Confidence in mappings is generally high due to direct semantic matches.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 12,
+    "total_techniques_retrieved": 0,
+    "retrieval_success": false,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared by user 'wardog' on WORKSTATION5.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event description 'The audit log was cleared' directly matches the technique 'Indicator Removal: Clear Windows Event Logs'. The 'why_abnormal' explicitly states this is a common tactic to cover tracks.",
+        "recommendations": [
+          "Investigate user 'wardog' for unauthorized access or compromise.",
+          "Implement enhanced logging and monitoring for audit log clearing events.",
+          "Consider implementing log forwarding to a secure, remote SIEM to prevent local log tampering."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process was created: C:\\Windows\\System32\\reg.exe (PID 0x21ec) by C:\\Windows\\System32\\cmd.exe (PID 0x2284). Command line: REG.exe ADD HKCU\\Environment /v UserInitMprLogonScript /t REG_SZ /d C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat /f.",
+        "mitre_technique": "T1547.001",
+        "technique_name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The command line explicitly shows 'REG.exe ADD HKCU\\Environment /v UserInitMprLogonScript', which is a known registry key used for persistence. The script is located in a temporary directory, a common practice for malicious payloads.",
+        "recommendations": [
+          "Analyze the contents of 'C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat' for malicious code.",
+          "Remove the 'UserInitMprLogonScript' registry value if deemed malicious.",
+          "Monitor for modifications to the HKCU\\Environment registry key."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "1",
+        "event_description": "Process Create: C:\\Windows\\System32\\reg.exe (PID 8684) by C:\\Windows\\System32\\cmd.exe (PID 8836). Command line: REG.exe ADD HKCU\\Environment /v UserInitMprLogonScript /t REG_SZ /d C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat /f.",
+        "mitre_technique": "T1547.001",
+        "technique_name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "This event is a duplicate of Event ID 4688 and confirms the registry modification for persistence via the UserInitMprLogonScript, directly aligning with the technique.",
+        "recommendations": [
+          "Analyze the contents of 'C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat' for malicious code.",
+          "Remove the 'UserInitMprLogonScript' registry value if deemed malicious.",
+          "Monitor for modifications to the HKCU\\Environment registry key."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "11",
+        "event_description": "File created: C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat by cmd.exe (PID 8836).",
+        "mitre_technique": "T1105",
+        "technique_name": "Ingress Tool Transfer",
+        "tactic": [
+          "execution",
+          "persistance"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The creation of a batch file in a temporary directory ('C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat') by cmd.exe is a strong indicator of a tool being transferred or created on the system for execution, aligning with Ingress Tool Transfer.",
+        "recommendations": [
+          "Immediately analyze the contents of 'C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat' for malicious code.",
+          "Implement stricter controls on file creation in temporary directories.",
+          "Scan the file for known malware signatures."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set by Explorer.EXE (PID 1072) to TargetObject: HKU\\S-1-5-21-3940915590-64593676-1414006259-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\\Count\\{1NP14R77-02R7-4R5Q-O744-2RO1NR5198O7}\\JvaqbjfCbjreFuryy\\i1.0\\cbjrefuryy.rkr. Details: Binary Data",
+        "mitre_technique": "T1027",
+        "technique_name": "Obfuscated Files or Information",
+        "tactic": [
+          "defense_evasion",
+          "discovery"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "The presence of ROT13 encoded strings ('JvaqbjfCbjreFuryy', 'cbjrefuryy.rkr') within the registry value indicates an attempt to obfuscate information, which directly aligns with the 'Obfuscated Files or Information' technique.",
+        "recommendations": [
+          "Investigate the purpose of the ROT13 encoded strings and their associated registry keys.",
+          "Ensure that all obfuscated data is properly decoded and analyzed.",
+          "Review other registry entries for similar obfuscation patterns."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "24",
+        "event_description": "Clipboard changed by rdpclip.exe (PID 2920). Associated filename: C:\\Archive\\CLIP-71EB9D4793E87CBAC3368D6CBF88DD802A654BABC0382082190B70C02979E559B82D3CB9FC277FA04A5D4DD7B528CBADD827C88711F8D21338F91A19A4B91BA13203D22C00000000000000000000000000000000.",
+        "mitre_technique": "T1115",
+        "technique_name": "Clipboard Data",
+        "tactic": [
+          "collection",
+          "credential_access"
+        ],
+        "confidence_score": 0.787,
+        "mapping_rationale": "The event describes a change to the clipboard with a suspicious, long, and seemingly random string. This aligns with the 'Clipboard Data' technique, which can be used for collecting sensitive information or transferring data.",
+        "recommendations": [
+          "Investigate the source and destination of the clipboard data transfer.",
+          "Determine if any sensitive information was copied to or from the clipboard.",
+          "Implement controls to monitor or restrict clipboard usage, especially in remote sessions."
+        ],
+        "_original_llm_confidence": 0.65
+      }
+    ],
+    "unmapped_events": [
+      "5156",
+      "5158",
+      "10",
+      "7",
+      "9"
+    ],
+    "overall_recommendations": [
+      "Prioritize immediate investigation and containment of the identified persistence mechanism (T1547.001) and the suspicious batch file (T1105).",
+      "Conduct a thorough forensic analysis of the affected workstation (WORKSTATION5) to identify the full scope of the compromise.",
+      "Review security logs for any further instances of audit log clearing (T1070.001) or obfuscated information (T1027).",
+      "Enhance endpoint detection and response (EDR) capabilities to better detect and alert on suspicious registry modifications and file creations in temporary directories."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T05:36:14.762046",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 12,
+    "total_techniques_retrieved": 0
+  }
+}

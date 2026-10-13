@@ -1,0 +1,182 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on creating high-confidence mappings between the provided log events and MITRE ATT&CK techniques. The retrieved techniques were prioritized, and direct semantic matches were sought. Only mappings with a confidence score of 0.5 or higher were included. The overall mapping quality is considered good, with several strong correlations identified.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 8,
+    "total_techniques_retrieved": 7,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared by user wardog. This action deletes valuable forensic information.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event description directly matches the technique description: clearing audit logs to hide activity.",
+        "recommendations": [
+          "Implement stricter audit log retention policies.",
+          "Monitor for and alert on audit log clearing events.",
+          "Investigate the wardog account for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: C:\\Windows\\System32\\bitsadmin.exe is used by user wardog to download a PowerShell script from https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1197/T1197.md and save it as C:\\Users\\wardog\\AppData\\Local\\Temp\\bitsadmin1_flag.ps1.",
+        "mitre_technique": "T1197",
+        "technique_name": "BITS Jobs",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event shows bitsadmin being used to download a file, which directly aligns with the BITS Jobs technique description.",
+        "recommendations": [
+          "Monitor for the use of bitsadmin to download files from untrusted sources.",
+          "Implement application control policies to restrict the execution of unsigned PowerShell scripts.",
+          "Investigate the wardog account for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested by bitsadmin.exe: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa and \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon. This indicates an attempt to query the LSA and Winlogon registry keys.",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.925,
+        "mapping_rationale": "The event describes access to LSA secrets in the registry, which is a direct indicator of the LSA Secrets technique.",
+        "recommendations": [
+          "Monitor access to sensitive registry keys like LSA secrets.",
+          "Implement least privilege principles to restrict access to sensitive resources.",
+          "Investigate the wardog account for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested by bitsadmin.exe: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa and \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon. This indicates an attempt to query the LSA and Winlogon registry keys.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Accessing the LSA registry keys is often a precursor to dumping LSASS memory for credential access.",
+        "recommendations": [
+          "Monitor access to sensitive registry keys like LSA secrets.",
+          "Implement least privilege principles to restrict access to sensitive resources.",
+          "Investigate the wardog account for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa and \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon by bitsadmin.exe. This confirms the access to the LSA and Winlogon registry keys.",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.925,
+        "mapping_rationale": "The event confirms access to LSA secrets in the registry, which is a direct indicator of the LSA Secrets technique.",
+        "recommendations": [
+          "Monitor access to sensitive registry keys like LSA secrets.",
+          "Implement least privilege principles to restrict access to sensitive resources.",
+          "Investigate the wardog account for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa and \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon by bitsadmin.exe. This confirms the access to the LSA and Winlogon registry keys.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Accessing the LSA registry keys is often a precursor to dumping LSASS memory for credential access.",
+        "recommendations": [
+          "Monitor access to sensitive registry keys like LSA secrets.",
+          "Implement least privilege principles to restrict access to sensitive resources.",
+          "Investigate the wardog account for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4799",
+        "event_description": "A security-enabled local group membership was enumerated by svchost.exe. The group enumerated was Administrators.",
+        "mitre_technique": "T1069.001",
+        "technique_name": "Local Groups",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.9,
+        "mapping_rationale": "The event describes the enumeration of local group membership, which directly aligns with the Local Groups technique.",
+        "recommendations": [
+          "Monitor for unusual group enumeration activity.",
+          "Implement account lockout policies to prevent brute-force attacks.",
+          "Review and enforce least privilege principles."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "4703",
+        "event_description": "A token right was adjusted. Privileges were enabled for WORKSTATION5$\\SYSTEM by svchost.exe. Enabled privileges include SeAssignPrimaryTokenPrivilege, SeIncreaseQuotaPrivilege, SeSecurityPrivilege, SeTakeOwnershipPrivilege, SeLoadDriverPrivilege, SeSystemtimePrivilege, SeBackupPrivilege, SeRestorePrivilege, SeShutdownPrivilege, SeSystemEnvironmentPrivilege, SeUndockPrivilege, and SeManageVolumePrivilege.",
+        "mitre_technique": "T1134.001",
+        "technique_name": "Access Token Manipulation: Token Impersonation/Theft",
+        "tactic": [
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event describes the adjustment of token rights, which is a direct indicator of the Access Token Manipulation technique.",
+        "recommendations": [
+          "Monitor for unusual token right adjustments.",
+          "Implement least privilege principles to restrict access to sensitive resources.",
+          "Investigate the svchost.exe process for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "5156",
+        "event_description": "The Windows Filtering Platform has permitted a connection. Application Information: \\device\\harddiskvolume2\\windows\\system32\\svchost.exe. Network Information: Outbound connection to 151.101.208.133:443.",
+        "mitre_technique": "T1071.001",
+        "technique_name": "Application Layer Protocol: Web Protocols",
+        "tactic": [
+          "command_and_control"
+        ],
+        "confidence_score": 0.8,
+        "mapping_rationale": "The event describes an outbound connection over port 443 (HTTPS) by svchost.exe, which could indicate command and control activity using web protocols.",
+        "recommendations": [
+          "Monitor network traffic for unusual patterns and destinations.",
+          "Implement network segmentation to restrict lateral movement.",
+          "Investigate the svchost.exe process for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.6
+      }
+    ],
+    "unmapped_events": [
+      "5158"
+    ],
+    "overall_recommendations": [
+      "Prioritize investigation of the wardog account due to its involvement in multiple suspicious activities.",
+      "Implement stricter audit log retention policies and monitoring.",
+      "Monitor for the use of bitsadmin to download files from untrusted sources.",
+      "Monitor access to sensitive registry keys like LSA secrets.",
+      "Review and enforce least privilege principles.",
+      "Monitor network traffic for unusual patterns and destinations."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:18:08.580836",
+    "overall_assessment": "CRITICAL",
+    "total_abnormal_events": 8,
+    "total_techniques_retrieved": 7
+  }
+}

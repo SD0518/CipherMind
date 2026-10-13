@@ -1,0 +1,22 @@
+.env
+__pycache__
+self_learn/nguyen/mordor_dataset/def_evade_log.json
+.venv
+# CipherMind: local virtual environment and rebuildable ChromaDB (python build_kb.py)
+venv/
+chroma_db/
+.windsurf
+.idea
+.cursor
+# collection/*
+# credential_access/*
+# defense_evasion/*
+# discovery/*
+# execution/*
+# lateral_movement/*
+# persistance/*
+# privilege_escalation/*
+
+# Local assistant instructions (not part of the project)
+Claude.md
+CLAUDE.md

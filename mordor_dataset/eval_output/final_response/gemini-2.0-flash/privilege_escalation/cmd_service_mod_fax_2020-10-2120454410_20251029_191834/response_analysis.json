@@ -1,0 +1,155 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on creating direct mappings between log events and MITRE ATT&CK techniques, prioritizing the retrieved techniques. High confidence mappings were prioritized, focusing on semantic matches and clear attack patterns. Several events were mapped to techniques related to persistence, privilege escalation, and defense evasion. The overall mapping quality is considered high due to the direct correlations and actionable recommendations.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 13,
+    "total_techniques_retrieved": 6,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event description directly matches the technique description, indicating an attempt to hide malicious activity by clearing the audit logs.",
+        "recommendations": [
+          "Implement stricter audit log retention policies.",
+          "Monitor for and alert on audit log clearing events.",
+          "Investigate the user account (wardog) that cleared the logs."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: sc config Fax binPath= \"C:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe -noexit -c \\\"write-host 'T1543.003 Test'\\\"\"",
+        "mitre_technique": "T1543.003",
+        "technique_name": "Create or Modify System Process: Windows Service",
+        "tactic": [
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event shows the modification of a Windows service (Fax) to execute a PowerShell command, which directly aligns with the technique description of creating or modifying system processes for persistence and privilege escalation.",
+        "recommendations": [
+          "Monitor for modifications to Windows services, especially those involving PowerShell execution.",
+          "Implement application control to restrict the execution of unauthorized PowerShell scripts.",
+          "Investigate the purpose of the modified Fax service and the PowerShell command being executed."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "1",
+        "event_description": "Process Create: sc config Fax binPath= \"C:\\windows\\system32\\WindowsPowerShell\\v1.0\\powershell.exe -noexit -c \\\"write-host 'T1543.003 Test'\\\"\"",
+        "mitre_technique": "T1543.003",
+        "technique_name": "Create or Modify System Process: Windows Service",
+        "tactic": [
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "This Sysmon event confirms the creation of the 'sc' process with the malicious command line, reinforcing the evidence of a service modification for persistence, directly mapping to T1543.003.",
+        "recommendations": [
+          "Monitor for modifications to Windows services, especially those involving PowerShell execution.",
+          "Implement application control to restrict the execution of unauthorized PowerShell scripts.",
+          "Investigate the purpose of the modified Fax service and the PowerShell command being executed."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4670",
+        "event_description": "Permissions on an object were changed. Object Type: Token, Process Name: C:\\Windows\\System32\\services.exe",
+        "mitre_technique": "T1134.002",
+        "technique_name": "Access Token Manipulation: Create Process with Token",
+        "tactic": [
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event indicates a change in permissions on a token object by the services.exe process, which is a strong indicator of privilege escalation through access token manipulation.",
+        "recommendations": [
+          "Monitor for changes in token permissions, especially those initiated by services.exe.",
+          "Implement least privilege principles to limit the impact of potential privilege escalation attacks.",
+          "Investigate the specific token object being modified and the reason for the permission change."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4690",
+        "event_description": "An attempt was made to duplicate a handle to an object. Process Name: C:\\Windows\\System32\\services.exe, Target Process ID: 0x4",
+        "mitre_technique": "T1134.002",
+        "technique_name": "Access Token Manipulation: Create Process with Token",
+        "tactic": [
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event indicates an attempt to duplicate a handle to an object, with the target process being System, which is a strong indicator of privilege escalation through access token manipulation.",
+        "recommendations": [
+          "Monitor for handle duplication attempts, especially those targeting the System process.",
+          "Implement least privilege principles to limit the impact of potential privilege escalation attacks.",
+          "Investigate the specific object being targeted and the reason for the handle duplication attempt."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested. Object Name: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Session Manager\\Environment, Process Name: C:\\Windows\\System32\\services.exe",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "The event indicates a request for a handle to a sensitive registry key by services.exe, which aligns with the technique of querying the registry for discovery purposes.",
+        "recommendations": [
+          "Monitor for access to sensitive registry keys, especially those related to system configuration and environment variables.",
+          "Implement registry auditing to track changes and access attempts.",
+          "Investigate the reason for services.exe accessing the specified registry key."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object. Object Name: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Session Manager\\Environment, Process Name: C:\\Windows\\System32\\services.exe",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "The event indicates an attempt to access a sensitive registry key by services.exe, which aligns with the technique of querying the registry for discovery purposes.",
+        "recommendations": [
+          "Monitor for access to sensitive registry keys, especially those related to system configuration and environment variables.",
+          "Implement registry auditing to track changes and access attempts.",
+          "Investigate the reason for services.exe accessing the specified registry key."
+        ],
+        "_original_llm_confidence": 0.65
+      }
+    ],
+    "unmapped_events": [
+      "4689",
+      "5156",
+      "5158",
+      "7",
+      "10",
+      "11",
+      "12",
+      "13"
+    ],
+    "overall_recommendations": [
+      "Focus on hardening Windows services to prevent unauthorized modifications.",
+      "Implement robust audit logging and monitoring to detect and respond to malicious activity.",
+      "Enforce least privilege principles to limit the impact of privilege escalation attacks.",
+      "Monitor for suspicious PowerShell activity, including script creation and execution in unusual locations.",
+      "Investigate any access to the Azure Instance Metadata Service (IMDS) from within VMs."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T19:18:34.799490",
+    "overall_assessment": "CRITICAL",
+    "total_abnormal_events": 15,
+    "total_techniques_retrieved": 6
+  }
+}

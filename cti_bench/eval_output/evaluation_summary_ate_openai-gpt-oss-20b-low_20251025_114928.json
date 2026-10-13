@@ -1,0 +1,17 @@
+{
+  "evaluation_timestamp": "2025-10-25T11:49:28.856488",
+  "dataset_type": "ate",
+  "model_name": "openai/gpt-oss-20b-low",
+  "metrics": {
+    "macro_f1": 0.4033333190388061,
+    "macro_precision": 0.513677811550152,
+    "macro_recall": 0.35499677627337206,
+    "micro_f1": 0.4328657314629259,
+    "micro_precision": 0.54,
+    "micro_recall": 0.3612040133779264,
+    "exact_match_ratio": 0.02127659574468085,
+    "success_rate": 1.0,
+    "total_samples": 47,
+    "total_techniques": 105
+  }
+}

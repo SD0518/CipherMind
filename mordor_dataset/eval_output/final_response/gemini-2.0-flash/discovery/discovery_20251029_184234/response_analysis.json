@@ -1,0 +1,153 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "Analyzed log events for correlations with MITRE ATT&CK techniques. Since no techniques were retrieved, mappings are based on common attack patterns and event descriptions. Confidence levels are assigned based on the strength of the correlation between the event and the technique. Prioritized direct semantic matches and logical connections.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 15,
+    "total_techniques_retrieved": 0,
+    "retrieval_success": false,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal on Host: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "Direct match between the event description and the technique. Attackers clear logs to hide their activity.",
+        "recommendations": [
+          "Investigate the user account that cleared the logs.",
+          "Implement stricter access controls for event log management.",
+          "Monitor for unusual event log clearing activity."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "104",
+        "event_description": "The System log file was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal on Host: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "Direct match between the event description and the technique. Attackers clear logs to hide their activity.",
+        "recommendations": [
+          "Investigate the user account that cleared the logs.",
+          "Implement stricter access controls for event log management.",
+          "Monitor for unusual event log clearing activity."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: reg.exe querying HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Internet Explorer.",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event describes reg.exe querying the registry, which directly aligns with the Query Registry technique. The specific registry key being queried (Internet Explorer settings) suggests reconnaissance.",
+        "recommendations": [
+          "Monitor registry queries for unusual patterns or sensitive information.",
+          "Investigate the purpose of the registry query in the context of other events.",
+          "Implement least privilege access to the registry."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "1",
+        "event_description": "Process Create: C:\\Windows\\System32\\reg.exe with command line reg query \"HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Internet Explorer\" /v svcVersion",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event describes reg.exe querying the registry, which directly aligns with the Query Registry technique. The specific registry key being queried (Internet Explorer settings) suggests reconnaissance.",
+        "recommendations": [
+          "Monitor registry queries for unusual patterns or sensitive information.",
+          "Investigate the purpose of the registry query in the context of other events.",
+          "Implement least privilege access to the registry."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested: \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "The event describes a handle request to the registry, which aligns with the Query Registry technique. The specific registry key being queried (Internet Explorer settings) suggests reconnaissance.",
+        "recommendations": [
+          "Monitor registry queries for unusual patterns or sensitive information.",
+          "Investigate the purpose of the registry query in the context of other events.",
+          "Implement least privilege access to the registry."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object: \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "The event describes an attempt to access the registry, which aligns with the Query Registry technique. The specific registry key being queried (Internet Explorer settings) suggests reconnaissance.",
+        "recommendations": [
+          "Monitor registry queries for unusual patterns or sensitive information.",
+          "Investigate the purpose of the registry query in the context of other events.",
+          "Implement least privilege access to the registry."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set: Modifications to UserAssist registry keys.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "Direct match between the event description and the technique. Modifying UserAssist keys is a common tactic for hiding evidence of execution.",
+        "recommendations": [
+          "Monitor for modifications to UserAssist registry keys.",
+          "Investigate the processes making these modifications.",
+          "Implement stricter access controls for registry modification."
+        ],
+        "_original_llm_confidence": 0.85
+      }
+    ],
+    "unmapped_events": [
+      "10",
+      "9",
+      "7",
+      "11",
+      "12",
+      "5",
+      "4690",
+      "4658",
+      "4689"
+    ],
+    "overall_recommendations": [
+      "Focus on investigating the reg.exe process and its registry queries.",
+      "Prioritize investigation of the cleared event logs to identify potential attacker activity.",
+      "Monitor for further modifications to the UserAssist registry keys.",
+      "Implement stricter access controls for event log management and registry modification."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:42:34.374665",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 16,
+    "total_techniques_retrieved": 0
+  }
+}

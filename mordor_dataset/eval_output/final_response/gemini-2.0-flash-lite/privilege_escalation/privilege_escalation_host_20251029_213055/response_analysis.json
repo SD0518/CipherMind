@@ -1,0 +1,100 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified several suspicious events, including audit log clearing, service modification, and handle manipulation. These events correlate with several MITRE ATT&CK techniques, primarily focusing on defense evasion, persistence, and privilege escalation. The overall confidence in the mappings is medium, with some direct matches and others based on logical connections. The presence of multiple suspicious events suggests a potential intrusion.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 9,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event description directly matches the technique description. Clearing the audit log is a direct action to hide malicious activity.",
+        "recommendations": [
+          "Implement SIEM rules to alert on audit log clearing events.",
+          "Review the security posture of the system to identify the source of the log clearing."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created. sc.exe is configured to run powershell.exe with a write-host command. Later, sc.exe is used to start the Fax service.",
+        "mitre_technique": "T1543.003",
+        "technique_name": "Windows Service",
+        "tactic": [
+          "persistance",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event describes the modification of a Windows service (Fax) to execute a PowerShell command. This aligns with the technique of using services for persistence and potentially privilege escalation.",
+        "recommendations": [
+          "Investigate the PowerShell command for malicious activity.",
+          "Review the service configuration for any unauthorized changes.",
+          "Monitor for other service modifications."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4670",
+        "event_description": "Permissions on an object (Token) were changed.",
+        "mitre_technique": "T1574.011",
+        "technique_name": "Services Registry Permissions Weakness",
+        "tactic": [
+          "persistance",
+          "privilege_escalation",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "Changes to token permissions can be used to escalate privileges. This aligns with the technique of exploiting registry permissions for persistence and privilege escalation.",
+        "recommendations": [
+          "Review the security posture of the system to identify the source of the permission changes.",
+          "Monitor for other permission changes."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "4690",
+        "event_description": "An attempt was made to duplicate a handle to an object.",
+        "mitre_technique": "T1574.011",
+        "technique_name": "Services Registry Permissions Weakness",
+        "tactic": [
+          "persistance",
+          "privilege_escalation",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "Handle duplication can be used to access protected resources or escalate privileges, which can be achieved by exploiting registry permissions.",
+        "recommendations": [
+          "Investigate the source and destination of the handle duplication.",
+          "Monitor for other handle duplication attempts."
+        ],
+        "_original_llm_confidence": 0.6
+      }
+    ],
+    "unmapped_events": [
+      "4689",
+      "5156",
+      "4656",
+      "4663",
+      "5158"
+    ],
+    "overall_recommendations": [
+      "Implement a robust SIEM solution to correlate events and detect suspicious activities.",
+      "Conduct regular vulnerability assessments and penetration testing to identify and address security weaknesses.",
+      "Enhance endpoint detection and response (EDR) capabilities to proactively identify and respond to threats.",
+      "Review and strengthen access controls to prevent unauthorized access and privilege escalation."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T21:30:55.422842",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 9,
+    "total_techniques_retrieved": 5
+  }
+}

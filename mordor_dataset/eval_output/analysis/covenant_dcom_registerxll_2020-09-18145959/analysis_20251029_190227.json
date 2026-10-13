@@ -1,0 +1,14 @@
+{
+  "analysis": {
+    "overall_assessment": "ERROR",
+    "total_events_analyzed": 0,
+    "execution_time_seconds": 55.25,
+    "execution_time_formatted": "55.25s",
+    "analysis_summary": "Analysis failed: Invalid argument provided to Gemini: 400 The input token count (1334887) exceeds the maximum number of tokens allowed (1048575).",
+    "agent_reasoning": "",
+    "abnormal_event_ids": [],
+    "abnormal_events": [],
+    "iteration_count": 1
+  },
+  "timestamp": "20251029_190227"
+}

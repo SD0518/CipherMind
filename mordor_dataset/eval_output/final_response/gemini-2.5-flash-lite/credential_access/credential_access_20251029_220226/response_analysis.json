@@ -1,0 +1,111 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "A high-confidence correlation was established between the detection of LSASS memory access and credential dumping techniques. The execution of an unknown process from a user's desktop, coupled with the subsequent attempt to access LSASS memory and clear audit logs, strongly indicates a credential access and defense evasion attempt. The user execution technique is also directly supported by the initial process creation event.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 5,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created. Creator Subject: User 'wardog' on WORKSTATION5. New Process Name: C:\\Users\\wardog\\Desktop\\Outflank-Dumpert.exe. Creator Process Name: C:\\Windows\\System32\\cmd.exe. Process Command Line: Outflank-Dumpert.exe.",
+        "mitre_technique": "T1204",
+        "technique_name": "User Execution",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The event describes the creation of a new process (Outflank-Dumpert.exe) from a user's desktop directory, launched via cmd.exe. This directly aligns with the 'User Execution' technique, where adversaries rely on users to execute malicious payloads.",
+        "recommendations": [
+          "Investigate the origin and purpose of 'Outflank-Dumpert.exe'.",
+          "Implement stricter controls on executable files downloaded or created in user directories.",
+          "Educate users about the risks of executing unknown files."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object. Subject: User 'wardog' on WORKSTATION5. Process: C:\\Users\\wardog\\Desktop\\Outflank-Dumpert.exe. Object Type: Process. Object Name: \\Device\\HarddiskVolume2\\Windows\\System32\\lsass.exe. Accesses: Read from process memory.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "OS Credential Dumping: LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event explicitly details an attempt by the 'Outflank-Dumpert.exe' process to read from the memory of 'lsass.exe'. This is a direct indicator of the 'OS Credential Dumping: LSASS Memory' technique, as LSASS contains sensitive credential material.",
+        "recommendations": [
+          "Immediately isolate WORKSTATION5 from the network.",
+          "Perform a full forensic analysis of WORKSTATION5 to identify the extent of compromise.",
+          "Review and strengthen access controls and monitoring around the LSASS process."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested. Subject: User 'wardog' on WORKSTATION5. Process: C:\\Users\\wardog\\Desktop\\Outflank-Dumpert.exe. Object Type: Process. Object Name: \\Device\\HarddiskVolume2\\Windows\\System32\\lsass.exe. Accesses: DELETE, READ_CONTROL, WRITE_DAC, WRITE_OWNER, SYNCHRONIZE, Force process termination, Create new thread in process, Set process session ID, Perform virtual memory operation, Read from process memory, Write to process memory, Duplicate handle into or out of process, Create a subprocess of process, Set process quotas, Set process information, Query process information, Set process termination port.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "OS Credential Dumping: LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "This event further corroborates the 'OS Credential Dumping: LSASS Memory' technique by showing a request for a handle to LSASS.exe with extensive privileges, including memory operations and process manipulation, which are typical for credential dumping tools.",
+        "recommendations": [
+          "Prioritize the containment and eradication of the threat on WORKSTATION5.",
+          "Consider implementing security solutions that detect and alert on anomalous handle requests to critical system processes like LSASS.",
+          "Review the access mask (0x1FFFFF) for any unusual patterns in future events."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4703",
+        "event_description": "A token right was adjusted. Subject: User 'wardog' on WORKSTATION5. Process: C:\\Users\\wardog\\Desktop\\Outflank-Dumpert.exe. Enabled Privileges: SeDebugPrivilege.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "OS Credential Dumping: LSASS Memory",
+        "tactic": [
+          "credential_access",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.888,
+        "mapping_rationale": "The enablement of 'SeDebugPrivilege' for the 'Outflank-Dumpert.exe' process is a common precursor or enabler for credential dumping techniques like LSASS memory access, as it grants the necessary permissions to interact with other processes.",
+        "recommendations": [
+          "Restrict the assignment of 'SeDebugPrivilege' to only essential administrative accounts and processes.",
+          "Monitor for the enablement of 'SeDebugPrivilege' on non-standard processes.",
+          "Investigate why 'wardog' user's process required this privilege."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared. Subject: User 'wardog' on WORKSTATION5.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event explicitly states that the audit log was cleared by the user 'wardog'. This is a direct match for the 'Indicator Removal: Clear Windows Event Logs' technique, indicating an attempt to cover tracks.",
+        "recommendations": [
+          "Initiate immediate incident response procedures to contain and eradicate the threat.",
+          "Ensure robust logging is in place and that logs are being forwarded to a secure, centralized logging system that is not accessible by the compromised user.",
+          "Investigate the specific commands or tools used to clear the audit log."
+        ],
+        "_original_llm_confidence": 1.0
+      }
+    ],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Prioritize the immediate isolation and forensic investigation of WORKSTATION5.",
+      "Review and enhance endpoint detection and response (EDR) capabilities to better detect process anomalies and LSASS access attempts.",
+      "Implement a robust centralized logging solution with log forwarding to a secure, immutable location to prevent tampering.",
+      "Conduct a thorough review of user privileges, particularly for 'SeDebugPrivilege', and restrict its use where possible.",
+      "Reinforce user security awareness training regarding the execution of unknown files."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T22:02:26.932141",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 5,
+    "total_techniques_retrieved": 4
+  }
+}

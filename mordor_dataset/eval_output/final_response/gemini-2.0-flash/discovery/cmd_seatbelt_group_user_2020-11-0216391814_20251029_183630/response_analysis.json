@@ -1,0 +1,155 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "Analysis focused on creating high-confidence mappings between Windows Event IDs and MITRE ATT&CK techniques. Prioritized retrieved techniques and looked for direct semantic matches. Only mappings with confidence >= 0.5 were included. Several events related to credential access and reconnaissance were successfully mapped.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 10,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event description directly matches the technique name and description. Clearing logs is a common defense evasion tactic.",
+        "recommendations": [
+          "Implement stricter audit log retention policies.",
+          "Monitor for attempts to clear audit logs and alert security personnel."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: Seatbelt.exe -group=user",
+        "mitre_technique": "T1592",
+        "technique_name": "Gather Victim Host Information",
+        "tactic": [
+          "reconnaissance"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "Seatbelt.exe is a reconnaissance tool used to gather information about the host. This aligns directly with the Gather Victim Host Information technique.",
+        "recommendations": [
+          "Investigate the purpose of Seatbelt.exe execution.",
+          "Monitor for other reconnaissance tools being used on the system."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested: \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\.NETFramework",
+        "mitre_technique": "T1082",
+        "technique_name": "System Information Discovery",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Accessing .NETFramework registry keys can be a sign of reconnaissance to gather system information, which aligns with the System Information Discovery technique.",
+        "recommendations": [
+          "Monitor registry access to sensitive areas like .NETFramework.",
+          "Investigate the process requesting access to the registry key."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "Accessing LSA registry keys is a strong indicator of an attempt to access LSA Secrets for credential theft.",
+        "recommendations": [
+          "Investigate the process attempting to access the LSA registry keys.",
+          "Implement measures to protect LSA secrets, such as Credential Guard."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested: \\Device\\HarddiskVolume2\\Windows\\System32\\lsass.exe",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "Accessing lsass.exe memory is a common technique for credential dumping, directly aligning with the LSASS Memory technique.",
+        "recommendations": [
+          "Investigate the process accessing lsass.exe memory.",
+          "Implement measures to protect LSASS memory, such as Credential Guard."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "5379",
+        "event_description": "Credential Manager credentials were read.",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "Reading Credential Manager credentials falls under the broader category of accessing sensitive credential information, which aligns with LSA Secrets.",
+        "recommendations": [
+          "Investigate the process accessing Credential Manager.",
+          "Enforce strong password policies and multi-factor authentication."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "5381",
+        "event_description": "Vault credentials were read.",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "Reading Vault credentials falls under the broader category of accessing sensitive credential information, which aligns with LSA Secrets.",
+        "recommendations": [
+          "Investigate the process accessing Vault credentials.",
+          "Enforce strong password policies and multi-factor authentication."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "5382",
+        "event_description": "Vault credentials were read.",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "Reading Vault credentials falls under the broader category of accessing sensitive credential information, which aligns with LSA Secrets.",
+        "recommendations": [
+          "Investigate the process accessing Vault credentials.",
+          "Enforce strong password policies and multi-factor authentication."
+        ],
+        "_original_llm_confidence": 0.7
+      }
+    ],
+    "unmapped_events": [
+      "4670",
+      "5"
+    ],
+    "overall_recommendations": [
+      "Prioritize investigation of credential access attempts, especially those targeting LSASS memory and LSA secrets.",
+      "Implement measures to protect LSASS memory and LSA secrets, such as Credential Guard.",
+      "Monitor for reconnaissance activity and investigate any suspicious processes.",
+      "Strengthen audit log retention policies and monitor for attempts to clear logs."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:36:30.627763",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 10,
+    "total_techniques_retrieved": 5
+  }
+}

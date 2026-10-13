@@ -1,0 +1,77 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on creating direct mappings between the provided log events and MITRE ATT&CK techniques. The retrieved techniques were prioritized, and mappings were created based on semantic matches and attack patterns. Only mappings with a confidence score of 0.5 or higher were included. The overall mapping quality is considered medium due to the limited number of direct matches.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 5,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "9",
+        "event_description": "RawAccessRead detected. The process C:\\Windows\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\\SearchUI.exe is reading directly from the hard disk.",
+        "mitre_technique": "T1006",
+        "technique_name": "Direct Volume Access",
+        "tactic": [
+          "defense_evasion",
+          "collection"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event description explicitly states that a process is reading directly from the hard disk, which aligns directly with the Direct Volume Access technique. This bypasses normal file system access controls.",
+        "recommendations": [
+          "Investigate the purpose of Cortana's direct volume access.",
+          "Monitor for other instances of RawAccessRead, especially by unusual processes."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted. The process C:\\WindowsAzure\\Packages\\WaAppAgent.exe created the key HKLM\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "The event clearly indicates a registry modification (key creation) by a non-standard process, which falls under the 'Modify Registry' technique. Modifying TCP/IP parameters can be used for defense evasion or persistence.",
+        "recommendations": [
+          "Analyze the purpose of the registry key creation by WaAppAgent.exe.",
+          "Monitor for further registry modifications by this process."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set by Cortana. The process C:\\Windows\\SystemApps\\Microsoft.Windows.Cortana_cw5n1h2txyewy\\SearchUI.exe is setting registry values related to AppsConstraintIndex.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event describes Cortana setting registry values, which directly corresponds to the 'Modify Registry' technique. While the specific keys are related to Cortana, registry modifications can be used for persistence or defense evasion.",
+        "recommendations": [
+          "Monitor the specific registry values being set by Cortana.",
+          "Investigate any unusual or unexpected changes to these values."
+        ],
+        "_original_llm_confidence": 0.65
+      }
+    ],
+    "unmapped_events": [
+      "4673",
+      "5156"
+    ],
+    "overall_recommendations": [
+      "Focus on monitoring processes that perform direct volume access or modify the registry.",
+      "Investigate the legitimacy of WaAppAgent.exe and its registry modifications.",
+      "Implement stricter controls over registry modifications, especially for sensitive keys."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:02:16.123262",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 5,
+    "total_techniques_retrieved": 4
+  }
+}

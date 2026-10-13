@@ -1,0 +1,176 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on directly mapping log events to MITRE ATT&CK techniques, prioritizing the retrieved techniques. High confidence mappings were prioritized, with a focus on semantic similarity and clear attack patterns. Several events related to registry access and log clearing were successfully mapped. Events without clear matches were added to the unmapped_events list.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 10,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event description directly matches the technique description, indicating an attempt to remove evidence of malicious activity.",
+        "recommendations": [
+          "Implement stricter access controls for event log clearing.",
+          "Monitor for unauthorized attempts to clear event logs."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "104",
+        "event_description": "The System log file was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion",
+          "discovery"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event description directly matches the technique description, indicating an attempt to remove evidence of malicious activity.",
+        "recommendations": [
+          "Implement stricter access controls for event log clearing.",
+          "Monitor for unauthorized attempts to clear event logs."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: reg.exe querying the registry.",
+        "mitre_technique": "T1112.001",
+        "technique_name": "Modify Registry - Windows Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The event indicates the use of reg.exe to query the registry, which aligns with the technique of modifying or interacting with the Windows Registry for reconnaissance or other purposes.",
+        "recommendations": [
+          "Monitor registry queries from unusual processes.",
+          "Investigate the purpose of the registry query."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4690",
+        "event_description": "An attempt was made to duplicate a handle to an object.",
+        "mitre_technique": "T1112.001",
+        "technique_name": "Modify Registry - Windows Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Handle duplication involving reg.exe suggests potential manipulation or access to sensitive registry resources, aligning with the 'Modify Registry' technique.",
+        "recommendations": [
+          "Investigate the target object of the handle duplication.",
+          "Monitor for unusual handle duplication activity."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "4658",
+        "event_description": "The handle to an object was closed related to reg.exe.",
+        "mitre_technique": "T1112.001",
+        "technique_name": "Modify Registry - Windows Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Handle closure related to reg.exe and registry keys, in conjunction with other registry access events, suggests potential registry manipulation.",
+        "recommendations": [
+          "Correlate this event with other registry access events.",
+          "Investigate the registry key that was accessed."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested to registry key by reg.exe.",
+        "mitre_technique": "T1112.001",
+        "technique_name": "Modify Registry - Windows Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Handle request related to reg.exe and registry keys, in conjunction with other registry access events, suggests potential registry manipulation.",
+        "recommendations": [
+          "Correlate this event with other registry access events.",
+          "Investigate the registry key that was accessed."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object, specifically a registry key by reg.exe.",
+        "mitre_technique": "T1112.001",
+        "technique_name": "Modify Registry - Windows Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Registry key access by reg.exe suggests potential manipulation or information gathering, aligning with the 'Modify Registry' technique.",
+        "recommendations": [
+          "Monitor registry access from unusual processes.",
+          "Investigate the specific registry key being accessed."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "10",
+        "event_description": "Process accessed: Explorer.EXE accessing cmd.exe and powershell.exe",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Explorer.exe spawning cmd.exe and powershell.exe can be indicative of malicious activity leveraging PowerShell for command execution.",
+        "recommendations": [
+          "Monitor process creation events for unusual parent-child relationships.",
+          "Investigate the commands being executed by PowerShell."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set by Explorer.EXE in UserAssist key.",
+        "mitre_technique": "T1547.001",
+        "technique_name": "Registry Run Keys / Startup Folder",
+        "tactic": [
+          "persistance",
+          "credential_access"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Modifying the UserAssist key by Explorer.EXE can be used for persistence or to track user activity, aligning with the 'Registry Run Keys / Startup Folder' technique.",
+        "recommendations": [
+          "Monitor modifications to the UserAssist registry key.",
+          "Investigate the purpose of the registry value being set."
+        ],
+        "_original_llm_confidence": 0.6
+      }
+    ],
+    "unmapped_events": [
+      "9"
+    ],
+    "overall_recommendations": [
+      "Implement stricter access controls for event log clearing and registry modifications.",
+      "Monitor for unusual process creation events and registry access patterns.",
+      "Investigate any instances of Explorer.exe spawning command-line interpreters."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:31:35.090691",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 10,
+    "total_techniques_retrieved": 4
+  }
+}

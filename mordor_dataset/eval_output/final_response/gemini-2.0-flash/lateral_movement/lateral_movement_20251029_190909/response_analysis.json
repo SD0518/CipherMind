@@ -1,0 +1,80 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on creating direct mappings between log events and MITRE ATT&CK techniques. The retrieved techniques were prioritized, and mappings were created based on semantic matches and attack pattern connections. Only mappings with a confidence score of 0.5 or higher were included. Several events were not mapped due to a lack of clear correlation with the retrieved techniques.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 6,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted:EventType: CreateKey\r\nTargetObject: HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\VFUProvider",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistence"
+        ],
+        "confidence_score": 0.787,
+        "mapping_rationale": "The event description indicates the creation of a registry key, which directly aligns with the 'Modify Registry' technique. The registry modification is suspicious and could be used for persistence.",
+        "recommendations": [
+          "Investigate the purpose of the created registry key (VFUProvider).",
+          "Analyze the processes (svchost.exe and Microsoft.ActiveDirectory.WebServices.exe) modifying the registry for malicious behavior.",
+          "Monitor for further modifications to this registry key."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "10",
+        "event_description": "Process accessed:\r\nSourceImage: C:\\windows\\system32\\svchost.exe\r\nTargetImage: C:\\windows\\System32\\svchost.exe\r\nGrantedAccess: 0x1000",
+        "mitre_technique": "T1055",
+        "technique_name": "Process Injection",
+        "tactic": [
+          "defense_evasion",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.737,
+        "mapping_rationale": "The event describes svchost.exe accessing another svchost.exe process, which is a strong indicator of potential process injection. GrantedAccess 0x1000 suggests the process is being opened for some form of access, which could be code injection.",
+        "recommendations": [
+          "Analyze the call traces of the process access to determine the exact nature of the access.",
+          "Investigate the memory regions of the target svchost.exe process for injected code.",
+          "Monitor for other instances of svchost.exe accessing other processes."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "5156",
+        "event_description": "The Windows Filtering Platform has permitted a connection.\r\nDestination Address: 168.63.129.16\r\nDestination Port: 80",
+        "mitre_technique": "T1571",
+        "technique_name": "Non-Standard Port",
+        "tactic": [
+          "command_and_control"
+        ],
+        "confidence_score": 0.688,
+        "mapping_rationale": "While port 80 is standard, the event description highlights frequent connections to unusual external IP addresses on port 80 and 8037. The connection to port 8037 is less common and more suspicious, aligning with the 'Non-Standard Port' technique for command and control.",
+        "recommendations": [
+          "Investigate the network traffic to the destination IP addresses (168.63.129.16, 13.107.4.50, 13.107.160.4, and 13.107.252.10) on ports 80 and 8037.",
+          "Identify the processes initiating these network connections.",
+          "Block communication to these IP addresses if malicious activity is confirmed."
+        ],
+        "_original_llm_confidence": 0.6
+      }
+    ],
+    "unmapped_events": [
+      "4672",
+      "4624",
+      "4634"
+    ],
+    "overall_recommendations": [
+      "Prioritize investigation of registry modifications under HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\VFUProvider.",
+      "Thoroughly analyze process access events involving svchost.exe to detect potential process injection.",
+      "Monitor network connections to unusual external IP addresses and ports, especially port 8037."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T19:09:09.859805",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 6,
+    "total_techniques_retrieved": 4
+  }
+}

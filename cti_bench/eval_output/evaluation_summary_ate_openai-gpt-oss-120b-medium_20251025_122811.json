@@ -1,0 +1,18 @@
+{
+  "evaluation_timestamp": "2025-10-25T12:28:11.749251",
+  "dataset_type": "ate",
+  "model_name": "openai-gpt-oss-120b-medium",
+  "source_csv": "c:\\Users\\Admin\\Desktop\\Cyber-Agent\\cti_bench\\eval_output\\cti-ate_openai-gpt-oss-120b-medium_20251025_122205.csv",
+  "metrics": {
+    "macro_f1": 0.7282924889703098,
+    "macro_precision": 0.7593042890915231,
+    "macro_recall": 0.705971569801357,
+    "micro_f1": 0.7130434782608696,
+    "micro_precision": 0.7427536231884058,
+    "micro_recall": 0.68561872909699,
+    "exact_match_ratio": 0.19148936170212766,
+    "success_rate": 1.0,
+    "total_samples": 47,
+    "total_techniques": 97
+  }
+}

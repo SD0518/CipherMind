@@ -1,0 +1,124 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified a clear credential dumping attempt using Outflank-Dumpert.exe. The events show process creation, file creation, handle requests to lsass.exe, privilege escalation, and audit log clearing. The mappings focus on credential access and defense evasion techniques. The audit log clearing event was mapped to defense evasion.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 9,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: C:\\Users\\wardog\\Desktop\\Outflank-Dumpert.exe",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.787,
+        "mapping_rationale": "The creation of the Outflank-Dumpert.exe process is the initial step in a credential dumping attack. This tool is designed to access LSASS memory, which is the core of the T1003.001 technique.",
+        "recommendations": [
+          "Monitor for the execution of known credential dumping tools.",
+          "Implement endpoint detection and response (EDR) to detect and block malicious process creation."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested for \\Device\\HarddiskVolume2\\Windows\\System32\\lsass.exe",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event directly indicates an attempt to access the LSASS process, which is the core of the T1003.001 technique.",
+        "recommendations": [
+          "Implement process monitoring to detect handle requests to lsass.exe.",
+          "Review security configurations to restrict access to lsass.exe."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object for \\Device\\HarddiskVolume2\\Windows\\System32\\lsass.exe",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event directly indicates an attempt to access the LSASS process, which is the core of the T1003.001 technique.",
+        "recommendations": [
+          "Implement process monitoring to detect access attempts to lsass.exe.",
+          "Review security configurations to restrict access to lsass.exe."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4703",
+        "event_description": "A token right was adjusted. SeDebugPrivilege was enabled.",
+        "mitre_technique": "T1068",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "tactic": [
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "Enabling SeDebugPrivilege is a privilege escalation technique that allows the process to debug other processes, which is a precursor to credential dumping.",
+        "recommendations": [
+          "Monitor for the enabling of SeDebugPrivilege.",
+          "Review the security configuration to restrict the use of SeDebugPrivilege."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "Clearing the audit log is a direct attempt to remove evidence of malicious activity, which is the core of the T1070.001 technique.",
+        "recommendations": [
+          "Implement SIEM alerting on event log clearing.",
+          "Configure audit log retention policies to ensure sufficient data for forensic analysis."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "10",
+        "event_description": "Process accessed: C:\\windows\\system32\\lsass.exe",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "Process access to lsass.exe by Outflank-Dumpert.exe, indicating a potential credential dumping attempt.",
+        "recommendations": [
+          "Implement process monitoring to detect access attempts to lsass.exe.",
+          "Review security configurations to restrict access to lsass.exe."
+        ],
+        "_original_llm_confidence": 0.9
+      }
+    ],
+    "unmapped_events": [
+      "11",
+      "4658",
+      "4690"
+    ],
+    "overall_recommendations": [
+      "Implement robust endpoint detection and response (EDR) capabilities to detect and respond to credential dumping attempts.",
+      "Strengthen access controls to the LSASS process.",
+      "Implement SIEM alerting on suspicious process behavior, including the execution of credential dumping tools and privilege escalation attempts.",
+      "Regularly review and update security configurations to mitigate the risk of credential theft."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T20:35:43.266522",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 9,
+    "total_techniques_retrieved": 5
+  }
+}

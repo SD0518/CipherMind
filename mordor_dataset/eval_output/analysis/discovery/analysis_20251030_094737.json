@@ -1,0 +1,11 @@
+{
+  "overall_assessment": "ERROR",
+  "total_events_analyzed": 0,
+  "execution_time_seconds": 75.92,
+  "execution_time_formatted": "1m 15.92s",
+  "analysis_summary": "Analysis failed: Error code: 400 - {'error': {'message': 'Tool choice is none, but model called a tool', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '{\"name\": \"container.exec\", \"arguments\": {\"cmd\":[\"bash\",\"-lc\",\"python - << \\'PY\\'\\\\nprint(\\'simulating tool call\\')\\\\nPY\"]}}'}}",
+  "agent_reasoning": "",
+  "abnormal_event_ids": [],
+  "abnormal_events": [],
+  "iteration_count": 1
+}

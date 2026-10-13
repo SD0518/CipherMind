@@ -1,0 +1,202 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "All log events were matched to the retrieved MITRE ATT&CK techniques with confidence >= 0.5. Direct semantic matches were found for log clearing, credential manager reads, LSASS handle duplication, registry queries, token manipulation, and the execution of Seatbelt for account discovery. Confidence scores range from 0.70 to 0.95, yielding an overall HIGH confidence assessment.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 11,
+    "total_techniques_retrieved": 8,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared (Security Event ID 1102).",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event explicitly states that the Windows Security log was cleared, which is the exact behavior described by T1070.001.",
+        "recommendations": [
+          "Enable Windows Event Log retention and forward logs to a secure, write‑once storage.",
+          "Deploy an alert for Event ID 1102 and investigate any occurrence immediately."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process was created: C:\\Users\\wardog\\Desktop\\Seatbelt.exe with command line \"Seatbelt.exe -group=user\" (Security Event ID 4688).",
+        "mitre_technique": "T1087",
+        "technique_name": "Account Discovery",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.75,
+        "mapping_rationale": "Seatbelt executed with the \"-group=user\" flag enumerates local user accounts, matching the purpose of T1087.",
+        "recommendations": [
+          "Restrict execution of known enumeration tools (e.g., Seatbelt) to authorized administrators.",
+          "Alert on creation of processes from user desktop paths that invoke enumeration flags."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "5379",
+        "event_description": "Credential Manager credentials were read (Read Operation: Enumerate Credentials).",
+        "mitre_technique": "T1555.004",
+        "technique_name": "Windows Credential Manager",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The event directly reports enumeration of Credential Manager entries, which is the activity described by T1555.004.",
+        "recommendations": [
+          "Audit and alert on Credential Manager read operations (Event ID 5379).",
+          "Limit access to Credential Manager to privileged accounts only."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "5381",
+        "event_description": "Vault credentials were read (enumerated).",
+        "mitre_technique": "T1555.004",
+        "technique_name": "Windows Credential Manager",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Reading the Windows Vault is covered by the same technique that addresses Credential Manager harvesting.",
+        "recommendations": [
+          "Monitor Vault read events (Event ID 5381) and correlate with user activity.",
+          "Implement least‑privilege for applications that need Vault access."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "5382",
+        "event_description": "Vault credentials were read (specific credential read).",
+        "mitre_technique": "T1555.004",
+        "technique_name": "Windows Credential Manager",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Specific credential extraction from the Vault aligns with the credential‑harvesting behavior of T1555.004.",
+        "recommendations": [
+          "Correlate specific domain credential reads with user login patterns.",
+          "Enforce multi‑factor authentication for high‑value domain accounts."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4690",
+        "event_description": "An attempt was made to duplicate a handle to an object (multiple occurrences).",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "Handle duplication targeting LSASS is the classic method for dumping LSASS memory, exactly described by T1003.001.",
+        "recommendations": [
+          "Enable Process Creation auditing with command line logging and alert on handle duplication to LSASS.",
+          "Deploy endpoint protection that blocks LSASS handle duplication for non‑system processes."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested (registry key access).",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "The event shows a request for a handle to sensitive registry keys, which is the activity captured by T1012.",
+        "recommendations": [
+          "Audit registry key access events (Event ID 4656) for LSA and RunMRU paths.",
+          "Restrict read permissions on security‑relevant registry keys to administrators."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4658",
+        "event_description": "The handle to an object was closed (registry key handle).",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.8,
+        "mapping_rationale": "Closing a previously opened registry handle confirms active querying of registry data, consistent with T1012.",
+        "recommendations": [
+          "Correlate handle open (4656) and close (4658) events to detect rapid registry enumeration.",
+          "Generate alerts when a single process repeatedly opens/closes security‑related keys."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object (registry key).",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "Access attempts to LSA and RunMRU keys are classic registry queries used for credential‑related discovery, matching T1012.",
+        "recommendations": [
+          "Alert on Registry access (Event ID 4663) to LSA or RunMRU keys.",
+          "Log the process name and user context for each such access."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "4670",
+        "event_description": "Permissions on a token object were changed (Token security descriptor modified).",
+        "mitre_technique": "T1134",
+        "technique_name": "Access Token Manipulation",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Modification of token security descriptors directly corresponds to the token manipulation behavior described in T1134.",
+        "recommendations": [
+          "Monitor token permission changes (Event ID 4670) and flag additions of high‑privilege ACEs.",
+          "Implement strict token privilege policies and limit who can modify token descriptors."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4703",
+        "event_description": "A token right was adjusted (privilege list changed for svchost).",
+        "mitre_technique": "T1134",
+        "technique_name": "Access Token Manipulation",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.8,
+        "mapping_rationale": "Adjusting token privileges for a system service aligns with the Access Token Manipulation technique.",
+        "recommendations": [
+          "Alert on privilege escalations for system services (Event ID 4703).",
+          "Enforce just‑in‑time privilege elevation and require approval for token right changes."
+        ],
+        "_original_llm_confidence": 0.8
+      }
+    ],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Deploy centralized log aggregation with immutable storage to retain cleared logs and detect Event ID 1102 attempts.",
+      "Implement strict application control (AppLocker/WDAC) to block execution of known post‑exploitation tools such as Seatbelt.exe.",
+      "Enforce least‑privilege for credential stores (Credential Manager, Windows Vault) and monitor all read operations.",
+      "Deploy endpoint detection that specifically watches for LSASS handle duplication and registry enumeration patterns.",
+      "Regularly review token permission changes and privilege adjustments; enforce MFA for any administrative token modifications.",
+      "Conduct periodic threat‑hunt exercises focusing on the chain of events observed (log clearing → enumeration → credential dumping)."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:41:51.182853",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 11,
+    "total_techniques_retrieved": 8
+  }
+}

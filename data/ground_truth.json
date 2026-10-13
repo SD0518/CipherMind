@@ -1,0 +1,19 @@
+{
+  "_about": "Expected MITRE ATT&CK technique IDs per log file in data/logs/. Used by evaluate.py for precision/recall/F1. Source logs: Cyber-Agent mordor_dataset (OTRF Security-Datasets, Atomic Red Team simulations).",
+  "bitsadmin_download.json": {
+    "source": "mordor_dataset/datasets/defense_evasion/cmd_bitsadmin_download_psh_script_2020-10-2302365189.json",
+    "attack_summary": "cmd.exe runs 'bitsadmin.exe /transfer' to download a file from GitHub into the user's folder (Atomic Red Team T1197).",
+    "techniques": {
+      "T1197": "BITS Jobs - bitsadmin.exe creates a BITS transfer job",
+      "T1105": "Ingress Tool Transfer - a file is downloaded from the internet onto the host"
+    }
+  },
+  "service_mod_fax.json": {
+    "source": "mordor_dataset/datasets/privilege_escalation/cmd_service_mod_fax_2020-10-2120454410.json",
+    "attack_summary": "'sc config Fax binPath=' points the Fax service at powershell.exe, 'sc start Fax' runs it as SYSTEM, then the binPath is restored (Atomic Red Team T1543.003).",
+    "techniques": {
+      "T1543.003": "Create or Modify System Process: Windows Service - Fax service binPath is changed",
+      "T1059.001": "Command and Scripting Interpreter: PowerShell - powershell.exe is launched by services.exe"
+    }
+  }
+}

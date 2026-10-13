@@ -1,0 +1,238 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on mapping Windows Event IDs to MITRE ATT&CK techniques, prioritizing direct semantic matches and high confidence mappings. The most significant findings relate to credential access attempts via LSASS memory and NTDS database access. Several events related to LSASS process and shadow copy creation were mapped to credential access techniques. Events related to SYSVOL access and handle duplication were deemed too generic for confident mapping to the retrieved techniques.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 21,
+    "total_techniques_retrieved": 7,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: C:\\Windows\\System32\\ntdsutil.exe spawned by C:\\Windows\\System32\\cmd.exe with command line: ntdsutil  \"ac i ntds\" \"ifm\" \"create full C:\\Windows\\Temp\\ntds_T1003\" q q",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event describes the use of ntdsutil.exe to create a full IFM backup of the Active Directory database (ntds.dit), which is a direct indicator of an attempt to access the NTDS database for credential extraction.",
+        "recommendations": [
+          "Investigate the user account that initiated the cmd.exe process.",
+          "Examine the created IFM backup files in C:\\Windows\\Temp\\ntds_T1003 for suspicious activity.",
+          "Monitor for further attempts to access or copy the ntds.dit file."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "2005",
+        "event_description": "lsass (600,G,0) Shadow copy instance 1 starting. This will be a Full shadow copy.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event indicates the creation of a shadow copy for lsass.exe, which is a common technique used to dump credentials from LSASS memory.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "2001",
+        "event_description": "lsass (600,G,0) Shadow copy instance 1 freeze started.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event indicates the freezing of the shadow copy instance for lsass.exe, which is a step in the process of dumping credentials from LSASS memory.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "2003",
+        "event_description": "lsass (600,G,0) Shadow copy instance 1 freeze ended.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event indicates the end of the freezing of the shadow copy instance for lsass.exe, which is a step in the process of dumping credentials from LSASS memory.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "2006",
+        "event_description": "lsass (600,G,0) Shadow copy instance 1 completed successfully.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event indicates the successful completion of the shadow copy instance for lsass.exe, which is a step in the process of dumping credentials from LSASS memory.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "216",
+        "event_description": "lsass (600,R,98) A database location change was detected from 'C:\\Windows\\NTDS\\ntds.dit' to '\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\ntds.dit'.",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event indicates that the database location has changed to a shadow copy, which is a strong indicator that an attacker is attempting to access the Active Directory database (ntds.dit) for credential theft.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "330",
+        "event_description": "lsass (600,R,98) The database [\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\ntds.dit] format version is being held back to 8920 (0x22d8) due to application parameter setting of 0x22D8 (8920). Current default engine version: 9360 (0x2490).",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "This event indicates that the database format version is being held back, which can be related to compatibility issues when accessing the ntds.dit file from a shadow copy. This further supports the suspicion of malicious activity related to NTDS access.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "300",
+        "event_description": "lsass (600,R,98) The database engine is initiating recovery steps.",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "This event indicates that the database engine is initiating recovery steps, which can be related to accessing the ntds.dit file from a shadow copy. This further supports the suspicion of malicious activity related to NTDS access.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "301",
+        "event_description": "lsass (600,R,98) The database engine has finished replaying logfile \\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy1\\Windows\\NTDS\\edb.log.",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "This event indicates that the database engine has finished replaying the logfile from the shadow copy location, further confirming the attempt to access the Active Directory database.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "302",
+        "event_description": "lsass (600,U,98) The database engine has successfully completed recovery steps.",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "This event indicates that the database engine has successfully completed recovery steps, which can be related to accessing the ntds.dit file from a shadow copy. This further supports the suspicion of malicious activity related to NTDS access.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "105",
+        "event_description": "lsass (600,D,0) The database engine started a new instance (1).",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "This event indicates that the database engine started a new instance, which can be related to accessing the ntds.dit file from a shadow copy. This further supports the suspicion of malicious activity related to NTDS access.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "103",
+        "event_description": "lsass (600,T,97) The database engine stopped the instance (1).",
+        "mitre_technique": "T1003.003",
+        "technique_name": "NTDS",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "This event indicates that the database engine stopped the instance, which can be related to accessing the ntds.dit file from a shadow copy. This further supports the suspicion of malicious activity related to NTDS access.",
+        "recommendations": [
+          "Investigate the process that initiated the shadow copy creation.",
+          "Monitor for subsequent access to the shadow copy volume.",
+          "Implement LSASS protection mechanisms to prevent credential dumping."
+        ],
+        "_original_llm_confidence": 0.8
+      }
+    ],
+    "unmapped_events": [
+      "4688",
+      "4799",
+      "4672",
+      "5140",
+      "5145",
+      "4656",
+      "4658",
+      "4690",
+      "4634"
+    ],
+    "overall_recommendations": [
+      "Prioritize investigation of the ntdsutil.exe execution and the subsequent shadow copy creation events.",
+      "Implement stronger LSASS protection mechanisms to prevent credential dumping.",
+      "Monitor for unusual access patterns to the Active Directory database (ntds.dit).",
+      "Review and harden Active Directory security policies to prevent unauthorized access to sensitive data."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:06:20.464850",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 21,
+    "total_techniques_retrieved": 7
+  }
+}

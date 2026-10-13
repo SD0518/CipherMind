@@ -1,0 +1,187 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis reveals a multi-stage attack with initial PowerShell execution attempting to disable security controls and download a malicious script. Subsequent events indicate lateral movement attempts, credential access, and persistence. The lack of retrieved techniques necessitates a focus on direct event-to-technique mapping based on the event descriptions and indicators.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 9,
+    "total_techniques_retrieved": 0,
+    "retrieval_success": false,
+    "direct_mappings": [
+      {
+        "event_id": "800",
+        "event_description": "PowerShell execution details, including Start-Sleep command and base64 encoded command.",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event directly describes PowerShell execution, a core component of the technique. The Start-Sleep command and base64 encoding are indicators of evasion.",
+        "recommendations": [
+          "Implement PowerShell script block logging and AMSI monitoring.",
+          "Analyze the decoded command for malicious behavior and indicators of compromise (IOCs).",
+          "Review PowerShell execution logs for suspicious activity."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "800",
+        "event_description": "PowerShell execution details, including Start-Sleep command and base64 encoded command.",
+        "mitre_technique": "T1027.002",
+        "technique_name": "Obfuscated Files or Information: Software Packing",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "The base64 encoded command is a form of obfuscation, making it harder to understand the true intent of the code. This is a direct indicator of the technique.",
+        "recommendations": [
+          "Implement a solution to decode and analyze base64 encoded commands.",
+          "Monitor for the use of base64 encoding in PowerShell scripts.",
+          "Use a sandbox environment to execute and analyze the decoded script."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "800",
+        "event_description": "PowerShell execution details, including Start-Sleep command and base64 encoded command.",
+        "mitre_technique": "T1055.001",
+        "technique_name": "Process Injection: Dynamic-link Library Injection",
+        "tactic": [
+          "defense_evasion",
+          "execution"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "The decoded command attempts to disable script block logging and AMSI, which are common steps taken before process injection. While not directly confirmed, the actions taken suggest a preparation for process injection.",
+        "recommendations": [
+          "Monitor for attempts to disable security controls.",
+          "Implement process monitoring to detect suspicious process creation and behavior.",
+          "Review the decoded script for any process injection attempts."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "5156",
+        "event_description": "Filtering Platform Connection permitted. Multiple connections to 168.63.129.16 (Azure services) and 10.10.10.5 (likely internal).",
+        "mitre_technique": "T1041",
+        "technique_name": "Exfiltration Over C2 Channel",
+        "tactic": [
+          "collection",
+          "command_and_control"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Multiple connections, especially to an internal IP, could indicate data exfiltration or command and control activity. The PowerShell execution adds to the suspicion.",
+        "recommendations": [
+          "Investigate the nature of the connections to the internal IP address (10.10.10.5).",
+          "Analyze network traffic for data exfiltration attempts.",
+          "Monitor network connections for unusual patterns or destinations."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "4624",
+        "event_description": "An account was successfully logged on.  WEC$ account logged on from 172.18.38.6.",
+        "mitre_technique": "T1078.002",
+        "technique_name": "Valid Accounts: Domain Accounts",
+        "tactic": [
+          "credential_access",
+          "lateral_movement"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The successful logon of a computer account (WEC$) from an external IP is highly suspicious and suggests the potential compromise of a valid account for lateral movement.",
+        "recommendations": [
+          "Investigate the source IP address (172.18.38.6) for malicious activity.",
+          "Review the WEC$ account's activity for any unauthorized actions.",
+          "Check for any other compromised accounts."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "5140",
+        "event_description": "A network share object was accessed. Access to IPC$ share.",
+        "mitre_technique": "T1021.002",
+        "technique_name": "Remote Services: SMB/Windows File Shares",
+        "tactic": [
+          "lateral_movement"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "Access to the IPC$ share is a common technique used for lateral movement and reconnaissance.",
+        "recommendations": [
+          "Investigate the source of the IPC$ share access.",
+          "Review the logs for any file transfers or other suspicious activity related to the share.",
+          "Monitor for unauthorized access to network shares."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "5145",
+        "event_description": "A network share object was checked to see whether client can be granted desired access. Access to IPC$ share.",
+        "mitre_technique": "T1021.002",
+        "technique_name": "Remote Services: SMB/Windows File Shares",
+        "tactic": [
+          "lateral_movement",
+          "discovery"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "Checking access to the IPC$ share is a reconnaissance step often preceding lateral movement attempts.",
+        "recommendations": [
+          "Investigate the source of the access check to the IPC$ share.",
+          "Review the logs for any subsequent attempts to access the share.",
+          "Monitor for unauthorized access to network shares."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4661",
+        "event_description": "A handle to an object was requested. Access to SAM_DOMAIN and SAM_GROUP objects.",
+        "mitre_technique": "T1003.001",
+        "technique_name": "OS Credential Dumping: LSASS Memory",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "Accessing SAM objects by lsass.exe is a strong indicator of credential dumping or enumeration of user accounts and group memberships.",
+        "recommendations": [
+          "Investigate the lsass.exe process for suspicious activity.",
+          "Review the logs for any attempts to dump credentials.",
+          "Implement measures to protect the LSASS process."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted. Creation of a key under Internet Settings\\Connections.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "Modifying the registry under Internet Settings\\Connections can be used to establish persistence or redirect network traffic.",
+        "recommendations": [
+          "Investigate the purpose of the registry key creation.",
+          "Monitor for any changes to network settings.",
+          "Implement a solution to detect and prevent unauthorized registry modifications."
+        ],
+        "_original_llm_confidence": 0.7
+      }
+    ],
+    "unmapped_events": [
+      "4627",
+      "3"
+    ],
+    "overall_recommendations": [
+      "Isolate the compromised system(s) immediately.",
+      "Conduct a thorough investigation to identify the scope of the compromise and the attacker's objectives.",
+      "Implement robust endpoint detection and response (EDR) solutions.",
+      "Strengthen security controls, including multi-factor authentication (MFA) and regular security audits.",
+      "Review and update incident response plans."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T21:20:49.599637",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 9,
+    "total_techniques_retrieved": 0
+  }
+}

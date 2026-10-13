@@ -1,0 +1,685 @@
+{
+  "timestamp": "2025-10-30T21:19:59.144828",
+  "total_files_processed": 97,
+  "results": [
+    {
+      "file": "gemini-2.0-flash\\collection\\collection_host_20251029_180216\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "collection",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 5
+    },
+    {
+      "file": "gemini-2.0-flash\\credential_access\\cmd_dumping_ntds_dit_file_ntdsutil_20251029_180620\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 21
+    },
+    {
+      "file": "gemini-2.0-flash\\credential_access\\covenant_dcsync_dcerpc_drsuapi_DsGetNCChanges_2020-08-05020926_20251029_180903\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 5
+    },
+    {
+      "file": "gemini-2.0-flash\\credential_access\\credential_access_20251029_181103\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 7
+    },
+    {
+      "file": "gemini-2.0-flash\\credential_access\\empire_shell_reg_dump_sam_2020-09-22042823_20251029_181435\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.0-flash\\defense_evasion\\cmd_bitsadmin_download_psh_script_2020-10-2302365189_20251029_181808\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 8
+    },
+    {
+      "file": "gemini-2.0-flash\\defense_evasion\\cmd_mshta_javascript_getobject_sct_2020-10-2202214475_20251029_182220\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 11
+    },
+    {
+      "file": "gemini-2.0-flash\\defense_evasion\\cmd_process_herpaderping_snippingtool_2020-10-2708290130_20251029_182550\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 8
+    },
+    {
+      "file": "gemini-2.0-flash\\defense_evasion\\covenant_lolbin_wuauclt_createremotethread_2020-10-12183248_20251029_182925\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 8
+    },
+    {
+      "file": "gemini-2.0-flash\\discovery\\cmd_discover_iexplorer_version_registry_2020-10-2123281491_20251029_183135\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 10
+    },
+    {
+      "file": "gemini-2.0-flash\\discovery\\cmd_seatbelt_group_user_2020-11-0216391814_20251029_183630\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 10
+    },
+    {
+      "file": "gemini-2.0-flash\\discovery\\covenant_ldap_searchrequest_domainuser_2020-08-06121307_20251029_183954\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 9
+    },
+    {
+      "file": "gemini-2.0-flash\\discovery\\discovery_20251029_184234\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 15
+    },
+    {
+      "file": "gemini-2.0-flash\\execution\\cmd_sharpview_pcre_net_2020-10-2920232423_20251029_184527\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 13
+    },
+    {
+      "file": "gemini-2.0-flash\\execution\\empire_launcher_vbs_2020-09-04160940_20251029_184901\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "execution",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 8
+    },
+    {
+      "file": "gemini-2.0-flash\\execution\\execution_host_20251029_185244\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "execution",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 9
+    },
+    {
+      "file": "gemini-2.0-flash\\execution\\psh_powershell_httplistener_2020-11-0204130683_20251029_185504\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 7
+    },
+    {
+      "file": "gemini-2.0-flash\\lateral_movement\\covenant_dcom_executeexcel4macro_allowed_2020-09-17174542_20251029_185720\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.0-flash\\lateral_movement\\covenant_dcom_executeexcel4macro_blocked_2020-09-17173147_20251029_190107\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "lateral_movement",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 13
+    },
+    {
+      "file": "gemini-2.0-flash\\lateral_movement\\covenant_dcom_registerxll_2020-09-18145959_20251029_190305\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.0-flash\\lateral_movement\\lateral_movement_20251029_190909\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.0-flash\\persistance\\cmd_userinitmprlogonscript_batch_2020-10-1922471810_20251029_191123\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 3
+    },
+    {
+      "file": "gemini-2.0-flash\\persistance\\empire_persistence_registry_modification_run_keys_elevated_user_2020-07-22001847_20251029_191321\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "persistance",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.0-flash\\persistance\\persistance_host_20251029_191544\\response_analysis.json",
+      "model": "gemini-2.0-flash",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 7
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\collection\\collection_host_20251029_201726\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "collection",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 10
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\credential_access\\cmd_dumping_ntds_dit_file_ntdsutil_20251029_202018\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 12
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\credential_access\\covenant_dcsync_dcerpc_drsuapi_DsGetNCChanges_2020-08-05020926_20251029_202319\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 15
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\credential_access\\credential_access_20251029_203543\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 9
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\credential_access\\empire_shell_reg_dump_sam_2020-09-22042823_20251029_203820\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\defense_evasion\\cmd_bitsadmin_download_psh_script_2020-10-2302365189_20251029_203959\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\defense_evasion\\cmd_mshta_javascript_getobject_sct_2020-10-2202214475_20251029_204239\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 9
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\defense_evasion\\cmd_process_herpaderping_snippingtool_2020-10-2708290130_20251029_204521\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "defense_evasion",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\defense_evasion\\covenant_lolbin_wuauclt_createremotethread_2020-10-12183248_20251029_204812\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 10
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\discovery\\cmd_discover_iexplorer_version_registry_2020-10-2123281491_20251029_205021\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 13
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\discovery\\cmd_seatbelt_group_user_2020-11-0216391814_20251029_205307\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\discovery\\covenant_ldap_searchrequest_domainuser_2020-08-06121307_20251029_205530\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\discovery\\discovery_20251029_205809\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 7
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\execution\\cmd_sharpview_pcre_net_2020-10-2920232423_20251029_205950\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 5
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\execution\\empire_launcher_vbs_2020-09-04160940_20251029_210131\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\execution\\execution_host_20251029_210402\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 5
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\execution\\psh_powershell_httplistener_2020-11-0204130683_20251029_210529\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 2
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\lateral_movement\\covenant_dcom_executeexcel4macro_allowed_2020-09-17174542_20251029_210848\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "lateral_movement",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 7
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\lateral_movement\\covenant_dcom_executeexcel4macro_blocked_2020-09-17173147_20251029_211049\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\lateral_movement\\covenant_dcom_registerxll_2020-09-18145959_20251029_211224\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 8
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\lateral_movement\\lateral_movement_20251029_211606\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 15
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\persistance\\cmd_userinitmprlogonscript_batch_2020-10-1922471810_20251029_211755\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 7
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\persistance\\empire_persistence_registry_modification_run_keys_elevated_user_2020-07-22001847_20251029_212049\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 9
+    },
+    {
+      "file": "gemini-2.0-flash-lite\\persistance\\persistance_host_20251029_212255\\response_analysis.json",
+      "model": "gemini-2.0-flash-lite",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\collection\\collection_host_20251029_215119\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "collection",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 9
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\collection\\collection_host_20251030_001522\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "collection",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\credential_access\\cmd_dumping_ntds_dit_file_ntdsutil_20251029_215459\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\credential_access\\cmd_dumping_ntds_dit_file_ntdsutil_20251030_001906\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\credential_access\\covenant_dcsync_dcerpc_drsuapi_DsGetNCChanges_2020-08-05020926_20251029_215816\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\credential_access\\credential_access_20251029_220226\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 5
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\credential_access\\credential_access_20251030_003234\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 14
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\credential_access\\empire_shell_reg_dump_sam_2020-09-22042823_20251029_220423\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\credential_access\\empire_shell_reg_dump_sam_2020-09-22042823_20251030_003602\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\defense_evasion\\cmd_bitsadmin_download_psh_script_2020-10-2302365189_20251029_220551\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 3
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\defense_evasion\\cmd_mshta_javascript_getobject_sct_2020-10-2202214475_20251029_220806\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 15
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\defense_evasion\\covenant_lolbin_wuauclt_createremotethread_2020-10-12183248_20251030_015243\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 46
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\discovery\\cmd_discover_iexplorer_version_registry_2020-10-2123281491_20251029_232343\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 4
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\discovery\\cmd_discover_iexplorer_version_registry_2020-10-2123281491_20251030_015424\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 12
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\discovery\\cmd_seatbelt_group_user_2020-11-0216391814_20251030_015714\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\discovery\\covenant_ldap_searchrequest_domainuser_2020-08-06121307_20251029_232726\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\discovery\\covenant_ldap_searchrequest_domainuser_2020-08-06121307_20251030_015938\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\execution\\cmd_sharpview_pcre_net_2020-10-2920232423_20251030_020525\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\execution\\empire_launcher_vbs_2020-09-04160940_20251030_020924\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\execution\\execution_host_20251030_021027\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\execution\\psh_powershell_httplistener_2020-11-0204130683_20251030_042020\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "execution",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 8
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\lateral_movement\\covenant_dcom_executeexcel4macro_allowed_2020-09-17174542_20251030_042521\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\lateral_movement\\covenant_dcom_executeexcel4macro_blocked_2020-09-17173147_20251030_042906\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\lateral_movement\\covenant_dcom_registerxll_2020-09-18145959_20251030_043156\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 7
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\persistance\\cmd_userinitmprlogonscript_batch_2020-10-1922471810_20251030_053614\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 12
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\persistance\\empire_persistence_registry_modification_run_keys_elevated_user_2020-07-22001847_20251030_053657\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "persistance",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gemini-2.5-flash-lite\\persistance\\persistance_host_20251030_053830\\response_analysis.json",
+      "model": "gemini-2.5-flash-lite",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gpt-oss-120b\\collection\\collection_host_20251030_091548\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "collection",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\credential_access\\cmd_dumping_ntds_dit_file_ntdsutil_20251030_091823\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 12
+    },
+    {
+      "file": "gpt-oss-120b\\credential_access\\covenant_dcsync_dcerpc_drsuapi_DsGetNCChanges_2020-08-05020926_20251030_092124\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\credential_access\\credential_access_20251030_092351\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "credential_access",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 10
+    },
+    {
+      "file": "gpt-oss-120b\\credential_access\\empire_shell_reg_dump_sam_2020-09-22042823_20251030_092632\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "credential_access",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\defense_evasion\\cmd_bitsadmin_download_psh_script_2020-10-2302365189_20251030_092848\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gpt-oss-120b\\defense_evasion\\cmd_mshta_javascript_getobject_sct_2020-10-2202214475_20251030_092958\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "defense_evasion",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\defense_evasion\\cmd_process_herpaderping_snippingtool_2020-10-2708290130_20251030_093426\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "defense_evasion",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 10
+    },
+    {
+      "file": "gpt-oss-120b\\defense_evasion\\covenant_lolbin_wuauclt_createremotethread_2020-10-12183248_20251030_093655\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "defense_evasion",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 2
+    },
+    {
+      "file": "gpt-oss-120b\\discovery\\cmd_discover_iexplorer_version_registry_2020-10-2123281491_20251030_093849\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 2
+    },
+    {
+      "file": "gpt-oss-120b\\discovery\\cmd_seatbelt_group_user_2020-11-0216391814_20251030_094151\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 11
+    },
+    {
+      "file": "gpt-oss-120b\\discovery\\covenant_ldap_searchrequest_domainuser_2020-08-06121307_20251030_094600\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "discovery",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gpt-oss-120b\\discovery\\discovery_20251030_094758\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "discovery",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\execution\\cmd_sharpview_pcre_net_2020-10-2920232423_20251030_095127\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 11
+    },
+    {
+      "file": "gpt-oss-120b\\execution\\execution_host_20251030_095539\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\execution\\psh_powershell_httplistener_2020-11-0204130683_20251030_095731\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "execution",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 3
+    },
+    {
+      "file": "gpt-oss-120b\\lateral_movement\\covenant_dcom_executeexcel4macro_allowed_2020-09-17174542_20251030_095918\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\lateral_movement\\covenant_dcom_registerxll_2020-09-18145959_20251030_100306\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\lateral_movement\\lateral_movement_20251030_100437\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "lateral_movement",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\persistance\\cmd_userinitmprlogonscript_batch_2020-10-1922471810_20251030_100717\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 6
+    },
+    {
+      "file": "gpt-oss-120b\\persistance\\empire_persistence_registry_modification_run_keys_elevated_user_2020-07-22001847_20251030_100914\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "persistance",
+      "tactic_detected": 0,
+      "total_abnormal_events_detected": 0
+    },
+    {
+      "file": "gpt-oss-120b\\persistance\\persistance_host_20251030_101107\\response_analysis.json",
+      "model": "gpt-oss-120b",
+      "tactic": "persistance",
+      "tactic_detected": 1,
+      "total_abnormal_events_detected": 7
+    }
+  ]
+}

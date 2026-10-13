@@ -1,0 +1,164 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified several events related to potential malicious activities, including privilege escalation, reconnaissance, and defense evasion. The mappings are based on direct correlations between event descriptions and MITRE ATT&CK techniques. The confidence level is primarily medium to high, with a focus on actionable recommendations.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 12,
+    "total_techniques_retrieved": 10,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created.  Process Name: C:\\Windows\\System32\\cmd.exe",
+        "mitre_technique": "T1059",
+        "technique_name": "Command and Scripting Interpreter",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.775,
+        "mapping_rationale": "The event directly indicates the execution of a command-line interpreter (cmd.exe). This is a common technique used by adversaries to execute commands and scripts.",
+        "recommendations": [
+          "Monitor all cmd.exe process creations, especially those with unusual command-line arguments.",
+          "Implement a process whitelisting strategy to restrict the execution of unauthorized processes."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4690",
+        "event_description": "An attempt was made to duplicate a handle to an object.",
+        "mitre_technique": "T1134",
+        "technique_name": "Access Token Manipulation",
+        "tactic": [
+          "defense_evasion",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.75,
+        "mapping_rationale": "Handle duplication can be used to manipulate access tokens, potentially leading to privilege escalation or unauthorized access. This event directly relates to token manipulation.",
+        "recommendations": [
+          "Investigate all handle duplication events, paying close attention to the target object and the processes involved.",
+          "Monitor for suspicious processes attempting to duplicate handles to sensitive objects (e.g., tokens, processes)."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4703",
+        "event_description": "A token right was adjusted.",
+        "mitre_technique": "T1134",
+        "technique_name": "Access Token Manipulation",
+        "tactic": [
+          "defense_evasion",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "Adjusting token rights is a direct method of manipulating access tokens, which can be used for privilege escalation.",
+        "recommendations": [
+          "Monitor all token right adjustments, especially those involving sensitive privileges.",
+          "Review the processes and users involved in token right adjustments to identify potential malicious activity."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "4799",
+        "event_description": "A security-enabled local group membership was enumerated.",
+        "mitre_technique": "T1087",
+        "technique_name": "Account Discovery",
+        "tactic": [
+          "reconnaissance"
+        ],
+        "confidence_score": 0.75,
+        "mapping_rationale": "Enumerating group memberships is a reconnaissance activity used to understand the target environment and identify potential targets for privilege escalation or lateral movement.",
+        "recommendations": [
+          "Monitor for suspicious enumeration of local group memberships, especially by unusual processes or users.",
+          "Implement a baseline of normal group membership enumeration activity to identify anomalies."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "2001",
+        "event_description": "Shadow copy instance 1 freeze started.",
+        "mitre_technique": "T1001.002",
+        "technique_name": "Volume Shadow Copy",
+        "tactic": [
+          "defense_evasion",
+          "impact"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "Shadow copy operations are directly related to the Volume Shadow Copy Service (VSS). Adversaries may use VSS to create backups of data for data exfiltration or to maintain persistence.",
+        "recommendations": [
+          "Monitor shadow copy creation and deletion events for suspicious activity.",
+          "Review the command-line arguments used to create or delete shadow copies."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "2003",
+        "event_description": "Shadow copy instance 1 freeze ended.",
+        "mitre_technique": "T1001.002",
+        "technique_name": "Volume Shadow Copy",
+        "tactic": [
+          "defense_evasion",
+          "impact"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "Shadow copy operations are directly related to the Volume Shadow Copy Service (VSS). Adversaries may use VSS to create backups of data for data exfiltration or to maintain persistence.",
+        "recommendations": [
+          "Monitor shadow copy creation and deletion events for suspicious activity.",
+          "Review the command-line arguments used to create or delete shadow copies."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "2005",
+        "event_description": "Shadow copy instance 1 starting. This will be a Full shadow copy.",
+        "mitre_technique": "T1001.002",
+        "technique_name": "Volume Shadow Copy",
+        "tactic": [
+          "defense_evasion",
+          "impact"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "Shadow copy operations are directly related to the Volume Shadow Copy Service (VSS). Adversaries may use VSS to create backups of data for data exfiltration or to maintain persistence.",
+        "recommendations": [
+          "Monitor shadow copy creation and deletion events for suspicious activity.",
+          "Review the command-line arguments used to create or delete shadow copies."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "2006",
+        "event_description": "Shadow copy instance 1 completed successfully.",
+        "mitre_technique": "T1001.002",
+        "technique_name": "Volume Shadow Copy",
+        "tactic": [
+          "defense_evasion",
+          "impact"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "Shadow copy operations are directly related to the Volume Shadow Copy Service (VSS). Adversaries may use VSS to create backups of data for data exfiltration or to maintain persistence.",
+        "recommendations": [
+          "Monitor shadow copy creation and deletion events for suspicious activity.",
+          "Review the command-line arguments used to create or delete shadow copies."
+        ],
+        "_original_llm_confidence": 0.6
+      }
+    ],
+    "unmapped_events": [
+      "412",
+      "105",
+      "4656",
+      "4658"
+    ],
+    "overall_recommendations": [
+      "Implement robust monitoring of process creation, especially for cmd.exe and other command-line interpreters.",
+      "Strengthen access control measures to prevent unauthorized handle manipulation and token adjustments.",
+      "Monitor for suspicious enumeration of local group memberships.",
+      "Monitor shadow copy operations for suspicious activity, including unusual creation or deletion events.",
+      "Investigate all events related to privilege escalation and access token manipulation."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T20:20:18.074344",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 12,
+    "total_techniques_retrieved": 10
+  }
+}

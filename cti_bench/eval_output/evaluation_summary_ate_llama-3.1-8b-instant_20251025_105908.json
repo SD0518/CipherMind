@@ -1,0 +1,18 @@
+{
+  "evaluation_timestamp": "2025-10-25T10:59:08.695663",
+  "dataset_type": "ate",
+  "model_name": "llama-3.1-8b-instant",
+  "source_csv": "c:\\Users\\Admin\\Desktop\\Cyber-Agent\\cti_bench\\eval_output\\cti-ate_llama-3.1-8b-instant_20251025_105413.csv",
+  "metrics": {
+    "macro_f1": 0.23789239874838536,
+    "macro_precision": 0.25364944408544676,
+    "macro_recall": 0.24196524515673454,
+    "micro_f1": 0.05206738131699847,
+    "micro_precision": 0.029399048854301772,
+    "micro_recall": 0.22742474916387959,
+    "exact_match_ratio": 0.0,
+    "success_rate": 1.0,
+    "total_samples": 47,
+    "total_techniques": 2132
+  }
+}

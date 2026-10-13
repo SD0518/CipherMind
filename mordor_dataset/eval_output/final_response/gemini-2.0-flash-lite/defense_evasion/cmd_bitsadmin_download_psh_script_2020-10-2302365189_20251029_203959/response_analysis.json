@@ -1,0 +1,65 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified two direct mappings based on the retrieved MITRE techniques. Event ID 1102, the clearing of audit logs, directly maps to T1070.001. Event ID 4688, the creation of a process using bitsadmin.exe to download a file, maps to T1197. The remaining events were not confidently mapped to the retrieved techniques and are listed as unmapped.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 6,
+    "total_techniques_retrieved": 2,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "The event description directly matches the technique description. Clearing the audit log is a direct indicator removal tactic.",
+        "recommendations": [
+          "Implement SIEM alerting on event ID 1102.",
+          "Review the audit logs for any suspicious activity before the logs were cleared.",
+          "Investigate the user or process that cleared the logs."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process (bitsadmin.exe) was created to download a file from a remote URL.",
+        "mitre_technique": "T1197",
+        "technique_name": "BITS Jobs",
+        "tactic": [
+          "defense_evasion",
+          "persistance",
+          "execution"
+        ],
+        "confidence_score": 0.8,
+        "mapping_rationale": "The event describes the use of bitsadmin.exe to download a file, which is a core function of BITS jobs, as described in the technique.",
+        "recommendations": [
+          "Monitor for the creation of processes using bitsadmin.exe.",
+          "Inspect the downloaded file for malicious content.",
+          "Block outbound connections to suspicious URLs.",
+          "Implement network segmentation to limit the impact of a compromise."
+        ],
+        "_original_llm_confidence": 0.9
+      }
+    ],
+    "unmapped_events": [
+      "4690",
+      "4658",
+      "4703",
+      "5156"
+    ],
+    "overall_recommendations": [
+      "Implement robust log monitoring and alerting to detect suspicious activities such as audit log clearing and the use of BITS jobs.",
+      "Regularly review security event logs for indicators of compromise.",
+      "Enhance endpoint security controls to prevent the execution of malicious payloads downloaded via BITS or other methods."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T20:39:59.905072",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 6,
+    "total_techniques_retrieved": 2
+  }
+}

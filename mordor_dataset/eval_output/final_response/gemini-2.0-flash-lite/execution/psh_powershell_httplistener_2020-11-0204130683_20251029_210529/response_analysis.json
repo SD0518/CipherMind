@@ -1,0 +1,57 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified two key events and mapped them to relevant MITRE ATT&CK techniques. Event ID 1102, involving audit log clearing, directly correlates with T1070.001 (Clear Windows Event Logs). Event ID 10, concerning svchost.exe process access, suggests potential process injection (T1055). The overall confidence is high due to the direct semantic matches and clear attack patterns.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 2,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared by user wardog.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "The event description directly matches the technique description. Clearing the audit log is a direct action to hide malicious activity, which is the core purpose of this technique.",
+        "recommendations": [
+          "Review user wardog's activity before and after the audit log clearing for suspicious behavior.",
+          "Implement stricter audit logging policies to prevent unauthorized clearing of logs.",
+          "Investigate the user account wardog for potential compromise."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "10",
+        "event_description": "Process accessed events involving svchost.exe accessing other processes.",
+        "mitre_technique": "T1055",
+        "technique_name": "Process Injection",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "svchost.exe is a common target for process injection. The event indicates process access, which is a key step in process injection. This event suggests a potential attempt to inject malicious code into other processes.",
+        "recommendations": [
+          "Monitor svchost.exe for unusual network connections or file access.",
+          "Analyze the processes accessed by svchost.exe for suspicious behavior.",
+          "Implement process monitoring and alerting to detect process injection attempts."
+        ],
+        "_original_llm_confidence": 0.7
+      }
+    ],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Implement robust logging and monitoring to detect and respond to suspicious activities, such as audit log clearing and process injection attempts.",
+      "Review user account activity and enforce strong password policies to prevent unauthorized access.",
+      "Regularly update security software and operating systems to patch vulnerabilities that could be exploited by attackers."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T21:05:29.526860",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 2,
+    "total_techniques_retrieved": 5
+  }
+}

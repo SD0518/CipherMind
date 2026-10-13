@@ -1,0 +1,149 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on creating high-confidence mappings between log events and MITRE ATT&CK techniques. The retrieved techniques were prioritized, and direct semantic matches were sought. Only mappings with a confidence score of 0.5 or higher were included. The overall mapping quality is considered good, with several strong correlations identified.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 8,
+    "total_techniques_retrieved": 6,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1",
+        "event_description": "A new process was created: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe with an encoded command. Parent process is wscript.exe",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event clearly indicates the execution of PowerShell with an encoded command, which aligns directly with the PowerShell technique. The parent process wscript.exe further strengthens this correlation.",
+        "recommendations": [
+          "Decode the PowerShell command to understand its purpose.",
+          "Investigate the wscript.exe process and its origin.",
+          "Monitor for similar PowerShell executions with encoded commands."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "1",
+        "event_description": "A new process was created: C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe with an encoded command. Parent process is wscript.exe",
+        "mitre_technique": "T1216.002",
+        "technique_name": "SyncAppvPublishingServer",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Given the use of wscript.exe as a parent process to launch powershell, it is possible that SyncAppvPublishingServer.vbs is being abused to proxy the execution of malicious PowerShell commands.",
+        "recommendations": [
+          "Examine the script being executed by wscript.exe.",
+          "Determine if SyncAppvPublishingServer.vbs is involved in the execution chain.",
+          "Monitor for similar patterns of wscript.exe launching PowerShell."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted: Multiple registry keys are created by Explorer.EXE related to .vbs file extension and ApplicationAssociationToasts.",
+        "mitre_technique": "T1546.001",
+        "technique_name": "Change Default File Association",
+        "tactic": [
+          "persistance",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "The event describes registry modifications related to file associations (.vbs), which directly corresponds to the 'Change Default File Association' technique. Explorer.exe modifying these associations is suspicious.",
+        "recommendations": [
+          "Analyze the specific registry keys being modified.",
+          "Determine the new file association for .vbs files.",
+          "Monitor for further registry modifications related to file associations."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set: Multiple registry values are set by Explorer.EXE related to .vbs file extension and ApplicationAssociationToasts.",
+        "mitre_technique": "T1546.001",
+        "technique_name": "Change Default File Association",
+        "tactic": [
+          "persistance",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "The event describes registry modifications related to file associations (.vbs), which directly corresponds to the 'Change Default File Association' technique. Explorer.exe modifying these associations is suspicious.",
+        "recommendations": [
+          "Analyze the specific registry values being modified.",
+          "Determine the new file association for .vbs files.",
+          "Monitor for further registry modifications related to file associations."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "4672",
+        "event_description": "Special privileges assigned to new logon. Subject: Account Name: MORDORDC$, Account Domain: THESHIRE, Privileges: SeSecurityPrivilege, SeBackupPrivilege, SeRestorePrivilege, SeTakeOwnershipPrivilege, SeDebugPrivilege, SeSystemEnvironmentPrivilege, SeLoadDriverPrivilege, SeImpersonatePrivilege, SeDelegateSessionUserImpersonatePrivilege, SeEnableDelegationPrivilege",
+        "mitre_technique": "T1068",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "tactic": [
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The assignment of SeDebugPrivilege, along with other sensitive privileges, to the MORDORDC$ account strongly suggests an attempt to escalate privileges, potentially through exploitation.",
+        "recommendations": [
+          "Investigate the MORDORDC$ account and its purpose.",
+          "Audit the system for potential vulnerabilities that could be exploited.",
+          "Monitor for further privilege escalations."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4672",
+        "event_description": "Special privileges assigned to new logon. Subject: Account Name: MORDORDC$, Account Domain: THESHIRE, Privileges: SeSecurityPrivilege, SeBackupPrivilege, SeRestorePrivilege, SeTakeOwnershipPrivilege, SeDebugPrivilege, SeSystemEnvironmentPrivilege, SeLoadDriverPrivilege, SeImpersonatePrivilege, SeDelegateSessionUserImpersonatePrivilege, SeEnableDelegationPrivilege",
+        "mitre_technique": "T1134.001",
+        "technique_name": "Access Token Manipulation: Token Impersonation/Theft",
+        "tactic": [
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "The assignment of SeDebugPrivilege could be used to facilitate token theft or impersonation, allowing the attacker to gain access to sensitive resources.",
+        "recommendations": [
+          "Monitor for processes using the SeDebugPrivilege.",
+          "Audit access to sensitive resources by the MORDORDC$ account.",
+          "Implement stricter access controls to prevent token theft."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "5156",
+        "event_description": "The Windows Filtering Platform has permitted a connection. Application Name: \\device\\harddiskvolume2\\windowsazure\\guestagent_2.7.41491.993_2020-09-04_183615\\guestagent\\windowsazureguestagent.exe, Destination Address: 168.63.129.16, Destination Port: 80",
+        "mitre_technique": "T1071.001",
+        "technique_name": "Application Layer Protocol: Web Protocols",
+        "tactic": [
+          "command_and_control"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The guest agent process communicating with an external IP address (168.63.129.16) over port 80 (HTTP) suggests potential command and control activity using web protocols.",
+        "recommendations": [
+          "Analyze the network traffic to and from 168.63.129.16.",
+          "Investigate the purpose of the guest agent process.",
+          "Monitor for further communication between the guest agent and external IPs."
+        ],
+        "_original_llm_confidence": 0.7
+      }
+    ],
+    "unmapped_events": [
+      "11",
+      "4673",
+      "5158"
+    ],
+    "overall_recommendations": [
+      "Focus on investigating the PowerShell execution with encoded commands.",
+      "Monitor registry modifications related to file associations.",
+      "Investigate the assignment of SeDebugPrivilege to the MORDORDC$ account.",
+      "Analyze network traffic from the guest agent process to external IPs."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:49:01.396460",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 8,
+    "total_techniques_retrieved": 6
+  }
+}

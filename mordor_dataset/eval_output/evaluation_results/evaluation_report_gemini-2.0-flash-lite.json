@@ -1,0 +1,154 @@
+{
+  "timestamp": "2025-10-30T21:19:59.333821",
+  "model_name": "gemini-2.0-flash-lite",
+  "evaluation_metrics": {
+    "detection_rate": {
+      "overall_detection_rate_percent": 45.83333333333333,
+      "total_files": 24,
+      "total_files_detected": 11,
+      "total_files_missed": 13,
+      "total_abnormal_events_detected": 173,
+      "total_tactics": 7,
+      "per_tactic_detection": [
+        {
+          "tactic": "collection",
+          "total_files": 1,
+          "files_detected": 0,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 10,
+          "detection_rate_percent": 0.0,
+          "status": "NONE"
+        },
+        {
+          "tactic": "credential_access",
+          "total_files": 4,
+          "files_detected": 2,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 42,
+          "detection_rate_percent": 50.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "defense_evasion",
+          "total_files": 4,
+          "files_detected": 3,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 25,
+          "detection_rate_percent": 75.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "discovery",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 26,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "execution",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 12,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "lateral_movement",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 36,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "persistance",
+          "total_files": 3,
+          "files_detected": 3,
+          "files_missed": 0,
+          "total_abnormal_events_detected": 22,
+          "detection_rate_percent": 100.0,
+          "status": "GOOD"
+        }
+      ]
+    },
+    "coverage": {
+      "coverage_percent": 85.71428571428571,
+      "total_tactics_tested": 7,
+      "tactics_with_detection": 6,
+      "tactics_with_zero_detection": 1,
+      "detected_tactics": [
+        "credential_access",
+        "defense_evasion",
+        "discovery",
+        "execution",
+        "lateral_movement",
+        "persistance"
+      ],
+      "missed_tactics": [
+        "collection"
+      ]
+    },
+    "accuracy_proxy": {
+      "average_accuracy_score": 0.42857142857142855,
+      "per_tactic_accuracy": [
+        {
+          "tactic": "collection",
+          "accuracy_score": 0.0,
+          "interpretation": "Failed"
+        },
+        {
+          "tactic": "credential_access",
+          "accuracy_score": 0.5,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "defense_evasion",
+          "accuracy_score": 0.75,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "discovery",
+          "accuracy_score": 0.25,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "execution",
+          "accuracy_score": 0.25,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "lateral_movement",
+          "accuracy_score": 0.25,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "persistance",
+          "accuracy_score": 1.0,
+          "interpretation": "Perfect"
+        }
+      ],
+      "perfect_matches": 1,
+      "partial_matches": 5,
+      "failed_matches": 1
+    },
+    "effectiveness": {
+      "effectiveness_score": 56.9047619047619,
+      "grade": "FAIR",
+      "component_scores": {
+        "detection_rate": 45.83333333333333,
+        "coverage_rate": 85.71428571428571,
+        "accuracy_score": 42.857142857142854
+      }
+    }
+  },
+  "issues_identified": [
+    "WARNING: Detection rate is 45.8%, below acceptable threshold of 50% (13/24 files missed).",
+    "COVERAGE GAP: 1 tactics have zero detection: collection",
+    "TACTIC FAILURE: 'collection' - 1 files analyzed, 0 detected",
+    "DATA ISSUE: No events to analyze for tactics: defense_evasion, discovery, execution"
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "All log events were examined against the nine retrieved MITRE ATT&CK techniques. Direct semantic matches were found for log clearing, registry manipulation, token abuse, process‑creation tricks, and registry queries. Events that did not have a clear technique among the retrieved set (e.g., explicit Mimikatz execution) were left unmapped to preserve confidence thresholds.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 10,
+    "total_techniques_retrieved": 9,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "Security audit log was cleared (EventID 1102).",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event explicitly states that the Windows security event log was cleared, which directly matches the definition of T1070.001.",
+        "recommendations": [
+          "Enable Windows Event Log auditing with tamper‑resistant storage (e.g., write‑once media or SIEM ingestion).",
+          "Deploy a real‑time alert for EventID 1102 and investigate the originating process and user."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "Process creation of ProcessHerpaderping.exe with command line \"ProcessHerpaderping.exe  mimikatz.exe wardog.exe C:\\windows\\System32\\SnippingTool.exe\".",
+        "mitre_technique": "T1055.013",
+        "technique_name": "Process Doppelgänging",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.888,
+        "mapping_rationale": "ProcessHerpaderping is a known implementation of the Process Doppelgänging technique, which creates a process without writing a persistent executable to disk. The event description references this exact tool.",
+        "recommendations": [
+          "Monitor for creation of unknown executables in user profile directories and for the use of known file‑less execution tools.",
+          "Enforce code‑signing policies and block execution of unsigned binaries from non‑system locations."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "4688",
+        "event_description": "Process creation of wardog.exe (spawned by ProcessHerpaderping.exe).",
+        "mitre_technique": "T1055.012",
+        "technique_name": "Process Hollowing",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The child process is created by a file‑less execution tool and later loads a credential‑dumping payload, a pattern consistent with process hollowing where a legitimate host is repurposed to run malicious code.",
+        "recommendations": [
+          "Deploy endpoint detection that monitors for mismatched parent‑child process relationships and in‑memory code injection.",
+          "Enable Windows Defender Exploit Guard's Process Mitigation rules to block known hollowing behaviors."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set under HKLM\\System\\CurrentControlSet\\Services\\bam\\State\\UserSettings for wardog.exe.",
+        "mitre_technique": "T1574.011",
+        "technique_name": "Services Registry Permissions Weakness",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.922,
+        "mapping_rationale": "Writing a malicious executable path into the BAM service registry key is a classic persistence method that modifies service registry permissions, directly matching T1574.011.",
+        "recommendations": [
+          "Audit and restrict write permissions on HKLM\\System\\CurrentControlSet\\Services keys to administrators only.",
+          "Alert on any creation or modification of values under the \\bam\\State\\UserSettings sub‑key."
+        ],
+        "_original_llm_confidence": 0.92
+      },
+      {
+        "event_id": "4673",
+        "event_description": "Privileged service called with SeTcbPrivilege by wardog.exe.",
+        "mitre_technique": "T1134.001",
+        "technique_name": "Token Impersonation/Theft",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.932,
+        "mapping_rationale": "The event shows the process requesting SeTcbPrivilege, which grants the ability to act as SYSTEM – a textbook example of token impersonation/theft.",
+        "recommendations": [
+          "Implement privileged access monitoring (PAM) and generate alerts for SeTcbPrivilege usage.",
+          "Restrict SeTcbPrivilege to only trusted service accounts via Group Policy."
+        ],
+        "_original_llm_confidence": 0.94
+      },
+      {
+        "event_id": "4690",
+        "event_description": "Handle duplication attempt by conhost.exe.",
+        "mitre_technique": "T1055",
+        "technique_name": "Process Injection",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.803,
+        "mapping_rationale": "Duplicating a handle from one process to another is a common step in process injection techniques used to hijack or inject code into a target process.",
+        "recommendations": [
+          "Enable Sysmon with rule 10 (ProcessAccess) to capture handle duplication events and flag suspicious source processes.",
+          "Correlate handle duplication with subsequent credential‑dumping activity for higher‑severity alerts."
+        ],
+        "_original_llm_confidence": 0.68
+      },
+      {
+        "event_id": "4663",
+        "event_description": "Access to registry key \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa.",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "Reading the LSA registry hive is a direct query of security‑related configuration data, matching the definition of T1012.",
+        "recommendations": [
+          "Log and alert on accesses to \\Control\\Lsa keys, especially from non‑system processes.",
+          "Restrict read permissions on LSA keys to only required system accounts."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4656",
+        "event_description": "Handle request for the same LSA registry key.",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.888,
+        "mapping_rationale": "A handle request to the LSA key indicates an attempt to read or manipulate that registry data, again fitting the Query Registry technique.",
+        "recommendations": [
+          "Correlate handle‑request events (4656) with subsequent read/write events (4663) to detect potential credential‑access attempts.",
+          "Deploy a baseline of normal registry access patterns to reduce false positives."
+        ],
+        "_original_llm_confidence": 0.85
+      }
+    ],
+    "unmapped_events": [
+      "7",
+      "4658"
+    ],
+    "overall_recommendations": [
+      "Implement a centralized SIEM that ingests Windows Security Event logs, Sysmon, and PowerShell transcription to correlate the high‑confidence techniques identified (log clearing, process doppelgänging, service‑registry persistence, token theft, and registry queries).",
+      "Enforce strict least‑privilege for service accounts and limit write access to HKLM\\System\\CurrentControlSet\\Services keys.",
+      "Deploy endpoint detection that specifically watches for process creation patterns associated with file‑less execution (e.g., ProcessHerpaderping, Process Doppelgänging) and for handle duplication/injection activity.",
+      "Regularly audit and rotate privileged tokens; monitor usage of SeTcbPrivilege and other high‑impact privileges.",
+      "Ensure that Windows Event Logs are forwarded to an immutable store and that any EventID 1102 (log clear) triggers immediate investigation."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:34:26.481303",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 10,
+    "total_techniques_retrieved": 10
+  }
+}

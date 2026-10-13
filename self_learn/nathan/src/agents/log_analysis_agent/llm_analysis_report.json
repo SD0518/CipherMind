@@ -1,0 +1,72 @@
+{
+  "detected_anomalies": [
+    {
+      "id": "anom_001",
+      "description": "The process 'Outflank-Dumpert.exe' (likely a credential dumping tool) accessed lsass.exe with high privileges (0x1fffff), indicating a potential credential dumping attempt.",
+      "timestamp": "2020-10-18T10:56:14Z",
+      "confidence": 0.95
+    },
+    {
+      "id": "anom_002",
+      "description": "The process 'Outflank-Dumpert.exe' enabled the SeDebugPrivilege, which is often used for debugging and memory access, further supporting the suspicion of credential dumping or process injection.",
+      "timestamp": "2020-10-18T10:56:14Z",
+      "confidence": 0.9
+    },
+    {
+      "id": "anom_003",
+      "description": "The process 'Outflank-Dumpert.exe' accessed the LSA registry key, which is associated with local security authority settings and could be a sign of privilege escalation or persistence attempts.",
+      "timestamp": "2020-10-18T10:56:14Z",
+      "confidence": 0.8
+    }
+  ],
+  "severity": "high",
+  "confidence": 0.9,
+  "analysis_type": "incident_response",
+  "time_window": {
+    "start": "2020-10-18T10:56:14Z",
+    "end": "2020-10-18T10:56:19Z"
+  },
+  "affected_systems": [
+    "WORKSTATION5"
+  ],
+  "indicators": {
+    "ips": [],
+    "domains": [],
+    "file_hashes": [],
+    "processes": [
+      "Outflank-Dumpert.exe"
+    ],
+    "users": [
+      "wardog"
+    ]
+  },
+  "event_types": [
+    "process_creation",
+    "memory_access",
+    "privilege_use",
+    "registry_access"
+  ],
+  "log_sources": [
+    "windows_security"
+  ],
+  "user_accounts": [
+    "wardog"
+  ],
+  "processes": [
+    "Outflank-Dumpert.exe",
+    "lsass.exe"
+  ],
+  "network_activity": {
+    "external_connections": 0,
+    "unusual_ports": [],
+    "data_transfer_gb": 0.0
+  },
+  "file_operations": {
+    "created_files": 0,
+    "modified_files": 0,
+    "deleted_files": 0
+  },
+  "analysis_id": "LOG_ANALYSIS_20231027_202412",
+  "timestamp": "2023-10-27T20:24:12Z",
+  "raw_summary": "SECURITY INCIDENT ANALYSIS REPORT\n  \n  INCIDENT OVERVIEW:\n  The system has been compromised with potential credential dumping activity.\n  ATTACK PROGRESSION:\n  1. Process Outflank-Dumpert.exe was executed.\n  2. SeDebugPrivilege was enabled.\n  3. lsass.exe was accessed with high privileges.\n  TECHNICAL INDICATORS:\n  - Process: Outflank-Dumpert.exe\n  - User: wardog\n  IMPACT ASSESSMENT:\n  - Credentials may have been compromised.\n  - Possible lateral movement.\n  CLASSIFICATION: Credential Dumping"
+}

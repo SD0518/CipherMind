@@ -1,0 +1,76 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "All three log events have clear semantic matches to the retrieved MITRE techniques. Event 1102 maps directly to T1070.001 (Clear Windows Event Logs) with high confidence. The VFUProvider registry key creation aligns with T1547.001 (Registry Run Keys) as described in the technique, also high confidence. The UserAssist/FeatureUsage registry writes correspond to T1112 (Modify Registry) with acceptable‑to‑medium confidence. No events were left unmapped.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 3,
+    "total_techniques_retrieved": 3,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The Windows Security audit log was cleared by user 'wardog' (local Administrator).",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.862,
+        "mapping_rationale": "The event description explicitly states that the Security log was cleared, which is the exact behavior described in T1070.001. The indicator list contains EventID 1102, the canonical ID for log‑clear events.",
+        "recommendations": [
+          "Enable Windows Event Log retention and write‑forwarding to a secure, immutable log server.",
+          "Create a real‑time alert for EventID 1102 and require multi‑factor admin approval before allowing log clearance.",
+          "Restrict local Administrator privileges and enforce least‑privilege for accounts that can clear logs."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry key creation under HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\VFUProvider and setting of a StartTime value.",
+        "mitre_technique": "T1547.001",
+        "technique_name": "Registry Run Keys / Startup Folder: Registry Run Keys",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.848,
+        "mapping_rationale": "The VFUProvider key under HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion is specifically cited in the T1547.001 description as a location adversaries abuse for persistence. Creation of this key with a StartTime value matches the technique's persistence behavior.",
+        "recommendations": [
+          "Deploy a registry monitoring solution that alerts on creation or modification of keys under VFUProvider.",
+          "Whitelist only approved binaries that may be referenced by this key and block unknown executables from being launched at boot.",
+          "Periodically audit HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion for unexpected Run‑key entries."
+        ],
+        "_original_llm_confidence": 0.92
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set for UserAssist and FeatureUsage keys (e.g., PowerShell.exe usage tracking).",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.698,
+        "mapping_rationale": "The event records a SetValue operation on registry keys used for tracking application usage. Modifying such keys falls under the broad \"Modify Registry\" technique, which covers registry changes for evasion or persistence. The rapid creation of FeatureUsage entries for PowerShell suggests post‑compromise activity, aligning with T1112.",
+        "recommendations": [
+          "Implement baseline monitoring of UserAssist and FeatureUsage registry paths and generate alerts on anomalous write activity.",
+          "Correlate registry writes with process creation events to detect suspicious PowerShell usage.",
+          "Restrict write permissions on these registry locations to only trusted system accounts."
+        ],
+        "_original_llm_confidence": 0.62
+      }
+    ],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Establish a centralized, tamper‑proof logging infrastructure and enforce strict alerting on log‑clear events (T1070.001).",
+      "Deploy continuous registry monitoring focused on persistence‑related locations (e.g., VFUProvider, Run keys) and usage‑tracking keys to detect T1547.001 and T1112 activity.",
+      "Review and harden privileged account assignments; limit the ability to clear logs or modify critical registry paths to a minimal set of administrators.",
+      "Integrate these detections into a SIEM with automated response playbooks that can isolate the offending host and force credential rotation when any of the mapped techniques are observed."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:57:31.748351",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 3,
+    "total_techniques_retrieved": 3
+  }
+}

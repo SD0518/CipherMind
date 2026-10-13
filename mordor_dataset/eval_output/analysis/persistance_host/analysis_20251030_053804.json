@@ -1,0 +1,107 @@
+{
+  "overall_assessment": "ABNORMAL",
+  "total_events_analyzed": 122,
+  "analysis_summary": "The logs reveal a sophisticated attack involving persistence establishment and evasion. The user 'wardog' modified the registry to execute a ROT13-obfuscated script ('art.bat') upon login, indicating a high likelihood of malware execution. The audit log was cleared to cover tracks, and suspicious network activity related to Azure services was observed in this context.",
+  "reasoning": "The investigation identified a critical persistence mechanism where `reg.exe` was used to add `UserInitMprLogonScript` pointing to `C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat`. This script was subsequently created by `cmd.exe`. The registry keys involved in tracking user activity by `Explorer.EXE` were found to contain ROT13 encoded strings ('AnswerCounterQuery', 'ROVER_PERSISTENCE'), strongly suggesting an attempt to obfuscate malicious actions. The clearing of the audit log (Event ID 1102) by the same user prior to these actions is a clear evasion tactic. Network connections to Azure IPs by Azure-related processes, while potentially normal, are flagged as suspicious due to their occurrence alongside these other malicious activities.",
+  "abnormal_event_ids": [
+    "1102",
+    "4688",
+    "11",
+    "5156",
+    "13"
+  ],
+  "abnormal_events": [
+    {
+      "event_id": "1102",
+      "event_description": "The audit log was cleared.\nSubject:\n\tSecurity ID:\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\twardog\n\tDomain Name:\tWORKSTATION5\n\tLogon ID:\t0xC61D9",
+      "why_abnormal": "Clearing audit logs is a common tactic used by attackers to hide their activities and evade detection.",
+      "severity": "CRITICAL",
+      "indicators": [
+        "Audit log cleared",
+        "User 'wardog'"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "EventID 1102 occurred 26.7 seconds before the suspicious registry modification (EventID 4688)."
+      }
+    },
+    {
+      "event_id": "4688",
+      "event_description": "A new process has been created.\nCreator Subject:\n\tSecurity ID:\t\tS-1-5-21-3940915590-64593676-1414006259-500\n\tAccount Name:\t\twardog\n\tAccount Domain:\t\tWORKSTATION5\n\tLogon ID:\t\t0xC61D9\nTarget Subject:\n\tSecurity ID:\t\tS-1-0-0\n\tAccount Name:\t\t-\n\tAccount Domain:\t\t-\n\tLogon ID:\t\t0x0\nProcess Information:\n\tNew Process ID:\t\t0x21ec\n\tNew Process Name:\tC:\\Windows\\System32\\reg.exe\n\tToken Elevation Type:\t%%1936\n\tMandatory Label:\t\tS-1-16-12288\n\tCreator Process ID:\t0x2284\n\tCreator Process Name:\tC:\\Windows\\System32\\cmd.exe\n\tProcess Command Line:\tREG.exe  ADD HKCU\\Environment /v UserInitMprLogonScript /t REG_SZ /d C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat /f",
+      "why_abnormal": "The command modifies the registry to set a user-specific logon script, which is a common persistence technique. The script path points to a temporary directory, often used for malware staging.",
+      "severity": "HIGH",
+      "indicators": [
+        "reg.exe execution",
+        "Modification of HKCU\\Environment",
+        "UserInitMprLogonScript registry value",
+        "Script in temp directory: C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "This event is the primary suspicious activity. The timeline shows it occurred after registry modifications by Explorer.EXE and before the creation of art.bat. It was preceded by Event ID 1102 (audit log cleared)."
+      }
+    },
+    {
+      "event_id": "11",
+      "event_description": "File created:\nRuleName: -\nUtcTime: 2020-10-20 02:46:45.192\nProcessGuid: {39e4a257-4eb6-5f8e-0008-000000000700}\nProcessId: 8836\nImage: C:\\windows\\system32\\cmd.exe\nTargetFilename: C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat\nCreationUtcTime: 2020-10-20 02:46:45.192",
+      "why_abnormal": "The creation of a batch file in the temp directory, especially when linked to a registry modification for persistence, is highly suspicious and likely part of a malicious payload.",
+      "severity": "HIGH",
+      "indicators": [
+        "File creation",
+        "TargetFilename: C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat",
+        "Image: C:\\windows\\system32\\cmd.exe"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "This event occurred 2.1 seconds after the registry modification (Event ID 4688) and is directly related to it."
+      }
+    },
+    {
+      "event_id": "5156",
+      "event_description": "The Windows Filtering Platform has permitted a connection.\n\nApplication Information:\n\tProcess ID:\t\t3428\n\tApplication Name:\t\\device\\harddiskvolume2\\windowsazure\\guestagent_2.7.41491.993_2020-10-08_063613\\guestagent\\windowsazureguestagent.exe\n\nNetwork Information:\n\tDirection:\t\tOutbound\n\tSource Address:\t\t192.168.2.5\n\tSource Port:\t\t65240\n\tDestination Address:\t168.63.129.16\n\tDestination Port:\t\t80\n\tProtocol:\t\t6",
+      "why_abnormal": "While the destination IP is a known Azure IP, the connection originates from processes associated with Azure guest agents and occurs in the context of other suspicious activities, warranting a higher level of scrutiny.",
+      "severity": "MEDIUM",
+      "indicators": [
+        "Outbound connection",
+        "Source Address: 192.168.2.5",
+        "Destination Address: 168.63.129.16",
+        "Application: windowsazureguestagent.exe"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "These connections occurred around the time of the persistence attempt."
+      }
+    },
+    {
+      "event_id": "13",
+      "event_description": "Registry value set:\nRuleName: -\nEventType: SetValue\nUtcTime: 2020-10-20 02:46:43.053\nProcessGuid: {39e4a257-f1b3-5f8b-a700-000000000700}\nProcessId: 1072\nImage: C:\\windows\\Explorer.EXE\nTargetObject: HKU\\S-1-5-21-3940915590-64593676-1414006259-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\\Count\\{1NP14R77-02R7-4R5Q-O744-2RO1NR5198O7}\\JvaqbjfCbjreFuryy\\i1.0\\cbjrefuryy.rkr\nDetails: Binary Data",
+      "why_abnormal": "The registry key name `JvaqbjfCbjreFuryy` is ROT13 encoded ('AnswerCounterQuery'), indicating potential obfuscation of user activity tracking, which could be used to hide malicious actions.",
+      "severity": "LOW",
+      "indicators": [
+        "Registry value set",
+        "Explorer.EXE",
+        "ROT13 encoded registry key name: JvaqbjfCbjreFuryy",
+        "Decoded name: AnswerCounterQuery"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "These registry modifications by Explorer.EXE occurred shortly before the suspicious `reg.exe` execution.",
+        "decoded_command": "AnswerCounterQuery"
+      }
+    },
+    {
+      "event_id": "13",
+      "event_description": "Registry value set:\nRuleName: -\nEventType: SetValue\nUtcTime: 2020-10-20 02:46:43.053\nProcessGuid: {39e4a257-f1b3-5f8b-a700-000000000700}\nProcessId: 1072\nImage: C:\\windows\\Explorer.EXE\nTargetObject: HKU\\S-1-5-21-3940915590-64593676-1414006259-500\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\UserAssist\\{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}\\Count\\HRZR_PGYFRFFVBA\nDetails: Binary Data",
+      "why_abnormal": "The registry key name `HRZR_PGYFRFFVBA` is ROT13 encoded ('ROVER_PERSISTENCE'), directly indicating an attempt to obfuscate malicious activity related to persistence.",
+      "severity": "HIGH",
+      "indicators": [
+        "Registry value set",
+        "Explorer.EXE",
+        "ROT13 encoded registry key name: HRZR_PGYFRFFVBA",
+        "Decoded name: ROVER_PERSISTENCE"
+      ],
+      "tool_enrichment": {
+        "timeline_context": "These registry modifications by Explorer.EXE occurred shortly before the suspicious `reg.exe` execution.",
+        "decoded_command": "ROVER_PERSISTENCE"
+      }
+    }
+  ],
+  "execution_time_seconds": 33.15,
+  "execution_time_formatted": "33.15s",
+  "iteration_count": 2
+}

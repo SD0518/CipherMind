@@ -1,0 +1,144 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis identified several events related to registry access, process creation, and audit log clearing, indicating potential malicious activity.  The absence of retrieved MITRE techniques necessitates a manual mapping approach based on event descriptions and indicators. The high number of registry-related events, combined with audit log clearing, suggests a focus on defense evasion and persistence. The overall confidence in the mappings is medium due to the lack of pre-retrieved techniques.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 13,
+    "total_techniques_retrieved": 0,
+    "retrieval_success": false,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Indicator Removal: Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "Directly correlates to the technique of clearing event logs to hide malicious activity.",
+        "recommendations": [
+          "Implement stricter audit logging policies to prevent unauthorized clearing of logs.",
+          "Monitor for event ID 1102 and alert on its occurrence."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process (reg.exe) was created by cmd.exe to query the registry.",
+        "mitre_technique": "T1059.003",
+        "technique_name": "Command and Scripting Interpreter: Windows Command Shell",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "Process creation via cmd.exe to execute reg.exe for registry queries is a common technique for malicious activity.",
+        "recommendations": [
+          "Monitor for suspicious process creation events, especially those involving cmd.exe and reg.exe.",
+          "Analyze the command-line arguments used by reg.exe to identify the specific registry keys being accessed."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested for registry key access.",
+        "mitre_technique": "T1069.002",
+        "technique_name": "Permission Groups Discovery: Domain Groups",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "Accessing registry keys can be part of a discovery phase to understand the system configuration.",
+        "recommendations": [
+          "Monitor for unusual registry key access attempts.",
+          "Investigate the source process and user associated with the registry access."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object (registry key).",
+        "mitre_technique": "T1069.002",
+        "technique_name": "Permission Groups Discovery: Domain Groups",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.7,
+        "mapping_rationale": "Accessing registry keys can be part of a discovery phase to understand the system configuration.",
+        "recommendations": [
+          "Monitor for unusual registry key access attempts.",
+          "Investigate the source process and user associated with the registry access."
+        ],
+        "_original_llm_confidence": 0.6
+      },
+      {
+        "event_id": "1",
+        "event_description": "Process Create: reg.exe",
+        "mitre_technique": "T1059.003",
+        "technique_name": "Command and Scripting Interpreter: Windows Command Shell",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "Process creation of reg.exe is a common technique for malicious activity.",
+        "recommendations": [
+          "Monitor for suspicious process creation events, especially those involving reg.exe.",
+          "Analyze the command-line arguments used by reg.exe to identify the specific registry keys being accessed."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.75,
+        "mapping_rationale": "Directly relates to the technique of modifying the registry for persistence or defense evasion.",
+        "recommendations": [
+          "Monitor for registry object additions or deletions, especially in critical system locations.",
+          "Analyze the source process and user associated with the registry changes."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.75,
+        "mapping_rationale": "Directly relates to the technique of modifying the registry for persistence or defense evasion.",
+        "recommendations": [
+          "Monitor for registry value sets, especially in critical system locations.",
+          "Analyze the source process and user associated with the registry changes."
+        ],
+        "_original_llm_confidence": 0.7
+      }
+    ],
+    "unmapped_events": [
+      "4658",
+      "4689",
+      "7",
+      "9",
+      "10"
+    ],
+    "overall_recommendations": [
+      "Implement a robust SIEM solution to correlate events and identify suspicious activity.",
+      "Establish a baseline of normal registry activity to detect anomalies.",
+      "Regularly review and update security policies to address emerging threats.",
+      "Enhance endpoint detection and response (EDR) capabilities to detect and respond to malicious process creation and registry modifications."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T20:50:21.097452",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 12,
+    "total_techniques_retrieved": 0
+  }
+}

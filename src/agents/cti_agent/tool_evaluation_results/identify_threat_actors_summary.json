@@ -1,0 +1,9 @@
+{
+  "accuracy": 0.5,
+  "total_samples": 25,
+  "validated_samples": 25,
+  "needs_review": 0,
+  "correct": 9,
+  "incorrect": 9,
+  "partial": 7
+}

@@ -1,0 +1,24 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "No log events were supplied for analysis, therefore no event-to-technique mappings could be created. Retrieval of relevant MITRE techniques succeeded, but without event data there is no basis for confidence scoring of mappings.",
+    "mapping_confidence": "LOW",
+    "total_events_analyzed": 0,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Implement continuous monitoring and alerting for Windows Event Log clearing or disabling (e.g., audit wevtutil, PowerShell Remove-EventLog, and service configuration changes).",
+      "Enable protected or immutable logging where possible (e.g., Windows Event Forwarding to a secured collector, cloud log retention policies).",
+      "Deploy command‑history protection mechanisms (e.g., PowerShell transcription, bash history write‑once logging).",
+      "Regularly audit cloud logging configurations to detect attempts to disable or modify services such as AWS CloudTrail or Azure Monitor.",
+      "Conduct periodic log enumeration audits to ensure visibility into log sources and detect any enumeration activity."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:47:58.826746",
+    "overall_assessment": "ERROR",
+    "total_abnormal_events": 0,
+    "total_techniques_retrieved": 5
+  }
+}

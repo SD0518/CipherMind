@@ -1,0 +1,150 @@
+{
+  "timestamp": "2025-10-30T21:19:59.333821",
+  "model_name": "gemini-2.0-flash",
+  "evaluation_metrics": {
+    "detection_rate": {
+      "overall_detection_rate_percent": 66.66666666666666,
+      "total_files": 24,
+      "total_files_detected": 16,
+      "total_files_missed": 8,
+      "total_abnormal_events_detected": 189,
+      "total_tactics": 7,
+      "per_tactic_detection": [
+        {
+          "tactic": "collection",
+          "total_files": 1,
+          "files_detected": 1,
+          "files_missed": 0,
+          "total_abnormal_events_detected": 5,
+          "detection_rate_percent": 100.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "credential_access",
+          "total_files": 4,
+          "files_detected": 3,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 39,
+          "detection_rate_percent": 75.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "defense_evasion",
+          "total_files": 4,
+          "files_detected": 4,
+          "files_missed": 0,
+          "total_abnormal_events_detected": 35,
+          "detection_rate_percent": 100.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "discovery",
+          "total_files": 4,
+          "files_detected": 3,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 44,
+          "detection_rate_percent": 75.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "execution",
+          "total_files": 4,
+          "files_detected": 2,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 37,
+          "detection_rate_percent": 50.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "lateral_movement",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 19,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "persistance",
+          "total_files": 3,
+          "files_detected": 2,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 10,
+          "detection_rate_percent": 66.66666666666666,
+          "status": "GOOD"
+        }
+      ]
+    },
+    "coverage": {
+      "coverage_percent": 100.0,
+      "total_tactics_tested": 7,
+      "tactics_with_detection": 7,
+      "tactics_with_zero_detection": 0,
+      "detected_tactics": [
+        "collection",
+        "credential_access",
+        "defense_evasion",
+        "discovery",
+        "execution",
+        "lateral_movement",
+        "persistance"
+      ],
+      "missed_tactics": []
+    },
+    "accuracy_proxy": {
+      "average_accuracy_score": 0.7023809523809523,
+      "per_tactic_accuracy": [
+        {
+          "tactic": "collection",
+          "accuracy_score": 1.0,
+          "interpretation": "Perfect"
+        },
+        {
+          "tactic": "credential_access",
+          "accuracy_score": 0.75,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "defense_evasion",
+          "accuracy_score": 1.0,
+          "interpretation": "Perfect"
+        },
+        {
+          "tactic": "discovery",
+          "accuracy_score": 0.75,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "execution",
+          "accuracy_score": 0.5,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "lateral_movement",
+          "accuracy_score": 0.25,
+          "interpretation": "Partial"
+        },
+        {
+          "tactic": "persistance",
+          "accuracy_score": 0.6666666666666666,
+          "interpretation": "Partial"
+        }
+      ],
+      "perfect_matches": 2,
+      "partial_matches": 5,
+      "failed_matches": 0
+    },
+    "effectiveness": {
+      "effectiveness_score": 77.73809523809523,
+      "grade": "GOOD",
+      "component_scores": {
+        "detection_rate": 66.66666666666666,
+        "coverage_rate": 100.0,
+        "accuracy_score": 70.23809523809523
+      }
+    }
+  },
+  "issues_identified": [
+    "DATA ISSUE: No events to analyze for tactics: lateral_movement, persistance"
+  ]
+}

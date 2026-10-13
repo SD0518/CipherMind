@@ -1,0 +1,17 @@
+{
+  "evaluation_timestamp": "2025-10-25T11:39:01.539924",
+  "dataset_type": "ate",
+  "model_name": "llama-3.3-70b-versatile",
+  "metrics": {
+    "macro_f1": 0.39896122164582737,
+    "macro_precision": 0.46692190787935467,
+    "macro_recall": 0.36559976666359645,
+    "micro_f1": 0.3925925925925926,
+    "micro_precision": 0.43983402489626555,
+    "micro_recall": 0.35451505016722407,
+    "exact_match_ratio": 0.0425531914893617,
+    "success_rate": 1.0,
+    "total_samples": 47,
+    "total_techniques": 105
+  }
+}

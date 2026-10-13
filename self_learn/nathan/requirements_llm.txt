@@ -1,0 +1,22 @@
+# LLM-based Mordor Log Analysis Agent Dependencies - Google Gemini
+# Core LangChain and LangGraph
+langgraph>=0.0.40
+langchain>=0.1.0
+langchain-google-genai>=1.0.0
+
+# Google Generative AI
+google-generativeai>=0.3.0
+
+# Data processing and validation
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Existing dependencies (from original script)
+typing-extensions>=4.0.0
+
+# Optional: Enhanced JSON processing
+orjson>=3.8.0
+
+# Development and testing (optional)
+pytest>=7.0.0
+black>=23.0.0

@@ -1,0 +1,17 @@
+{
+  "evaluation_timestamp": "2025-10-25T12:09:04.336749",
+  "dataset_type": "ate",
+  "model_name": "meta-llama/llama-4-maverick-17b-128e-instruct",
+  "metrics": {
+    "macro_f1": 0.5518496556982164,
+    "macro_precision": 0.7456433637284702,
+    "macro_recall": 0.46375993982376956,
+    "micro_f1": 0.5583333333333333,
+    "micro_precision": 0.7403314917127072,
+    "micro_recall": 0.44816053511705684,
+    "exact_match_ratio": 0.06382978723404255,
+    "success_rate": 1.0,
+    "total_samples": 47,
+    "total_techniques": 91
+  }
+}

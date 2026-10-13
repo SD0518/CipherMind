@@ -1,0 +1,173 @@
+sample_id,report_snippet,tool_output,predicted_actor,is_correct,validator_notes,needs_review
+https://www.seqrite.com/blog/sidecopys-multi-platform-onslaught-leveraging-winrar-zero-day-and-linux-variant-of-ares-rat/,"SEQRITE Labs APT-Team has discovered multiple campaigns of APT [PLACEHOLDER], targeting Indian gover...","**Q: What threat actor/APT group is discussed?**
+A: APT [PLACEHOLDER], identified as a sub-division of Transparent Tribe (APT36).
+
+**Q: What is this actor known for?**
+A: Exploiting vulnerabilities (e.g., WinRAR CVE-2023-38831), deploying various RATs (AllaKore, DRat, Ares, Action, Double Action, Reverse, Margulas, Crimson, Capra, Oblique, BackNet), conducting multi-platform attacks, sharing infrastructure and code with Transparent Tribe, using honey traps, and employing PowerShell remote execut...","APT [PLACEHOLDER], identified as a sub-division of Transparent Tribe",0.5,,False
+https://csirt-cti.net/2024/01/23/stately-taurus-targets-myanmar/,The recent ethnic rebel attacks in Myanmar have put the Myanmar junta and surrounding countries on h...,"**Q: What threat actor/APT group is discussed?**
+A: [PLACEHOLDER] (also referred to as Stately Taurus)
+
+**Q: What is this actor known for?**
+A: Performing cyberespionage activities since at least 2012, leveraging DLL sideloading with legitimate software, disguising C2 traffic as Microsoft update traffic, and deploying PlugX implants.
+
+**Q: What campaigns/operations are mentioned?**
+A:
+*   Analysis of the third meeting of NDSC.zip (November 9th, 2023)
+*   ASEAN Notes.iso (January 17th, 2024)
+
+**Q...",[PLACEHOLDER],True,,False
+https://unit42.paloaltonetworks.com/stately-taurus-attacks-se-asian-government/,An advanced persistent threat (APT) group suspected with moderate-high confidence to be [PLACEHOLDER...,"**Q: What threat actor/APT group is discussed?**
+A: None identified (referred to as an APT group suspected with moderate-high confidence to be [PLACEHOLDER]).
+
+**Q: What is this actor known for?**
+A: Engaging in cyberespionage intrusions, gathering, and exfiltrating sensitive documents and files from compromised networks.
+
+**Q: What campaigns/operations are mentioned?**
+A: CL-STA-0044 (from Q2 2021 to Q3 2023).
+
+**Q: What is their suspected origin/attribution?**
+A: Chinese state-sponsored (moder...",,False,,False
+https://medium.com/@zyadlzyatsoc/comprehensive-analysis-of-emotet-malware-part-1-by-zyad-elzyat-35d5cf33a3c0,"[PLACEHOLDER], a notorious name in the realm of cyber threats, has loomed large over the digital lan...",No threat actor attribution in content....,,False,,False
+https://www.fortinet.com/blog/threat-research/bandook-persistent-threat-that-keeps-evolving,Bandook malware is a remote access trojan that has been continuously developed since it was first de...,No threat actor attribution in content....,,False,,False
+https://research.checkpoint.com/2024/sharp-dragon-expands-towards-africa-and-the-caribbean/,"Since 2021, Check Point Research has been closely monitoring the activities of [PLACEHOLDER], a Chin...","**Q: What threat actor/APT group is discussed?**
+A: [PLACEHOLDER] (Name redacted in content)
+
+**Q: What is this actor known for?**
+A: Historically known for highly-targeted phishing emails deploying VictoryDLL or Soul framework, primarily in South-East Asia. Recently shifted to targeting governmental organizations in Africa and the Caribbean, using compromised email accounts, RoyalRoad-weaponized documents, and Cobalt Strike Beacon. They show increasing operational security awareness and use com...",[PLACEHOLDER],0.5,,False
+https://www.microsoft.com/en-us/security/blog/2024/05/15/threat-actors-misusing-quick-assist-in-social-engineering-attacks-leading-to-ransomware/,"Since mid-April 2024, Microsoft Threat Intelligence has observed the threat actor [PLACEHOLDER] misu...","**Q: What threat actor/APT group is discussed?**
+A: None identified by a specific name. The primary actor is referred to as a financially motivated cybercriminal group. Storm-0303 is mentioned as a ransomware-linked emerging threat activity group and Qakbot distributor.
+
+**Q: What is this actor known for?**
+A: A financially motivated cybercriminal group known for deploying ransomware (specifically [PLACEHOLDER] ransomware). They gain initial access through social engineering, including vishing a...",None identified by a specific name. The primary actor is referred to as a financially motivated cybercriminal group. Storm-0303 is mentioned as a ransomware-linked emerging threat activity group and Qakbot distributor.,False,,False
+https://blogs.blackberry.com/en/2023/02/blind-eagle-apt-c-36-targets-colombia,[PLACEHOLDER] has been actively targeting organizations in Colombia and Ecuador since at least 2019....,"**Q: What threat actor/APT group is discussed?**
+A: None identified (referred to as `[PLACEHOLDER]`)
+
+**Q: What is this actor known for?**
+A: A South American cyber espionage group active since at least 2019, known for targeting Latin America-based entities, primarily in Colombia. They rely on spear-phishing emails impersonating government agencies (like the Colombian tax agency DIAN) and frequently use RATs such as AsyncRAT, njRAT, QuasarRAT, LimeRAT, and RemcosRAT, often leveraging Dynamic DNS...",,False,,False
+https://research.checkpoint.com/2023/blindeagle-targeting-ecuador-with-sharpened-tools/,"ACTIVE CAMPAIGNS AGAINST COLOMBIAN TARGETS  For the last few months, we have been observing the ongo...","**Q: What threat actor/APT group is discussed?**
+A: The text refers to an APT group using the placeholder ""[PLACEHOLDER]"". No specific name or alias is provided.
+
+**Q: What is this actor known for?**
+A: This actor is known for orchestrating campaigns with a narrow geographical focus, primarily targeting a single country. They refine their tools, add features to leaked code bases (like QuasarRAT), and experiment with elaborate infection chains and ""Living off the Land"" techniques.
+
+**Q: What camp...","The text refers to an APT group using the placeholder ""[PLACEHOLDER]"". No specific name or alias is provided.",True,,False
+https://cloud.google.com/blog/topics/threat-intelligence/turla-galaxy-opportunity/,"USB Spreading  As Mandiant recently wrote about in our blog post, Always Another Secret: Lifting the...","**Q: What threat actor/APT group is discussed?**
+A: UNC4210. This group is suspected to be a cluster or team associated with a larger, unnamed (redacted) threat group.
+
+**Q: What is this actor known for?**
+A: Gaining initial access via USB spreading malware, extensive victim profiling, using older malware strains, re-registering expired C2 domains, and data collection/exfiltration. Their operational tactics are consistent with planning for advantageous positioning and leveraging USBs.
+
+**Q: What...","UNC4210. This group is suspected to be a cluster or team associated with a larger, unnamed",True,,False
+https://www.telsy.com/en/turla-venomous-bear-updates-its-arsenal-newpass-appears-on-the-apt-threat-scene/,Recently Telsy observed some artifacts related to an attack that occurred in June 2020 that is most ...,"**Q: What threat actor/APT group is discussed?**
+A: None identified by name (placeholder used for a popular Russian APT).
+
+**Q: What is this actor known for?**
+A: Being a popular Russian Advanced Persistent Threat (APT) group.
+
+**Q: What campaigns/operations are mentioned?**
+A: An attack observed in June 2020. No specific campaign name.
+
+**Q: What is their suspected origin/attribution?**
+A: Russian state-sponsored (High confidence).
+
+**Q: Who/what do they target?**
+A: At least one European Union...",None identified by name,False,,False
+https://cert.gov.ua/article/6276894,"During December 15-25, 2023, several cases of distribution of e-mails with links to ""documents"" were...",No threat actor attribution in content....,,False,,False
+https://cert.gov.ua/article/4492467,"During April 2023, the government computer emergency response team of Ukraine CERT-UA recorded cases...",No threat actor attribution in content....,,False,,False
+https://www.microsoft.com/en-us/security/blog/2024/01/25/midnight-blizzard-guidance-for-responders-on-nation-state-attack/,"The Microsoft security team detected a nation-state attack on our corporate systems on January 12, 2...","**Q: What threat actor/APT group is discussed?**
+A: The content uses placeholders for the specific name and aliases, but identifies the actor as the Foreign Intelligence Service of the Russian Federation (SVR).
+
+**Q: What is this actor known for?**
+A: Primarily known for intelligence collection and espionage of foreign interests, leveraging techniques like account compromise, advanced authentication mechanism compromise, diverse initial access methods (stolen credentials, supply chain attacks, o...","The content uses placeholders for the specific name and aliases, but identifies the actor as the Foreign Intelligence Service of the Russian Federation",True,,False
+https://www.rapid7.com/blog/post/2024/05/10/ongoing-social-engineering-campaign-linked-to-black-basta-ransomware-operators/,Rapid7 has identified an ongoing social engineering campaign that has been targeting multiple manage...,"**Q: What threat actor/APT group is discussed?**
+A: The text refers to an unnamed ""threat actor"" conducting a social engineering campaign. Observed indicators of compromise (IoCs) are consistent with the ""[PLACEHOLDER]"" ransomware operators.
+
+**Q: What is this actor known for?**
+A: This actor is known for a social engineering campaign involving overwhelming users with spam, impersonating IT support, and tricking users into providing remote access to download payloads for credential harvesting an...","The text refers to an unnamed ""threat actor"" conducting a social engineering campaign. Observed indicators of compromise",0.5,,False
+https://www.welivesecurity.com/en/eset-research/oilrigs-outer-space-juicy-mix-same-ol-rig-new-drill-pipes/,[PLACEHOLDER] is a cyberespionage group that has been active since at least 2014 and is commonly bel...,"**Q: What threat actor/APT group is discussed?**
+A: [PLACEHOLDER]
+
+**Q: What is this actor known for?**
+A: A cyberespionage group active since at least 2014, known for targeting Middle Eastern governments and various business sectors, and for using custom backdoors and data dumpers in their campaigns.
+
+**Q: What campaigns/operations are mentioned?**
+A: DNSpionage (2018-2019), HardPass (2019-2020), Outer Space (2021), Out to Sea (no specific timeframe, linked to Outer Space), Juicy Mix (2022).
+
+*...",[PLACEHOLDER],0.5,,False
+https://www.trendmicro.com/en_us/research/23/b/new-apt34-malware-targets-the-middle-east.html,"On December 2022, we identified a suspicious executable (detected by Trend Micro as Trojan.MSIL.REDC...","**Q: What threat actor/APT group is discussed?**
+A: None identified (referred to as APT group [PLACEHOLDER])
+
+**Q: What is this actor known for?**
+A: Cyberespionage, stealing credentials, and adapting tools and techniques, including custom malware and shifting exfiltration methods (e.g., from DNS-based C2 to SMTP mail traffic).
+
+**Q: What campaigns/operations are mentioned?**
+A: Current campaign (December 2022) using Trojan.MSIL.REDCAP.AD and Backdoor.MSIL.REDCAP.A. Previous attacks involved Kar...",,False,,False
+https://www.trendmicro.com/en_us/research/24/d/earth-freybug.html,"In the past month, we investigated a cyberespionage attack that we have attributed to [PLACEHOLDER]....","**Q: What threat actor/APT group is discussed?**
+A: [PLACEHOLDER]
+
+**Q: What is this actor known for?**
+A: Active since at least 2012, they focus on espionage and financially motivated activities. They use a diverse range of tools and techniques, including LOLBins and custom malware.
+
+**Q: What campaigns/operations are mentioned?**
+A: None specifically named, but the current incident is referred to as ""this campaign.""
+
+**Q: What is their suspected origin/attribution?**
+A: Unknown
+
+**Q: Who/what ...",[PLACEHOLDER],0.5,,False
+https://blog.talosintelligence.com/lazarus_new_rats_dlang_and_telegram/,"Operation Blacksmith involved the exploitation of CVE-2021-44228, also known as Log4Shell, and the u...","**Q: What threat actor/APT group is discussed?**
+A: Andariel (Onyx Sleet, PLUTONIUM). It is described as a sub-group of a broader North Korean APT umbrella group.
+
+**Q: What is this actor known for?**
+A: Initial access, reconnaissance, establishing long-term access for espionage in support of North Korean government interests, and conducting ransomware attacks against healthcare organizations. They develop and deploy bespoke malware and engage in extensive hands-on-keyboard activity.
+
+**Q: What ...",Andariel,True,,False
+https://symantec-enterprise-blogs.security.com/threat-intelligence/springtail-kimsuky-backdoor-espionage,Symantec’s Threat Hunter Team has uncovered a new Linux backdoor developed by the North Korean [PLAC...,"**Q: What threat actor/APT group is discussed?**
+A: None explicitly named. Referred to as ""the North Korean [PLACEHOLDER]"" and ""a tight-knit espionage group.""
+
+**Q: What is this actor known for?**
+A: Espionage, specializing in attacks on South Korean public sector organizations. Known for spear-phishing, exploiting DMARC policies, and a heavy focus on software supply chain attacks, Trojanized software installers, and fake software installers.
+
+**Q: What campaigns/operations are mentioned?**
+A:
+*...","None explicitly named. Referred to as ""the North Korean [PLACEHOLDER]"" and ""a tight-knit espionage group.""",0.5,,False
+https://www.securonix.com/blog/securonix-threat-research-security-advisory-new-deepgosu-attack-campaign/,The Securonix Threat Research (STR) team has been monitoring a new campaign tracked as DEEP#GOSU lik...,"**Q: What threat actor/APT group is discussed?**
+A: [PLACEHOLDER] group
+
+**Q: What is this actor known for?**
+A: Targeting South Korean victims, using recycled code and TTPs, employing script-based attack chains (PowerShell, VBScript), leveraging legitimate services (Dropbox, Google Docs) for C2, and using RATs (including TutRAT and xRAT in the past), clipboard monitoring, and keylogging. They have also used disguised HWP files previously.
+
+**Q: What campaigns/operations are mentioned?**
+A: DEEP...",[PLACEHOLDER] group,0.5,,False
+https://www.seqrite.com/blog/pakistani-apts-escalate-attacks-on-indian-gov-seqrite-labs-unveils-threats-and-connections/,"In the recent past, cyberattacks on Indian government entities by Pakistan-linked APTs have gained s...","**Q: What threat actor/APT group is discussed?**
+A: SideCopy, [PLACEHOLDER] (parent APT group of SideCopy).
+
+**Q: What is this actor known for?**
+*   **SideCopy:** Pakistan-linked APT group active since at least 2019. Known for deploying AllaKore RAT, Ares RAT, Action RAT, Reverse RAT, Margulas RAT. Uses spear-phishing with LNK files and HTA for initial access.
+*   **[PLACEHOLDER]:** Parent threat group of SideCopy, active since 2013. Known for continuously using Crimson RAT (often encoded/packe...","SideCopy, [PLACEHOLDER]",True,,False
+https://www.microsoft.com/en-us/security/blog/2024/01/17/new-ttps-observed-in-mint-sandstorm-campaign-targeting-high-profile-individuals-at-universities-and-research-orgs/,"Since November 2023, Microsoft has observed a distinct subset of [PLACEHOLDER] targeting high-profil...","**Q: What threat actor/APT group is discussed?**
+A: APT35 (Charming Kitten)
+
+**Q: What is this actor known for?**
+A: Gaining access to and stealing sensitive information from high-value targets, and conducting resource-intensive social engineering campaigns.
+
+**Q: What campaigns/operations are mentioned?**
+A: A campaign observed since November 2023, targeting individuals working on Middle Eastern affairs.
+
+**Q: What is their suspected origin/attribution?**
+A: Islamic Revolutionary Guard Corps (I...",APT35,True,,False
+https://www.deepinstinct.com/blog/darkbeatc2-the-latest-muddywater-attack-framework,"Despite the large number of Iranian cyber attacks against Israeli organizations, which has significa...","**Q: What threat actor/APT group is discussed?**
+A: [PLACEHOLDER] (DarkBit, DEV-1084, TA450). The content also discusses KarMa (DEV-0842, BanishedKitten), ScarredManticore (DEV-0861, ShroudedSnooper), MERCURY, Lord Nemesis (Nemesis Kitten, DEV-0270, Cobalt Mirage, TunnelVision), and Mint Sandstorm (PHOSPHORUS, APT35, Charming Kitten).
+
+**Q: What is this actor known for?**
+A: [PLACEHOLDER] is known for deploying ransomware and wiper malware, spear-phishing with remote administration tools (RATs),...",[PLACEHOLDER],True,,False
+https://symantec-enterprise-blogs.security.com/threat-intelligence/iran-apt-seedworm-africa-telecoms,"[PLACEHOLDER] has been active since at least 2017, and has targeted organizations in many countries,...","**Q: What threat actor/APT group is discussed?**
+A: Not explicitly named in content, referred to as [PLACEHOLDER].
+
+**Q: What is this actor known for?**
+A: A cyberespionage group active since at least 2017, known for targeting organizations in many countries, particularly in the Middle East. They leverage tools like MuddyC2Go, SimpleHelp, and Venom Proxy.
+
+**Q: What campaigns/operations are mentioned?**
+A:
+*   Activity in November 2023, targeting telecommunications and media organizations.
+*   A...","Not explicitly named in content, referred to as [PLACEHOLDER].",True,,False

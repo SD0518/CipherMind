@@ -1,0 +1,110 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on directly mapping log events to MITRE ATT&CK techniques based on semantic similarity and attack patterns. High confidence mappings were prioritized, and events without clear matches were added to the unmapped events list. The retrieved techniques were highly relevant, leading to successful mappings.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 5,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "800",
+        "event_description": "PowerShell Pipeline execution details showing a base64 encoded command being executed. The script attempts to disable security features and download content from a remote server.",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.85,
+        "mapping_rationale": "The event describes the execution of a PowerShell command, which directly aligns with the PowerShell technique. The use of base64 encoding and attempts to disable security features further strengthen this mapping.",
+        "recommendations": [
+          "Investigate the origin of the PowerShell script and the remote server it attempts to connect to.",
+          "Implement stricter PowerShell execution policies to prevent the execution of unsigned or untrusted scripts."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "800",
+        "event_description": "PowerShell Pipeline execution details showing a base64 encoded command being executed. The script attempts to disable security features and download content from a remote server.",
+        "mitre_technique": "T1562.001",
+        "technique_name": "Impair Defenses",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.825,
+        "mapping_rationale": "The event explicitly mentions attempts to disable security features like AMSI and Script Block Logging, which directly corresponds to the Impair Defenses technique.",
+        "recommendations": [
+          "Monitor for attempts to disable security features and alert on such activity.",
+          "Strengthen security configurations to prevent unauthorized modification of security settings."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted. PowerShell creates a registry key related to Internet Settings\\Connections.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.8,
+        "mapping_rationale": "The event describes the modification of a registry key, which is a direct match for the Modify Registry technique. The registry key being related to Internet Settings further suggests malicious intent.",
+        "recommendations": [
+          "Monitor registry modifications, especially those related to internet settings.",
+          "Implement registry auditing to track changes and identify suspicious activity."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "10",
+        "event_description": "Multiple instances of svchost.exe accessing other svchost.exe processes.",
+        "mitre_technique": "T1055",
+        "technique_name": "Process Injection",
+        "tactic": [
+          "defense_evasion",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.725,
+        "mapping_rationale": "The event describes svchost.exe accessing other svchost.exe processes with high frequency, which is a potential indicator of code injection. While not a definitive match, the context of other malicious activity makes this a plausible scenario.",
+        "recommendations": [
+          "Investigate the svchost.exe processes involved and their associated modules.",
+          "Implement process monitoring and alerting to detect unusual process behavior."
+        ],
+        "_original_llm_confidence": 0.65
+      },
+      {
+        "event_id": "4103",
+        "event_description": "Microsoft-Windows-PowerShell event indicating execution of a command or script containing a base64 encoded string and attempts to bypass security features.",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "This event is a more detailed version of event 800, confirming the use of PowerShell with encoded commands and defense evasion attempts, directly mapping to the PowerShell technique.",
+        "recommendations": [
+          "Analyze the PowerShell execution logs for further details on the malicious activity.",
+          "Implement PowerShell Constrained Language Mode to restrict the capabilities of PowerShell scripts."
+        ],
+        "_original_llm_confidence": 0.95
+      }
+    ],
+    "unmapped_events": [
+      "5156"
+    ],
+    "overall_recommendations": [
+      "Strengthen PowerShell security by implementing execution policies, constrained language mode, and script block logging.",
+      "Monitor registry modifications and network connections for suspicious activity.",
+      "Investigate the svchost.exe process activity for potential code injection.",
+      "Improve endpoint detection and response capabilities to detect and prevent malicious PowerShell activity."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T19:21:28.163059",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 5,
+    "total_techniques_retrieved": 5
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "Both audit‑failure events show the LOCAL SERVICE account attempting to obtain SeProfileSingleProcessPrivilege on svchost.exe. This privilege is primarily used to gain visibility into other processes, which aligns directly with the MITRE technique T1057 (Process Discovery). The request was denied and no follow‑up malicious activity was observed, so the confidence is medium‑high. Other retrieved techniques (privilege escalation, process injection, UAC bypass) are related concepts but lack concrete evidence in the logs, so they are not mapped.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 2,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4673",
+        "event_description": "Audit failure: A privileged service was called. LOCAL SERVICE attempted to use SeProfileSingleProcessPrivilege on svchost.exe (Process ID 0x14a8) on MORDORDC.theshire.local.",
+        "mitre_technique": "T1057",
+        "technique_name": "Process Discovery",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.662,
+        "mapping_rationale": "The event describes a failed attempt to acquire a profiling handle, which is a known method for enumerating running processes. This matches the definition of Process Discovery (T1057). The request was denied, but the intent to probe process visibility is evident.",
+        "recommendations": [
+          "Enable detailed auditing for SeProfileSingleProcessPrivilege usage and generate alerts on any failure or success.",
+          "Investigate the source account (LOCAL SERVICE) and the originating host for signs of misconfiguration or compromise.",
+          "Restrict SeProfileSingleProcessPrivilege to only accounts that require it for legitimate administrative tasks."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4673",
+        "event_description": "Audit failure: A privileged service was called. LOCAL SERVICE attempted to use SeProfileSingleProcessPrivilege on svchost.exe (Process ID 0xc70) on WORKSTATION5.theshire.local.",
+        "mitre_technique": "T1057",
+        "technique_name": "Process Discovery",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.662,
+        "mapping_rationale": "Identical to the first event, this log shows a failed profiling‑privilege request on another host. The action aligns with Process Discovery, as the privilege would allow enumeration of other processes if granted.",
+        "recommendations": [
+          "Correlate this event with any subsequent privilege‑escalation or code‑injection alerts to detect a multi‑stage attack.",
+          "Review group policy and local security settings to ensure SeProfileSingleProcessPrivilege is not granted to low‑privilege accounts.",
+          "Log and monitor repeated profiling‑privilege attempts across the environment as a potential indicator of reconnaissance."
+        ],
+        "_original_llm_confidence": 0.75
+      }
+    ],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Implement a least‑privilege model for service accounts and remove unnecessary SeProfileSingleProcessPrivilege assignments.",
+      "Deploy SIEM correlation rules that trigger on repeated SeProfileSingleProcessPrivilege failures across multiple hosts.",
+      "Conduct periodic reviews of audit logs for privilege‑use anomalies and integrate threat‑intel feeds that reference known abuse of profiling privileges.",
+      "Train administrators to recognize audit‑failure events related to privilege escalation attempts and to respond with immediate investigation."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:36:55.028693",
+    "overall_assessment": "NORMAL",
+    "total_abnormal_events": 2,
+    "total_techniques_retrieved": 4
+  }
+}

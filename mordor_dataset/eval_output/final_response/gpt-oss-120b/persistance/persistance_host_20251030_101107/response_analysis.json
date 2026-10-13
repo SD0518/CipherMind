@@ -1,0 +1,110 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "All log events were examined against the five retrieved MITRE techniques. Four events have strong, direct semantic matches (clear log, logon script registry change, outbound HTTP C2, and cmd.exe batch creation) and one event (registry set) reinforces the same logon‑script technique. Confidence for each mapping is high (≥0.85). Two events (process exit and local port bind) lack a clear technique among the retrieved set and are left unmapped.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 7,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The security audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.88,
+        "mapping_rationale": "The event explicitly states that the Windows security audit log was cleared, which directly corresponds to the technique description for clearing event logs to hide activity.",
+        "recommendations": [
+          "Enable Windows Event Log retention and write‑once storage to prevent deletion.",
+          "Deploy a centralized log collector (e.g., SIEM) that receives logs in near real‑time and alerts on EventID 1102."
+        ],
+        "_original_llm_confidence": 0.96
+      },
+      {
+        "event_id": "4688",
+        "event_description": "Process creation: reg.exe added HKCU\\Environment\\UserInitMprLogonScript pointing to C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat.",
+        "mitre_technique": "T1037.001",
+        "technique_name": "Logon Script (Windows)",
+        "tactic": [
+          "persistance",
+          "execution"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "The registry value UserInitMprLogonScript is specifically mentioned; modifying this key causes a script to run at each user logon, which is the exact behavior described by the Logon Script technique.",
+        "recommendations": [
+          "Monitor creation or modification of UserInitMprLogonScript and other logon‑script registry values.",
+          "Restrict write permissions on HKCU\\Environment to only authorized administrators."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "5156",
+        "event_description": "Windows Filtering Platform permitted an outbound connection from windowsazureguestagent.exe to 168.63.129.16:80.",
+        "mitre_technique": "T1041",
+        "technique_name": "Exfiltration Over Command and Control Channel",
+        "tactic": [
+          "collection"
+        ],
+        "confidence_score": 0.84,
+        "mapping_rationale": "An unexpected outbound HTTP connection from a non‑Azure process aligns with the technique of using a C2 channel to exfiltrate data or receive commands.",
+        "recommendations": [
+          "Create a deny‑list for outbound connections to known Azure metadata IPs from non‑Azure workloads.",
+          "Alert on outbound HTTP traffic from windowsazureguestagent.exe on workstations."
+        ],
+        "_original_llm_confidence": 0.88
+      },
+      {
+        "event_id": "11",
+        "event_description": "File created: C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat by cmd.exe.",
+        "mitre_technique": "T1059.003",
+        "technique_name": "Windows Command Shell",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.86,
+        "mapping_rationale": "The creation of a batch file via cmd.exe directly reflects the use of the Windows Command Shell to execute or stage malicious commands.",
+        "recommendations": [
+          "Log and alert on creation of .bat/.cmd files in temporary directories by cmd.exe.",
+          "Enforce application control (AppLocker or Windows Defender Application Control) to block unauthorized batch execution."
+        ],
+        "_original_llm_confidence": 0.92
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set: UserInitMprLogonScript pointing to C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat.",
+        "mitre_technique": "T1037.001",
+        "technique_name": "Logon Script (Windows)",
+        "tactic": [
+          "persistance",
+          "execution"
+        ],
+        "confidence_score": 0.87,
+        "mapping_rationale": "This Sysmon event records the same registry modification described in EventID 4688, confirming the persistence mechanism via the UserInitMprLogonScript value.",
+        "recommendations": [
+          "Correlate Sysmon registry writes with security‑event logs to detect stealthy persistence attempts.",
+          "Implement a baseline of allowed logon‑script registry values and generate alerts on deviations."
+        ],
+        "_original_llm_confidence": 0.94
+      }
+    ],
+    "unmapped_events": [
+      "4689",
+      "5158"
+    ],
+    "overall_recommendations": [
+      "Deploy centralized, tamper‑proof logging (e.g., SIEM with immutable storage) to retain audit events even if local logs are cleared.",
+      "Enforce least‑privilege for registry modifications and restrict use of reg.exe to authorized accounts.",
+      "Implement network egress filtering and DNS/HTTP proxy monitoring to detect anomalous outbound connections, especially from processes not expected to communicate externally.",
+      "Apply strict execution policies for command‑shell utilities and monitor creation of script files in user temp directories.",
+      "Conduct regular threat‑hunt queries for the specific indicators (EventIDs 1102, 4688, 13, and the UserInitMprLogonScript key) to uncover similar persistence attempts across the environment."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T10:11:07.605880",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 7,
+    "total_techniques_retrieved": 5
+  }
+}

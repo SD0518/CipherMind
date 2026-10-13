@@ -1,0 +1,103 @@
+{
+  "analysis": {
+    "overall_assessment": "ABNORMAL",
+    "total_events_analyzed": 267,
+    "execution_time_seconds": 16.35,
+    "execution_time_formatted": "16.35s",
+    "analysis_summary": "The logs show a user (pgustavo) on WORKSTATION5 executing SharpView, a tool often used for Active Directory reconnaissance. This is followed by multiple events related to handle duplication and access to registry keys, including the LSA key, which is concerning. Network connections to port 389 (LDAP) are also observed. The combination of reconnaissance and access to sensitive registry keys indicates a potential attempt to escalate privileges or gather credentials.",
+    "reasoning": "The analysis began by validating the Event IDs. The presence of Event ID 4688 (a new process was created) with SharpView.exe is a key indicator. SharpView is a tool used for Active Directory enumeration, which is often a precursor to privilege escalation or lateral movement. The subsequent events (4656, 4663) show attempts to access registry keys, including the LSA key, which stores sensitive information. The network connections to port 389 (LDAP) suggest the attacker might be attempting to query Active Directory for information. The file creation events are related to the SharpView execution. The multiple handle duplication events (4690) are also suspicious and could indicate attempts to manipulate access to resources. The file delete event is likely related to cleanup after the SharpView execution. The DNS queries are normal DNS traffic. The combination of these events, particularly the use of SharpView and the access to sensitive registry keys, raises the threat level.",
+    "abnormal_event_ids": [
+      "4688",
+      "4656",
+      "4663",
+      "4690",
+      "5156"
+    ],
+    "abnormal_events": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process (SharpView.exe) was created by cmd.exe.",
+        "why_abnormal": "SharpView is a reconnaissance tool, and its execution suggests an attacker is gathering information about the Active Directory environment.",
+        "severity": "HIGH",
+        "indicators": [
+          "SharpView.exe",
+          "Get-ObjectAcl -SamAccountName \"Domain Admins\"",
+          "cmd.exe as parent process"
+        ],
+        "tool_enrichment": {
+          "timeline_context": "Not applicable",
+          "decoded_command": "Not applicable",
+          "other_context": "The command line indicates an attempt to enumerate the Domain Admins group."
+        },
+        "attack_category": "Reconnaissance"
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested for \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\.NETFramework.",
+        "why_abnormal": "Accessing the .NET Framework registry key could be part of an attempt to gather information about the system or to identify potential vulnerabilities.",
+        "severity": "MEDIUM",
+        "indicators": [
+          "SharpView.exe",
+          "\\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\.NETFramework"
+        ],
+        "tool_enrichment": {
+          "timeline_context": "Not applicable",
+          "decoded_command": "Not applicable",
+          "other_context": "The process SharpView.exe is accessing the registry key."
+        },
+        "attack_category": "Reconnaissance"
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object for \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa.",
+        "why_abnormal": "The LSA key contains sensitive information, including credentials and security settings. Accessing this key is a strong indicator of malicious intent, potentially for credential harvesting or privilege escalation.",
+        "severity": "HIGH",
+        "indicators": [
+          "SharpView.exe",
+          "\\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa"
+        ],
+        "tool_enrichment": {
+          "timeline_context": "Not applicable",
+          "decoded_command": "Not applicable",
+          "other_context": "The process SharpView.exe is accessing the registry key."
+        },
+        "attack_category": "Credential Access"
+      },
+      {
+        "event_id": "4690",
+        "event_description": "An attempt was made to duplicate a handle to an object.",
+        "why_abnormal": "Handle duplication can be used to escalate privileges or bypass security controls.",
+        "severity": "MEDIUM",
+        "indicators": [
+          "SharpView.exe",
+          "Handle duplication"
+        ],
+        "tool_enrichment": {
+          "timeline_context": "Not applicable",
+          "decoded_command": "Not applicable",
+          "other_context": "The process SharpView.exe is duplicating handles."
+        },
+        "attack_category": "Privilege Escalation"
+      },
+      {
+        "event_id": "5156",
+        "event_description": "The Windows Filtering Platform has permitted a connection from 172.18.39.5 to 172.18.38.5 on port 389 (LDAP).",
+        "why_abnormal": "Network traffic to port 389 (LDAP) suggests an attempt to query Active Directory, which could be part of reconnaissance or credential harvesting.",
+        "severity": "MEDIUM",
+        "indicators": [
+          "172.18.39.5",
+          "172.18.38.5",
+          "389 (LDAP)"
+        ],
+        "tool_enrichment": {
+          "timeline_context": "Not applicable",
+          "decoded_command": "Not applicable",
+          "other_context": "The connection is outbound from the workstation."
+        },
+        "attack_category": "Reconnaissance"
+      }
+    ],
+    "iteration_count": 1
+  },
+  "timestamp": "20251029_205902"
+}

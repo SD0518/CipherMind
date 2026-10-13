@@ -1,0 +1,99 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on directly mapping log events to MITRE ATT&CK techniques based on semantic similarity and attack patterns. High confidence mappings were prioritized, particularly those related to defense evasion and persistence. Several events related to network connections and process behavior were difficult to map directly to the retrieved techniques with high confidence and were therefore left unmapped.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 7,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event description directly corresponds to the technique description. Clearing audit logs is a definitive action to evade detection.",
+        "recommendations": [
+          "Immediately investigate the user account that cleared the audit log (wardog account).",
+          "Implement stricter audit log access controls to prevent unauthorized clearing.",
+          "Implement a SIEM solution to collect and retain logs in a secure, centralized location, preventing local clearing from impacting overall visibility."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "Creating or deleting registry keys falls under the broader category of modifying the registry, which is a common technique for persistence and defense evasion.",
+        "recommendations": [
+          "Monitor registry modifications by svchost.exe and Explorer.EXE for suspicious patterns.",
+          "Implement registry integrity monitoring to detect unauthorized changes.",
+          "Investigate the specific registry keys being created or deleted to determine their purpose."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "Setting registry values is a direct form of registry modification, often used for persistence or to alter system behavior.",
+        "recommendations": [
+          "Analyze the specific registry values being set by Explorer.EXE, especially those related to UserAssist.",
+          "Implement registry auditing to track changes to critical registry values.",
+          "Correlate registry modifications with other suspicious activity to identify potential malware."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "10",
+        "event_description": "Process accessed",
+        "mitre_technique": "T1055",
+        "technique_name": "Process Injection",
+        "tactic": [
+          "defense_evasion",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "The description indicates unusual process access patterns, such as svchost.exe accessing InputApp_cw5n1h2txyewy\\WindowsInternal.ComposableShell.Experiences.TextInput.InputApp.exe and backgroundTaskHost.exe, and Explorer.EXE accessing powershell.exe. These patterns could indicate code injection or other malicious activity.",
+        "recommendations": [
+          "Investigate the processes being accessed by svchost.exe and Explorer.EXE to determine if they are legitimate.",
+          "Implement process monitoring to detect unusual process access patterns.",
+          "Use endpoint detection and response (EDR) tools to identify and block process injection attempts."
+        ],
+        "_original_llm_confidence": 0.6
+      }
+    ],
+    "unmapped_events": [
+      "5156",
+      "5158",
+      "5154"
+    ],
+    "overall_recommendations": [
+      "Prioritize investigation of the cleared audit logs and registry modifications.",
+      "Implement stricter audit log access controls and registry integrity monitoring.",
+      "Enhance process monitoring to detect and prevent process injection attempts.",
+      "Investigate the outbound connection from windowsazureguestagent.exe to ensure it is legitimate."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:55:04.385237",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 7,
+    "total_techniques_retrieved": 5
+  }
+}

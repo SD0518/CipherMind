@@ -1,0 +1,127 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "Fourteen log events were examined against eight retrieved MITRE ATT&CK techniques. Direct semantic matches were found for six events, yielding high‑confidence mappings to Clear Windows Event Logs, Permission Groups Discovery, Query Registry, Process Injection via Duplicate Handle, and Domain Account Discovery. Remaining events lacked a clear technique among the retrieved set and are listed as unmapped.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 11,
+    "total_techniques_retrieved": 8,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The security audit log was cleared on the host WORKSTATION5.theshire.local by user pgustavo (SID S-1-5-21-...-1104).",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.943,
+        "mapping_rationale": "The event explicitly states that the Windows security event log was cleared, which is the exact behavior described by T1070.001.",
+        "recommendations": [
+          "Enable audit log retention and configure the system to prevent non‑administrative accounts from clearing logs.",
+          "Deploy a centralized SIEM that ingests Windows Event Logs in near‑real time to detect log‑clearing attempts."
+        ],
+        "_original_llm_confidence": 0.96
+      },
+      {
+        "event_id": "4688",
+        "event_description": "Process creation: SharpView.exe launched from C:\\ProgramData\\SharpView.exe with command line \"SharpView.exe  Get-ObjectAcl -SamAccountName \\\"Domain Admins\\\"\" by user pgustavo.",
+        "mitre_technique": "T1069.001",
+        "technique_name": "Permission Groups Discovery: Domain Groups",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.902,
+        "mapping_rationale": "SharpView is used to query ACLs of the \"Domain Admins\" group, which directly aligns with the purpose of T1069.001 – enumerating domain groups and their permissions.",
+        "recommendations": [
+          "Restrict execution of known enumeration tools (e.g., SharpView) to privileged accounts only.",
+          "Monitor PowerShell/command‑line usage that references AD group names such as \"Domain Admins\"."
+        ],
+        "_original_llm_confidence": 0.88
+      },
+      {
+        "event_id": "4663",
+        "event_description": "SharpView.exe attempted to access registry keys such as \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa and \\...\\Winlogon.",
+        "mitre_technique": "T1012",
+        "technique_name": "Query Registry",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.918,
+        "mapping_rationale": "The event records read‑only queries of high‑value registry locations, which is precisely the activity described by T1012.",
+        "recommendations": [
+          "Audit and alert on non‑system processes reading LSA or Winlogon registry keys.",
+          "Implement registry key access control lists (ACLs) to limit read access to privileged accounts."
+        ],
+        "_original_llm_confidence": 0.91
+      },
+      {
+        "event_id": "4690",
+        "event_description": "SharpView.exe duplicated handles to objects (e.g., handle 0x9fc) many times within seconds.",
+        "mitre_technique": "T1055.012",
+        "technique_name": "Process Injection: Duplicate Handle",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.932,
+        "mapping_rationale": "The duplication of handles to bypass security checks matches the definition of T1055.012, which specifically describes the Duplicate Handle sub‑technique.",
+        "recommendations": [
+          "Deploy endpoint detection that flags rapid handle duplication patterns.",
+          "Enforce least‑privilege for processes and restrict the SeCreateGlobalPrivilege right."
+        ],
+        "_original_llm_confidence": 0.94
+      },
+      {
+        "event_id": "5156",
+        "event_description": "Windows Filtering Platform permitted an outbound connection from SharpView.exe (process ID 3752) to 172.18.38.5 on port 389 (LDAP) and port 53 (DNS).",
+        "mitre_technique": "T1087.002",
+        "technique_name": "Account Discovery: Domain Account",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.803,
+        "mapping_rationale": "Outbound LDAP queries are a common method for enumerating domain accounts, which aligns with the intent of T1087.002.",
+        "recommendations": [
+          "Alert on LDAP traffic originating from non‑system accounts or unexpected processes.",
+          "Network‑segment domain controllers and enforce strict outbound LDAP rules."
+        ],
+        "_original_llm_confidence": 0.68
+      },
+      {
+        "event_id": "3",
+        "event_description": "Network connection from SharpView.exe (process ID 3752) to 172.18.38.5 on port 389 (LDAP).",
+        "mitre_technique": "T1087.002",
+        "technique_name": "Account Discovery: Domain Account",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.773,
+        "mapping_rationale": "A direct LDAP connection from a user‑level enumeration tool indicates domain account discovery, matching T1087.002.",
+        "recommendations": [
+          "Correlate LDAP connection events with process creation logs to identify suspicious enumeration activity.",
+          "Implement LDAP query rate‑limiting and monitor for anomalous query volumes."
+        ],
+        "_original_llm_confidence": 0.62
+      }
+    ],
+    "unmapped_events": [
+      "4689",
+      "4673",
+      "4656",
+      "4658",
+      "5158"
+    ],
+    "overall_recommendations": [
+      "Implement a layered detection strategy that combines process creation monitoring, registry access auditing, and network traffic analysis to catch the full kill‑chain observed (log clearing → enumeration → handle duplication).",
+      "Restrict the execution of known AD‑recon tools (SharpView, PowerView, etc.) to privileged service accounts and enforce application control policies (AppLocker, Windows Defender Application Control).",
+      "Deploy privileged‑access workstations (PAWs) for any AD‑related activities and ensure regular credential hygiene to mitigate the risk of LSA secret exposure.",
+      "Review and tighten SeCreateGlobalPrivilege assignments; only system services should possess this right.",
+      "Ensure that Windows Event Log retention is configured to write‑once and that log‑clearing attempts generate alerts in the SIEM."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:51:27.363568",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 11,
+    "total_techniques_retrieved": 8
+  }
+}

@@ -1,0 +1,808 @@
+
+================================================================================
+LOG ANALYSIS SUMMARY
+================================================================================
+
+Total Event Types Found: 38
+Total Events Processed: 2390
+
+------------------------------------------------------------
+EVENT SOURCES DISTRIBUTION
+------------------------------------------------------------
+Microsoft-Windows-Sysmon                          :     1762 events
+Microsoft-Windows-Security-Auditing               :      512 events
+Microsoft-Windows-PowerShell                      :       60 events
+PowerShell                                        :       55 events
+Microsoft-Windows-WMI-Activity                    :        1 events
+
+------------------------------------------------------------
+EVENT TYPES BY FREQUENCY
+------------------------------------------------------------
+
+Event Type: Microsoft-Windows-Sysmon::12
+  Count: 682
+  Lines: 36-2385
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 12
+
+Event Type: Microsoft-Windows-Sysmon::7
+  Count: 535
+  Lines: 60-2130
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 7
+
+Event Type: Microsoft-Windows-Sysmon::10
+  Count: 265
+  Lines: 14-2342
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 10
+
+Event Type: Microsoft-Windows-Security-Auditing::5156
+  Count: 216
+  Lines: 1-2388
+  Description: N/A
+  Channel: Security
+  Category: Filtering Platform Connection
+
+Event Type: Microsoft-Windows-Sysmon::13
+  Count: 214
+  Lines: 23-2390
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 13
+
+Event Type: Microsoft-Windows-Security-Auditing::4658
+  Count: 101
+  Lines: 231-1819
+  Description: N/A
+  Channel: Security
+  Category: Registry
+
+Event Type: Microsoft-Windows-PowerShell::4103
+  Count: 54
+  Lines: 353-2389
+  Description: N/A
+  Channel: Microsoft-Windows-PowerShell/Operational
+  Category: Executing Pipeline
+
+Event Type: Microsoft-Windows-Security-Auditing::4690
+  Count: 51
+  Lines: 229-1810
+  Description: N/A
+  Channel: Security
+  Category: Handle Manipulation
+
+Event Type: Microsoft-Windows-Security-Auditing::4656
+  Count: 51
+  Lines: 234-1815
+  Description: N/A
+  Channel: Security
+  Category: Registry
+
+Event Type: PowerShell::800
+  Count: 48
+  Lines: 94-2380
+  Description: N/A
+  Channel: Windows PowerShell
+  Category: Pipeline Execution Details
+
+Event Type: Microsoft-Windows-Security-Auditing::4663
+  Count: 33
+  Lines: 235-1817
+  Description: N/A
+  Channel: Security
+  Category: Registry
+
+Event Type: Microsoft-Windows-Sysmon::3
+  Count: 25
+  Lines: 999-2359
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 3
+
+Event Type: Microsoft-Windows-Security-Auditing::5158
+  Count: 23
+  Lines: 21-2386
+  Description: N/A
+  Channel: Security
+  Category: Filtering Platform Connection
+
+Event Type: Microsoft-Windows-Sysmon::11
+  Count: 15
+  Lines: 13-2369
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 11
+
+Event Type: Microsoft-Windows-Security-Auditing::4703
+  Count: 11
+  Lines: 734-770
+  Description: N/A
+  Channel: Security
+  Category: Token Right Adjusted Events
+
+Event Type: Microsoft-Windows-Sysmon::1
+  Count: 7
+  Lines: 97-1809
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 1
+
+Event Type: Microsoft-Windows-Security-Auditing::4688
+  Count: 7
+  Lines: 219-1785
+  Description: N/A
+  Channel: Security
+  Category: Process Creation
+
+Event Type: Microsoft-Windows-Security-Auditing::4673
+  Count: 7
+  Lines: 319-1808
+  Description: N/A
+  Channel: Security
+  Category: Sensitive Privilege Use
+
+Event Type: PowerShell::600
+  Count: 6
+  Lines: 206-218
+  Description: N/A
+  Channel: Windows PowerShell
+  Category: Provider Lifecycle
+
+Event Type: Microsoft-Windows-Sysmon::18
+  Count: 5
+  Lines: 571-2129
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 18
+
+Event Type: Microsoft-Windows-Sysmon::9
+  Count: 4
+  Lines: 1161-1820
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 9
+
+Event Type: Microsoft-Windows-PowerShell::4104
+  Count: 3
+  Lines: 357-379
+  Description: N/A
+  Channel: Microsoft-Windows-PowerShell/Operational
+  Category: Execute a Remote Command
+
+Event Type: Microsoft-Windows-Sysmon::23
+  Count: 3
+  Lines: 589-861
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 23
+
+Event Type: Microsoft-Windows-Sysmon::5
+  Count: 2
+  Lines: 247-2327
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 5
+
+Event Type: Microsoft-Windows-Security-Auditing::4689
+  Count: 2
+  Lines: 297-2319
+  Description: N/A
+  Channel: Security
+  Category: Process Termination
+
+Event Type: Microsoft-Windows-Sysmon::2
+  Count: 2
+  Lines: 583-2042
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 2
+
+Event Type: Microsoft-Windows-Security-Auditing::4624
+  Count: 2
+  Lines: 664-1448
+  Description: N/A
+  Channel: Security
+  Category: Logon
+
+Event Type: Microsoft-Windows-Security-Auditing::4627
+  Count: 2
+  Lines: 667-1449
+  Description: N/A
+  Channel: Security
+  Category: Group Membership
+
+Event Type: Microsoft-Windows-Security-Auditing::4672
+  Count: 2
+  Lines: 669-1447
+  Description: N/A
+  Channel: Security
+  Category: Special Logon
+
+Event Type: Microsoft-Windows-Security-Auditing::4670
+  Count: 2
+  Lines: 671-744
+  Description: N/A
+  Channel: Security
+  Category: Authorization Policy Change
+
+Event Type: Microsoft-Windows-Sysmon::22
+  Count: 2
+  Lines: 1214-2357
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 22
+
+Event Type: Microsoft-Windows-Security-Auditing::4634
+  Count: 2
+  Lines: 1450-2360
+  Description: N/A
+  Channel: Security
+  Category: Logoff
+
+Event Type: PowerShell::400
+  Count: 1
+  Lines: 220-220
+  Description: N/A
+  Channel: Windows PowerShell
+  Category: Engine Lifecycle
+
+Event Type: Microsoft-Windows-PowerShell::40961
+  Count: 1
+  Lines: 369-369
+  Description: N/A
+  Channel: Microsoft-Windows-PowerShell/Operational
+  Category: PowerShell Console Startup
+
+Event Type: Microsoft-Windows-PowerShell::53504
+  Count: 1
+  Lines: 372-372
+  Description: N/A
+  Channel: Microsoft-Windows-PowerShell/Operational
+  Category: PowerShell Named Pipe IPC
+
+Event Type: Microsoft-Windows-PowerShell::40962
+  Count: 1
+  Lines: 375-375
+  Description: N/A
+  Channel: Microsoft-Windows-PowerShell/Operational
+  Category: PowerShell Console Startup
+
+Event Type: Microsoft-Windows-WMI-Activity::5857
+  Count: 1
+  Lines: 660-660
+  Description: N/A
+  Channel: Microsoft-Windows-WMI-Activity/Operational
+  Category: 0
+
+Event Type: Microsoft-Windows-Sysmon::17
+  Count: 1
+  Lines: 879-879
+  Description: N/A
+  Channel: Microsoft-Windows-Sysmon/Operational
+  Category: 17
+
+================================================================================
+DETAILED FIELD ANALYSIS
+================================================================================
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-PowerShell::40961 (1 occurrences)
+------------------------------------------------------------
+Lines: 369
+Total Fields: 32
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (20): @version, AccountName, AccountType, ActivityID, Domain, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-PowerShell::40962 (1 occurrences)
+------------------------------------------------------------
+Lines: 375
+Total Fields: 32
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (20): @version, AccountName, AccountType, ActivityID, Domain, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-PowerShell::4103 (54 occurrences)
+------------------------------------------------------------
+Lines: 353, 359, 367, 383, 410
+Total Fields: 34
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (22): @version, AccountName, AccountType, ActivityID, ContextInfo, Domain, EventType, Hostname, Keywords, Opcode, OpcodeValue, Payload, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-PowerShell::4104 (3 occurrences)
+------------------------------------------------------------
+Lines: 357, 362, 379
+Total Fields: 36
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (24): @version, AccountName, AccountType, ActivityID, Domain, EventType, Hostname, Keywords, MessageNumber, MessageTotal, Opcode, OpcodeValue, ProviderGuid, RecordNumber, ScriptBlockId, ScriptBlockText, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-PowerShell::53504 (1 occurrences)
+------------------------------------------------------------
+Lines: 372
+Total Fields: 34
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (22): @version, AccountName, AccountType, ActivityID, Domain, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, param1, param2, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4624 (2 occurrences)
+------------------------------------------------------------
+Lines: 664, 1448
+Total Fields: 55
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (4): ExecutionProcessID, LogonProcessName, ProcessId, ProcessName
+  Network Fields (3): IpAddress, IpPort, port
+  Security Fields (10): LogonGuid, LogonType, SubjectLogonId, SubjectUserName, SubjectUserSid, TargetLinkedLogonId, TargetLogonId, TargetOutboundUserName, TargetUserName, TargetUserSid
+  Other Fields (29): @version, ActivityID, AuthenticationPackageName, ElevatedToken, EventType, Hostname, ImpersonationLevel, KeyLength, Keywords, LmPackageName, Opcode, OpcodeValue, ProviderGuid, RecordNumber, RestrictedAdminMode, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, TargetDomainName, TargetOutboundDomainName, ThreadID, TransmittedServices, Version, VirtualAccount, WorkstationName, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4627 (2 occurrences)
+------------------------------------------------------------
+Lines: 667, 1449
+Total Fields: 40
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (7): LogonType, SubjectLogonId, SubjectUserName, SubjectUserSid, TargetLogonId, TargetUserName, TargetUserSid
+  Other Fields (22): @version, ActivityID, EventCountTotal, EventIdx, EventType, GroupMembership, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, TargetDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4634 (2 occurrences)
+------------------------------------------------------------
+Lines: 1450, 2360
+Total Fields: 32
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (4): LogonType, TargetLogonId, TargetUserName, TargetUserSid
+  Other Fields (17): @version, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, TargetDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4656 (51 occurrences)
+------------------------------------------------------------
+Lines: 234, 248, 257, 266, 277
+Total Fields: 44
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (3): ExecutionProcessID, ProcessId, ProcessName
+  Network Fields (1): port
+  Security Fields (6): AccessList, AccessMask, AccessReason, SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (25): @version, EventType, HandleId, Hostname, Keywords, ObjectName, ObjectServer, ObjectType, Opcode, OpcodeValue, PrivilegeList, ProviderGuid, RecordNumber, ResourceAttributes, RestrictedSidCount, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, ThreadID, TransactionId, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4658 (101 occurrences)
+------------------------------------------------------------
+Lines: 231, 237, 246, 252, 256
+Total Fields: 35
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (3): ExecutionProcessID, ProcessId, ProcessName
+  Network Fields (1): port
+  Security Fields (3): SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (19): @version, EventType, HandleId, Hostname, Keywords, ObjectServer, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4663 (33 occurrences)
+------------------------------------------------------------
+Lines: 235, 250, 258, 268, 279
+Total Fields: 40
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (3): ExecutionProcessID, ProcessId, ProcessName
+  Network Fields (1): port
+  Security Fields (5): AccessList, AccessMask, SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (22): @version, EventType, HandleId, Hostname, Keywords, ObjectName, ObjectServer, ObjectType, Opcode, OpcodeValue, ProviderGuid, RecordNumber, ResourceAttributes, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4670 (2 occurrences)
+------------------------------------------------------------
+Lines: 671, 744
+Total Fields: 39
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (3): ExecutionProcessID, ProcessId, ProcessName
+  Network Fields (1): port
+  Security Fields (3): SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (23): @version, EventType, HandleId, Hostname, Keywords, NewSd, ObjectName, ObjectServer, ObjectType, OldSd, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4672 (2 occurrences)
+------------------------------------------------------------
+Lines: 669, 1447
+Total Fields: 33
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (3): SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (19): @version, ActivityID, EventType, Hostname, Keywords, Opcode, OpcodeValue, PrivilegeList, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4673 (7 occurrences)
+------------------------------------------------------------
+Lines: 319, 422, 748, 1756, 1760
+Total Fields: 36
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (3): ExecutionProcessID, ProcessId, ProcessName
+  Network Fields (1): port
+  Security Fields (3): SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (20): @version, EventType, Hostname, Keywords, ObjectServer, Opcode, OpcodeValue, PrivilegeList, ProviderGuid, RecordNumber, Service, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, ThreadID, Version, host, tags
+  
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4688 (7 occurrences)
+------------------------------------------------------------
+Lines: 219, 283, 296, 684, 747
+Total Fields: 42
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (6): CommandLine, ExecutionProcessID, NewProcessId, NewProcessName, ParentProcessName, ProcessId
+  Network Fields (1): port
+  Security Fields (6): SubjectLogonId, SubjectUserName, SubjectUserSid, TargetLogonId, TargetUserName, TargetUserSid
+  Other Fields (20): @version, EventType, Hostname, Keywords, MandatoryLabel, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, TargetDomainName, ThreadID, TokenElevationType, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4689 (2 occurrences)
+------------------------------------------------------------
+Lines: 297, 2319
+Total Fields: 34
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (3): ExecutionProcessID, ProcessId, ProcessName
+  Network Fields (1): port
+  Security Fields (3): SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (18): @version, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, Status, SubjectDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4690 (51 occurrences)
+------------------------------------------------------------
+Lines: 229, 243, 254, 262, 272
+Total Fields: 36
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (4): ExecutionProcessID, ProcessId, SourceProcessId, TargetProcessId
+  Network Fields (1): port
+  Security Fields (3): SubjectLogonId, SubjectUserName, SubjectUserSid
+  Other Fields (19): @version, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceHandleId, SourceModuleName, SourceModuleType, SubjectDomainName, TargetHandleId, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::4703 (11 occurrences)
+------------------------------------------------------------
+Lines: 734, 736, 739, 740, 742
+Total Fields: 39
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (3): ExecutionProcessID, ProcessId, ProcessName
+  Network Fields (1): port
+  Security Fields (6): SubjectLogonId, SubjectUserName, SubjectUserSid, TargetLogonId, TargetUserName, TargetUserSid
+  Other Fields (20): @version, DisabledPrivilegeList, EnabledPrivilegeList, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, SubjectDomainName, TargetDomainName, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::5156 (216 occurrences)
+------------------------------------------------------------
+Lines: 1, 2, 3, 4, 5
+Total Fields: 40
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (2): ExecutionProcessID, ProcessId
+  Network Fields (6): DestAddress, DestPort, Protocol, SourceAddress, SourcePort, port
+  Security Fields (1): RemoteUserID
+  Other Fields (22): @version, Application, Direction, EventType, FilterRTID, Hostname, Keywords, LayerName, LayerRTID, Opcode, OpcodeValue, ProviderGuid, RecordNumber, RemoteMachineID, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Security-Auditing::5158 (23 occurrences)
+------------------------------------------------------------
+Lines: 21, 225, 227, 239, 636
+Total Fields: 35
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (2): ExecutionProcessID, ProcessId
+  Network Fields (4): Protocol, SourceAddress, SourcePort, port
+  Other Fields (20): @version, Application, EventType, FilterRTID, Hostname, Keywords, LayerName, LayerRTID, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::1 (7 occurrences)
+------------------------------------------------------------
+Lines: 97, 224, 240, 991, 1095
+Total Fields: 51
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (9): CommandLine, ExecutionProcessID, Image, ParentCommandLine, ParentImage, ParentProcessGuid, ParentProcessId, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (5): Hashes, LogonGuid, LogonId, User, UserID
+  Other Fields (27): @version, AccountName, AccountType, Company, CurrentDirectory, Description, Domain, EventType, FileVersion, Hostname, IntegrityLevel, Keywords, OpcodeValue, OriginalFileName, Product, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, TerminalSessionId, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::10 (265 occurrences)
+------------------------------------------------------------
+Lines: 14, 15, 16, 17, 18
+Total Fields: 41
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (8): ExecutionProcessID, ProcessId, SourceImage, SourceProcessGUID, SourceProcessId, TargetImage, TargetProcessGUID, TargetProcessId
+  Network Fields (1): port
+  Security Fields (2): GrantedAccess, UserID
+  Other Fields (21): @version, AccountName, AccountType, CallTrace, Domain, EventType, Hostname, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, SourceThreadId, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::11 (15 occurrences)
+------------------------------------------------------------
+Lines: 13, 581, 586, 730, 746
+Total Fields: 36
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (5): @timestamp, CreationUtcTime, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (20): @version, AccountName, AccountType, Domain, EventType, Hostname, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, TargetFilename, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::12 (682 occurrences)
+------------------------------------------------------------
+Lines: 36, 37, 38, 39, 40
+Total Fields: 36
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (21): @version, AccountName, AccountType, Domain, EventType, EventTypeOrignal, Hostname, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, TargetObject, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::13 (214 occurrences)
+------------------------------------------------------------
+Lines: 23, 47, 56, 73, 152
+Total Fields: 37
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (22): @version, AccountName, AccountType, Details, Domain, EventType, EventTypeOrignal, Hostname, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, TargetObject, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::17 (1 occurrences)
+------------------------------------------------------------
+Lines: 879
+Total Fields: 36
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (21): @version, AccountName, AccountType, Domain, EventType, EventTypeOrignal, Hostname, Keywords, OpcodeValue, PipeName, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::18 (5 occurrences)
+------------------------------------------------------------
+Lines: 571, 1184, 1186, 1187, 2129
+Total Fields: 36
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (21): @version, AccountName, AccountType, Domain, EventType, EventTypeOrignal, Hostname, Keywords, OpcodeValue, PipeName, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::2 (2 occurrences)
+------------------------------------------------------------
+Lines: 583, 2042
+Total Fields: 37
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (6): @timestamp, CreationUtcTime, EventReceivedTime, EventTime, PreviousCreationUtcTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (20): @version, AccountName, AccountType, Domain, EventType, Hostname, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, TargetFilename, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::22 (2 occurrences)
+------------------------------------------------------------
+Lines: 1214, 2357
+Total Fields: 37
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (22): @version, AccountName, AccountType, Domain, EventType, Hostname, Keywords, OpcodeValue, ProviderGuid, QueryName, QueryResults, QueryStatus, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::23 (3 occurrences)
+------------------------------------------------------------
+Lines: 589, 859, 861
+Total Fields: 39
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (3): Hashes, User, UserID
+  Other Fields (22): @version, AccountName, AccountType, Archived, Domain, EventType, Hostname, IsExecutable, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, TargetFilename, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::3 (25 occurrences)
+------------------------------------------------------------
+Lines: 999, 1000, 1001, 1189, 1190
+Total Fields: 47
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (6): DestinationPort, DestinationPortName, Protocol, SourcePort, SourcePortName, port
+  Security Fields (2): User, UserID
+  Other Fields (26): @version, AccountName, AccountType, DestinationHostname, DestinationIp, DestinationIsIpv6, Domain, EventType, Hostname, Initiated, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceHostname, SourceIp, SourceIsIpv6, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::5 (2 occurrences)
+------------------------------------------------------------
+Lines: 247, 2327
+Total Fields: 34
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (19): @version, AccountName, AccountType, Domain, EventType, Hostname, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::7 (535 occurrences)
+------------------------------------------------------------
+Lines: 60, 63, 64, 65, 66
+Total Fields: 44
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (5): ExecutionProcessID, Image, ImageLoaded, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (2): Hashes, UserID
+  Other Fields (27): @version, AccountName, AccountType, Company, Description, Domain, EventType, FileVersion, Hostname, Keywords, OpcodeValue, OriginalFileName, Product, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, Signature, SignatureStatus, Signed, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-Sysmon::9 (4 occurrences)
+------------------------------------------------------------
+Lines: 1161, 1816, 1818, 1820
+Total Fields: 35
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (4): @timestamp, EventReceivedTime, EventTime, UtcTime
+  Process Fields (4): ExecutionProcessID, Image, ProcessGuid, ProcessId
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (20): @version, AccountName, AccountType, Device, Domain, EventType, Hostname, Keywords, OpcodeValue, ProviderGuid, RecordNumber, RuleName, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: Microsoft-Windows-WMI-Activity::5857 (1 occurrences)
+------------------------------------------------------------
+Lines: 660
+Total Fields: 30
+Fields:
+  Core Fields (5): Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Security Fields (1): UserID
+  Other Fields (19): @version, AccountName, AccountType, Domain, EventType, Hostname, Keywords, Opcode, OpcodeValue, ProviderGuid, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, Version, host, tags
+
+------------------------------------------------------------
+Event Type: PowerShell::400 (1 occurrences)
+------------------------------------------------------------
+Lines: 220
+Total Fields: 24
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Other Fields (13): @version, EventType, Hostname, Keywords, Opcode, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, host, tags
+
+------------------------------------------------------------
+Event Type: PowerShell::600 (6 occurrences)
+------------------------------------------------------------
+Lines: 206, 208, 211, 213, 215
+Total Fields: 24
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Other Fields (13): @version, EventType, Hostname, Keywords, Opcode, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, host, tags
+
+------------------------------------------------------------
+Event Type: PowerShell::800 (48 occurrences)
+------------------------------------------------------------
+Lines: 94, 95, 96, 244, 346
+Total Fields: 24
+Fields:
+  Core Fields (6): Category, Channel, EventID, Message, SourceName, Task
+  Time Fields (3): @timestamp, EventReceivedTime, EventTime
+  Process Fields (1): ExecutionProcessID
+  Network Fields (1): port
+  Other Fields (13): @version, EventType, Hostname, Keywords, Opcode, RecordNumber, Severity, SeverityValue, SourceModuleName, SourceModuleType, ThreadID, host, tags
+
+================================================================================
+EVENT TYPE TRANSITIONS (Sample)
+================================================================================
+Line Range Transitions:
+  Line 13: Microsoft-Windows-Security-Auditing::5156 → Microsoft-Windows-Sysmon::11
+  Line 14: Microsoft-Windows-Sysmon::11 → Microsoft-Windows-Sysmon::10
+  Line 21: Microsoft-Windows-Sysmon::10 → Microsoft-Windows-Security-Auditing::5158
+  Line 22: Microsoft-Windows-Security-Auditing::5158 → Microsoft-Windows-Security-Auditing::5156
+  Line 23: Microsoft-Windows-Security-Auditing::5156 → Microsoft-Windows-Sysmon::13
+  Line 24: Microsoft-Windows-Sysmon::13 → Microsoft-Windows-Security-Auditing::5156
+  Line 36: Microsoft-Windows-Security-Auditing::5156 → Microsoft-Windows-Sysmon::12
+  Line 45: Microsoft-Windows-Sysmon::12 → Microsoft-Windows-Security-Auditing::5156
+  Line 47: Microsoft-Windows-Security-Auditing::5156 → Microsoft-Windows-Sysmon::13
+  Line 48: Microsoft-Windows-Sysmon::13 → Microsoft-Windows-Security-Auditing::5156
+  Line 56: Microsoft-Windows-Security-Auditing::5156 → Microsoft-Windows-Sysmon::13
+  Line 57: Microsoft-Windows-Sysmon::13 → Microsoft-Windows-Sysmon::10
+  Line 60: Microsoft-Windows-Sysmon::10 → Microsoft-Windows-Sysmon::7
+  Line 61: Microsoft-Windows-Sysmon::7 → Microsoft-Windows-Sysmon::10
+  Line 63: Microsoft-Windows-Sysmon::10 → Microsoft-Windows-Sysmon::7
+  Line 68: Microsoft-Windows-Sysmon::7 → Microsoft-Windows-Sysmon::10
+  Line 69: Microsoft-Windows-Sysmon::10 → Microsoft-Windows-Sysmon::7
+  Line 70: Microsoft-Windows-Sysmon::7 → Microsoft-Windows-Sysmon::10
+  Line 72: Microsoft-Windows-Sysmon::10 → Microsoft-Windows-Sysmon::7
+  Line 73: Microsoft-Windows-Sysmon::7 → Microsoft-Windows-Sysmon::13
+  ... (showing first 20 transitions)
+
+Total Event Type Transitions: 1085

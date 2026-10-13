@@ -1,0 +1,600 @@
+{
+  "timestamp": "2025-10-30T21:19:59.506800",
+  "total_models_compared": 4,
+  "models_analyzed": [
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
+    "gemini-2.5-flash-lite",
+    "gpt-oss-120b"
+  ],
+  "comparison_summary": {
+    "average_detection_rate_percent": 47.19065656565656,
+    "average_coverage_percent": 78.57142857142857,
+    "average_effectiveness_score": 56.19258915687487,
+    "best_detection": {
+      "model": "gemini-2.0-flash",
+      "score": 66.66666666666666
+    },
+    "worst_detection": {
+      "model": "gpt-oss-120b",
+      "score": 31.818181818181817
+    },
+    "best_coverage": {
+      "model": "gemini-2.0-flash",
+      "score": 100.0
+    },
+    "worst_coverage": {
+      "model": "gpt-oss-120b",
+      "score": 57.14285714285714
+    },
+    "best_overall": {
+      "model": "gemini-2.0-flash",
+      "score": 77.73809523809523,
+      "grade": "GOOD"
+    },
+    "worst_overall": {
+      "model": "gpt-oss-120b",
+      "score": 38.08441558441558,
+      "grade": "POOR"
+    }
+  },
+  "model_ranking": [
+    {
+      "rank": 1,
+      "model_name": "gemini-2.0-flash",
+      "effectiveness_score": 77.73809523809523,
+      "grade": "GOOD",
+      "detection_rate_percent": 66.66666666666666,
+      "coverage_percent": 100.0,
+      "average_accuracy_score": 0.7023809523809523,
+      "total_files_analyzed": 24
+    },
+    {
+      "rank": 2,
+      "model_name": "gemini-2.0-flash-lite",
+      "effectiveness_score": 56.9047619047619,
+      "grade": "FAIR",
+      "detection_rate_percent": 45.83333333333333,
+      "coverage_percent": 85.71428571428571,
+      "average_accuracy_score": 0.42857142857142855,
+      "total_files_analyzed": 24
+    },
+    {
+      "rank": 3,
+      "model_name": "gemini-2.5-flash-lite",
+      "effectiveness_score": 52.043083900226755,
+      "grade": "FAIR",
+      "detection_rate_percent": 44.44444444444444,
+      "coverage_percent": 71.42857142857143,
+      "average_accuracy_score": 0.427891156462585,
+      "total_files_analyzed": 27
+    },
+    {
+      "rank": 4,
+      "model_name": "gpt-oss-120b",
+      "effectiveness_score": 38.08441558441558,
+      "grade": "POOR",
+      "detection_rate_percent": 31.818181818181817,
+      "coverage_percent": 57.14285714285714,
+      "average_accuracy_score": 0.2738095238095238,
+      "total_files_analyzed": 22
+    }
+  ],
+  "detailed_model_metrics": {
+    "gemini-2.0-flash": {
+      "model_name": "gemini-2.0-flash",
+      "total_files_analyzed": 24,
+      "total_files_detected": 16,
+      "total_files_missed": 8,
+      "total_abnormal_events_detected": 189,
+      "total_tactics_tested": 7,
+      "detection_rate_percent": 66.66666666666666,
+      "coverage_percent": 100.0,
+      "average_accuracy_score": 0.7023809523809523,
+      "effectiveness_score": 77.73809523809523,
+      "grade": "GOOD",
+      "per_tactic_detection": [
+        {
+          "tactic": "collection",
+          "total_files": 1,
+          "files_detected": 1,
+          "files_missed": 0,
+          "total_abnormal_events_detected": 5,
+          "detection_rate_percent": 100.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "credential_access",
+          "total_files": 4,
+          "files_detected": 3,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 39,
+          "detection_rate_percent": 75.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "defense_evasion",
+          "total_files": 4,
+          "files_detected": 4,
+          "files_missed": 0,
+          "total_abnormal_events_detected": 35,
+          "detection_rate_percent": 100.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "discovery",
+          "total_files": 4,
+          "files_detected": 3,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 44,
+          "detection_rate_percent": 75.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "execution",
+          "total_files": 4,
+          "files_detected": 2,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 37,
+          "detection_rate_percent": 50.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "lateral_movement",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 19,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "persistance",
+          "total_files": 3,
+          "files_detected": 2,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 10,
+          "detection_rate_percent": 66.66666666666666,
+          "status": "GOOD"
+        }
+      ],
+      "tactics_with_detection": 7,
+      "tactics_with_zero_detection": 0
+    },
+    "gemini-2.0-flash-lite": {
+      "model_name": "gemini-2.0-flash-lite",
+      "total_files_analyzed": 24,
+      "total_files_detected": 11,
+      "total_files_missed": 13,
+      "total_abnormal_events_detected": 173,
+      "total_tactics_tested": 7,
+      "detection_rate_percent": 45.83333333333333,
+      "coverage_percent": 85.71428571428571,
+      "average_accuracy_score": 0.42857142857142855,
+      "effectiveness_score": 56.9047619047619,
+      "grade": "FAIR",
+      "per_tactic_detection": [
+        {
+          "tactic": "collection",
+          "total_files": 1,
+          "files_detected": 0,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 10,
+          "detection_rate_percent": 0.0,
+          "status": "NONE"
+        },
+        {
+          "tactic": "credential_access",
+          "total_files": 4,
+          "files_detected": 2,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 42,
+          "detection_rate_percent": 50.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "defense_evasion",
+          "total_files": 4,
+          "files_detected": 3,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 25,
+          "detection_rate_percent": 75.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "discovery",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 26,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "execution",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 12,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "lateral_movement",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 36,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "persistance",
+          "total_files": 3,
+          "files_detected": 3,
+          "files_missed": 0,
+          "total_abnormal_events_detected": 22,
+          "detection_rate_percent": 100.0,
+          "status": "GOOD"
+        }
+      ],
+      "tactics_with_detection": 6,
+      "tactics_with_zero_detection": 1
+    },
+    "gemini-2.5-flash-lite": {
+      "model_name": "gemini-2.5-flash-lite",
+      "total_files_analyzed": 27,
+      "total_files_detected": 12,
+      "total_files_missed": 15,
+      "total_abnormal_events_detected": 153,
+      "total_tactics_tested": 7,
+      "detection_rate_percent": 44.44444444444444,
+      "coverage_percent": 71.42857142857143,
+      "average_accuracy_score": 0.427891156462585,
+      "effectiveness_score": 52.043083900226755,
+      "grade": "FAIR",
+      "per_tactic_detection": [
+        {
+          "tactic": "collection",
+          "total_files": 2,
+          "files_detected": 0,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 9,
+          "detection_rate_percent": 0.0,
+          "status": "NONE"
+        },
+        {
+          "tactic": "credential_access",
+          "total_files": 7,
+          "files_detected": 3,
+          "files_missed": 4,
+          "total_abnormal_events_detected": 19,
+          "detection_rate_percent": 42.857142857142854,
+          "status": "POOR"
+        },
+        {
+          "tactic": "defense_evasion",
+          "total_files": 3,
+          "files_detected": 3,
+          "files_missed": 0,
+          "total_abnormal_events_detected": 64,
+          "detection_rate_percent": 100.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "discovery",
+          "total_files": 5,
+          "files_detected": 2,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 22,
+          "detection_rate_percent": 40.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "execution",
+          "total_files": 4,
+          "files_detected": 2,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 14,
+          "detection_rate_percent": 50.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "lateral_movement",
+          "total_files": 3,
+          "files_detected": 0,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 7,
+          "detection_rate_percent": 0.0,
+          "status": "NONE"
+        },
+        {
+          "tactic": "persistance",
+          "total_files": 3,
+          "files_detected": 2,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 18,
+          "detection_rate_percent": 66.66666666666666,
+          "status": "GOOD"
+        }
+      ],
+      "tactics_with_detection": 5,
+      "tactics_with_zero_detection": 2
+    },
+    "gpt-oss-120b": {
+      "model_name": "gpt-oss-120b",
+      "total_files_analyzed": 22,
+      "total_files_detected": 7,
+      "total_files_missed": 15,
+      "total_abnormal_events_detected": 86,
+      "total_tactics_tested": 7,
+      "detection_rate_percent": 31.818181818181817,
+      "coverage_percent": 57.14285714285714,
+      "average_accuracy_score": 0.2738095238095238,
+      "effectiveness_score": 38.08441558441558,
+      "grade": "POOR",
+      "per_tactic_detection": [
+        {
+          "tactic": "collection",
+          "total_files": 1,
+          "files_detected": 0,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 0,
+          "detection_rate_percent": 0.0,
+          "status": "NONE"
+        },
+        {
+          "tactic": "credential_access",
+          "total_files": 4,
+          "files_detected": 1,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 22,
+          "detection_rate_percent": 25.0,
+          "status": "POOR"
+        },
+        {
+          "tactic": "defense_evasion",
+          "total_files": 4,
+          "files_detected": 2,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 18,
+          "detection_rate_percent": 50.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "discovery",
+          "total_files": 4,
+          "files_detected": 2,
+          "files_missed": 2,
+          "total_abnormal_events_detected": 19,
+          "detection_rate_percent": 50.0,
+          "status": "GOOD"
+        },
+        {
+          "tactic": "execution",
+          "total_files": 3,
+          "files_detected": 0,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 14,
+          "detection_rate_percent": 0.0,
+          "status": "NONE"
+        },
+        {
+          "tactic": "lateral_movement",
+          "total_files": 3,
+          "files_detected": 0,
+          "files_missed": 3,
+          "total_abnormal_events_detected": 0,
+          "detection_rate_percent": 0.0,
+          "status": "NONE"
+        },
+        {
+          "tactic": "persistance",
+          "total_files": 3,
+          "files_detected": 2,
+          "files_missed": 1,
+          "total_abnormal_events_detected": 13,
+          "detection_rate_percent": 66.66666666666666,
+          "status": "GOOD"
+        }
+      ],
+      "tactics_with_detection": 4,
+      "tactics_with_zero_detection": 3
+    }
+  },
+  "detailed_comparison": {
+    "tactic_by_tactic_comparison": {
+      "collection": {
+        "gemini-2.0-flash": {
+          "detection_rate_percent": 100.0,
+          "files_detected": 1,
+          "total_files": 1,
+          "status": "GOOD"
+        },
+        "gemini-2.0-flash-lite": {
+          "detection_rate_percent": 0.0,
+          "files_detected": 0,
+          "total_files": 1,
+          "status": "NONE"
+        },
+        "gemini-2.5-flash-lite": {
+          "detection_rate_percent": 0.0,
+          "files_detected": 0,
+          "total_files": 2,
+          "status": "NONE"
+        },
+        "gpt-oss-120b": {
+          "detection_rate_percent": 0.0,
+          "files_detected": 0,
+          "total_files": 1,
+          "status": "NONE"
+        }
+      },
+      "credential_access": {
+        "gemini-2.0-flash": {
+          "detection_rate_percent": 75.0,
+          "files_detected": 3,
+          "total_files": 4,
+          "status": "GOOD"
+        },
+        "gemini-2.0-flash-lite": {
+          "detection_rate_percent": 50.0,
+          "files_detected": 2,
+          "total_files": 4,
+          "status": "GOOD"
+        },
+        "gemini-2.5-flash-lite": {
+          "detection_rate_percent": 42.857142857142854,
+          "files_detected": 3,
+          "total_files": 7,
+          "status": "POOR"
+        },
+        "gpt-oss-120b": {
+          "detection_rate_percent": 25.0,
+          "files_detected": 1,
+          "total_files": 4,
+          "status": "POOR"
+        }
+      },
+      "defense_evasion": {
+        "gemini-2.0-flash": {
+          "detection_rate_percent": 100.0,
+          "files_detected": 4,
+          "total_files": 4,
+          "status": "GOOD"
+        },
+        "gemini-2.0-flash-lite": {
+          "detection_rate_percent": 75.0,
+          "files_detected": 3,
+          "total_files": 4,
+          "status": "GOOD"
+        },
+        "gemini-2.5-flash-lite": {
+          "detection_rate_percent": 100.0,
+          "files_detected": 3,
+          "total_files": 3,
+          "status": "GOOD"
+        },
+        "gpt-oss-120b": {
+          "detection_rate_percent": 50.0,
+          "files_detected": 2,
+          "total_files": 4,
+          "status": "GOOD"
+        }
+      },
+      "discovery": {
+        "gemini-2.0-flash": {
+          "detection_rate_percent": 75.0,
+          "files_detected": 3,
+          "total_files": 4,
+          "status": "GOOD"
+        },
+        "gemini-2.0-flash-lite": {
+          "detection_rate_percent": 25.0,
+          "files_detected": 1,
+          "total_files": 4,
+          "status": "POOR"
+        },
+        "gemini-2.5-flash-lite": {
+          "detection_rate_percent": 40.0,
+          "files_detected": 2,
+          "total_files": 5,
+          "status": "POOR"
+        },
+        "gpt-oss-120b": {
+          "detection_rate_percent": 50.0,
+          "files_detected": 2,
+          "total_files": 4,
+          "status": "GOOD"
+        }
+      },
+      "execution": {
+        "gemini-2.0-flash": {
+          "detection_rate_percent": 50.0,
+          "files_detected": 2,
+          "total_files": 4,
+          "status": "GOOD"
+        },
+        "gemini-2.0-flash-lite": {
+          "detection_rate_percent": 25.0,
+          "files_detected": 1,
+          "total_files": 4,
+          "status": "POOR"
+        },
+        "gemini-2.5-flash-lite": {
+          "detection_rate_percent": 50.0,
+          "files_detected": 2,
+          "total_files": 4,
+          "status": "GOOD"
+        },
+        "gpt-oss-120b": {
+          "detection_rate_percent": 0.0,
+          "files_detected": 0,
+          "total_files": 3,
+          "status": "NONE"
+        }
+      },
+      "lateral_movement": {
+        "gemini-2.0-flash": {
+          "detection_rate_percent": 25.0,
+          "files_detected": 1,
+          "total_files": 4,
+          "status": "POOR"
+        },
+        "gemini-2.0-flash-lite": {
+          "detection_rate_percent": 25.0,
+          "files_detected": 1,
+          "total_files": 4,
+          "status": "POOR"
+        },
+        "gemini-2.5-flash-lite": {
+          "detection_rate_percent": 0.0,
+          "files_detected": 0,
+          "total_files": 3,
+          "status": "NONE"
+        },
+        "gpt-oss-120b": {
+          "detection_rate_percent": 0.0,
+          "files_detected": 0,
+          "total_files": 3,
+          "status": "NONE"
+        }
+      },
+      "persistance": {
+        "gemini-2.0-flash": {
+          "detection_rate_percent": 66.66666666666666,
+          "files_detected": 2,
+          "total_files": 3,
+          "status": "GOOD"
+        },
+        "gemini-2.0-flash-lite": {
+          "detection_rate_percent": 100.0,
+          "files_detected": 3,
+          "total_files": 3,
+          "status": "GOOD"
+        },
+        "gemini-2.5-flash-lite": {
+          "detection_rate_percent": 66.66666666666666,
+          "files_detected": 2,
+          "total_files": 3,
+          "status": "GOOD"
+        },
+        "gpt-oss-120b": {
+          "detection_rate_percent": 66.66666666666666,
+          "files_detected": 2,
+          "total_files": 3,
+          "status": "GOOD"
+        }
+      }
+    },
+    "all_tactics_tested": [
+      "collection",
+      "credential_access",
+      "defense_evasion",
+      "discovery",
+      "execution",
+      "lateral_movement",
+      "persistance"
+    ]
+  }
+}

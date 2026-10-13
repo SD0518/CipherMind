@@ -1,0 +1,114 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on mapping Windows Event IDs to MITRE ATT&CK techniques, prioritizing the retrieved techniques. High confidence mappings were prioritized, focusing on direct semantic matches and clear attack patterns. Several events related to SharpView's activity were mapped to relevant techniques. The overall mapping quality is considered medium due to the need for interpretation in some cases, but the confidence in the selected mappings is high.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 13,
+    "total_techniques_retrieved": 9,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The audit log was cleared by user pgustavo.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.95,
+        "mapping_rationale": "The event directly describes the clearing of Windows event logs, which is the exact behavior described by the 'Clear Windows Event Logs' technique.",
+        "recommendations": [
+          "Implement stricter access controls for event log management.",
+          "Monitor for and alert on event log clearing events."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created: C:\\ProgramData\\SharpView.exe with command line: SharpView.exe Get-ObjectAcl -SamAccountName \"Domain Admins\".",
+        "mitre_technique": "T1590.001",
+        "technique_name": "Domain Properties",
+        "tactic": [
+          "reconnaissance"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "SharpView is being used to gather information about the 'Domain Admins' group, which falls under the 'Domain Properties' technique for reconnaissance.",
+        "recommendations": [
+          "Monitor for the execution of SharpView and similar reconnaissance tools.",
+          "Restrict access to sensitive Active Directory information."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested. Object Name: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa by process C:\\ProgramData\\SharpView.exe",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.925,
+        "mapping_rationale": "Accessing the LSA registry key is a common method for attempting to extract LSA secrets, directly aligning with the 'LSA Secrets' technique.",
+        "recommendations": [
+          "Monitor access to the LSA registry key.",
+          "Implement credential protection measures to prevent LSA secret extraction."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "4663",
+        "event_description": "An attempt was made to access an object. Object Name: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa by process C:\\ProgramData\\SharpView.exe",
+        "mitre_technique": "T1003.004",
+        "technique_name": "LSA Secrets",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.925,
+        "mapping_rationale": "Accessing the LSA registry key is a common method for attempting to extract LSA secrets, directly aligning with the 'LSA Secrets' technique.",
+        "recommendations": [
+          "Monitor access to the LSA registry key.",
+          "Implement credential protection measures to prevent LSA secret extraction."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "7",
+        "event_description": "Image loaded: C:\\Users\\pgustavo\\AppData\\Local\\Temp\\ba9ea7344a4a5f591d6e5dc32a13494b\\6c9254b82dc34bf3bcc88fa65afa41d3.dll by process C:\\ProgramData\\SharpView.exe. SignatureStatus: Unavailable, Signed: false",
+        "mitre_technique": "T1574.001",
+        "technique_name": "Hijack Execution Flow: DLL Search Order Hijacking",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.875,
+        "mapping_rationale": "Loading an unsigned DLL from the temp directory by SharpView is a strong indicator of DLL Search Order Hijacking, where a malicious DLL is loaded instead of a legitimate one.",
+        "recommendations": [
+          "Monitor for the loading of unsigned DLLs from unusual locations.",
+          "Implement DLL signing policies to prevent the loading of unsigned DLLs."
+        ],
+        "_original_llm_confidence": 0.75
+      }
+    ],
+    "unmapped_events": [
+      "4690",
+      "4673",
+      "5156",
+      "5158",
+      "11",
+      "12",
+      "23",
+      "10"
+    ],
+    "overall_recommendations": [
+      "Focus on monitoring and preventing the execution of SharpView and similar offensive security tools.",
+      "Implement stricter access controls to prevent unauthorized access to sensitive resources like the LSA registry key and Active Directory information.",
+      "Monitor for and alert on suspicious DLL loading activity, especially from temporary directories.",
+      "Strengthen event log security to prevent attackers from clearing logs and evading detection."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:45:27.558383",
+    "overall_assessment": "CRITICAL",
+    "total_abnormal_events": 13,
+    "total_techniques_retrieved": 9
+  }
+}

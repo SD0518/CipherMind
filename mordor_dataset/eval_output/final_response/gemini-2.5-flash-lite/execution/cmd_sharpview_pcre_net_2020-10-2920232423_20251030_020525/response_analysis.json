@@ -1,0 +1,128 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis reveals a strong correlation between the execution of SharpView.exe and several MITRE ATT&CK techniques, primarily focused on discovery and credential access. The direct execution of the tool targeting 'Domain Admins' and its subsequent network communication to an LDAP port strongly indicate reconnaissance and potential lateral movement attempts. The access to sensitive registry keys further supports these findings. Mappings are generally of high confidence due to direct semantic matches and clear attack patterns.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 6,
+    "total_techniques_retrieved": 7,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process has been created. Process Command Line: SharpView.exe Get-ObjectAcl -SamAccountName \"Domain Admins\"",
+        "mitre_technique": "T1087.002",
+        "technique_name": "Account Discovery: Domain",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.938,
+        "mapping_rationale": "The event explicitly shows the execution of SharpView.exe with a command targeting 'Domain Admins' using Get-ObjectAcl. This directly aligns with the description of T1087.002, which involves querying domain controllers or other systems to enumerate user accounts and groups.",
+        "recommendations": [
+          "Investigate the source of SharpView.exe execution and its intended purpose.",
+          "Review the 'Domain Admins' group membership and recent activity for any unauthorized changes or access.",
+          "Implement stricter controls on the execution of known reconnaissance tools."
+        ],
+        "_original_llm_confidence": 0.95
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested. Object Name: \\REGISTRY\\MACHINE\\SOFTWARE\\Microsoft\\.NETFramework",
+        "mitre_technique": "T1552.001",
+        "technique_name": "Credentials In Files: Local Data Sources",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "While the event doesn't explicitly state credentials were found, access to the .NET Framework registry keys by a reconnaissance tool like SharpView.exe is a strong indicator of potential credential discovery or preparation for credential access. Attackers often target these areas for configuration or stored credentials.",
+        "recommendations": [
+          "Monitor access to sensitive registry keys, especially by unauthorized processes.",
+          "Implement integrity monitoring for critical registry hives.",
+          "Review SharpView.exe's behavior for any subsequent attempts to extract or use credentials."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "4656",
+        "event_description": "A handle to an object was requested. Object Name: \\REGISTRY\\MACHINE\\SYSTEM\\ControlSet001\\Control\\Lsa",
+        "mitre_technique": "T1003",
+        "technique_name": "OS Credential Dumping",
+        "tactic": [
+          "credential_access"
+        ],
+        "confidence_score": 0.888,
+        "mapping_rationale": "Accessing the LSA registry keys is a common precursor to or part of OS credential dumping techniques. SharpView.exe's access to this sensitive area strongly suggests an attempt to gather credentials or system secrets.",
+        "recommendations": [
+          "Investigate the specific access pattern to the LSA registry key for evidence of credential dumping tools or techniques.",
+          "Harden access to LSA secrets and related registry keys.",
+          "Ensure LSA protection mechanisms are enabled and configured correctly."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "4673",
+        "event_description": "A privileged service was called. Privileges: SeCreateGlobalPrivilege",
+        "mitre_technique": "T1068",
+        "technique_name": "Exploitation for Privilege Escalation",
+        "tactic": [
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "The use of SeCreateGlobalPrivilege by SharpView.exe, a tool often used for reconnaissance and potentially privilege escalation, indicates an attempt to leverage elevated privileges. While not direct exploitation of a vulnerability, the use of such privileges by a potentially malicious tool suggests an intent to escalate or maintain elevated access.",
+        "recommendations": [
+          "Review the necessity of SeCreateGlobalPrivilege for legitimate processes and restrict its use where possible.",
+          "Monitor processes that attempt to acquire or utilize SeCreateGlobalPrivilege.",
+          "Investigate if SharpView.exe is being used to exploit a known vulnerability or misconfiguration to gain elevated privileges."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "5156",
+        "event_description": "The Windows Filtering Platform has permitted a connection. Direction: Outbound, Source Address: 172.18.39.5, Source Port: 50450, Destination Address: 172.18.38.5, Destination Port: 389, Protocol: tcp",
+        "mitre_technique": "T1018",
+        "technique_name": "Remote System Discovery",
+        "tactic": [
+          "discovery"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The outbound connection from SharpView.exe to an internal IP address on port 389 (LDAP) is a direct indicator of remote system discovery, specifically targeting Active Directory services. This is a common technique for adversaries to gather information about the network environment.",
+        "recommendations": [
+          "Investigate the destination IP address (172.18.38.5) to identify the system it represents (likely a Domain Controller).",
+          "Analyze traffic patterns to and from this destination for further malicious activity.",
+          "Implement network segmentation and access controls to limit unauthorized access to domain controllers."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "5158",
+        "event_description": "The Windows Filtering Platform has permitted a bind to a local port. Application: \\device\\harddiskvolume2\\programdata\\sharpview.exe",
+        "mitre_technique": "T1047",
+        "technique_name": "Windows Management Instrumentation",
+        "tactic": [
+          "execution",
+          "lateral_movement"
+        ],
+        "confidence_score": 0.787,
+        "mapping_rationale": "While WMI is not explicitly mentioned, the binding of a local port by SharpView.exe can be a precursor to establishing communication channels, which can be facilitated by WMI for remote execution or data exfiltration. This event, in conjunction with other indicators, suggests the tool is preparing for further actions.",
+        "recommendations": [
+          "Monitor for any subsequent network connections initiated by SharpView.exe after binding to a local port.",
+          "Investigate the specific port being bound to and its purpose.",
+          "Ensure WMI is secured and that remote WMI access is restricted to authorized sources."
+        ],
+        "_original_llm_confidence": 0.65
+      }
+    ],
+    "unmapped_events": [],
+    "overall_recommendations": [
+      "Prioritize immediate investigation into the execution of SharpView.exe and its associated network activity.",
+      "Strengthen endpoint detection and response (EDR) capabilities to better identify and block the execution of known malicious tools.",
+      "Enhance monitoring of Active Directory and critical infrastructure for anomalous access patterns.",
+      "Regularly review and audit privileged group memberships and access rights.",
+      "Implement network security controls to limit the blast radius of potential compromises."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T02:05:25.601008",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 6,
+    "total_techniques_retrieved": 7
+  }
+}

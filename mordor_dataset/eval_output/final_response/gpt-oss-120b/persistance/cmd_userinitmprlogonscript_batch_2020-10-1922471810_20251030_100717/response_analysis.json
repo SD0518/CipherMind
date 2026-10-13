@@ -1,0 +1,92 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "Four of the six logged events map directly to the retrieved MITRE techniques with high or medium confidence. Event 1102 maps to Clear Windows Event Logs (T1070.001). The registry modification (Event 4688) and the associated batch file creation (Event 11) map to Logon Script (Windows) (T1037.001). The outbound connection to the Azure metadata service (Event 5156) maps to Cloud Instance Metadata API (T1552.005). Two events (process exit and local port bind) lack a confident match to the retrieved techniques and are left unmapped.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 6,
+    "total_techniques_retrieved": 4,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "1102",
+        "event_description": "The Security audit log was cleared.",
+        "mitre_technique": "T1070.001",
+        "technique_name": "Clear Windows Event Logs",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.88,
+        "mapping_rationale": "The event description explicitly states that the Security log was cleared, which is the exact behavior described by T1070.001.",
+        "recommendations": [
+          "Enable immutable log storage or forward Windows Event Logs to a secure SIEM to prevent tampering.",
+          "Alert on EventID 1102 and restrict the ability to clear logs to a minimal set of privileged accounts."
+        ],
+        "_original_llm_confidence": 0.96
+      },
+      {
+        "event_id": "4688",
+        "event_description": "Process creation: reg.exe added HKCU\\Environment\\UserInitMprLogonScript pointing to C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat.",
+        "mitre_technique": "T1037.001",
+        "technique_name": "Logon Script (Windows)",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.86,
+        "mapping_rationale": "Modifying the UserInitMprLogonScript registry value to launch a script at logon is a textbook example of the Logon Script persistence technique.",
+        "recommendations": [
+          "Monitor registry writes to HKCU\\Environment\\UserInitMprLogonScript and block unauthorized changes.",
+          "Deploy AppLocker or Software Restriction Policies to prevent execution of unknown scripts from temporary locations."
+        ],
+        "_original_llm_confidence": 0.92
+      },
+      {
+        "event_id": "5156",
+        "event_description": "Windows Filtering Platform permitted an outbound TCP connection from windowsazureguestagent.exe (PID 3428) to 168.63.129.16:80.",
+        "mitre_technique": "T1552.005",
+        "technique_name": "Cloud Instance Metadata API",
+        "tactic": [
+          "credential_access",
+          "discovery"
+        ],
+        "confidence_score": 0.855,
+        "mapping_rationale": "The outbound connection to the Azure metadata IP address matches the behavior described for T1552.005, where attackers query the Instance Metadata Service to obtain tokens.",
+        "recommendations": [
+          "Restrict VM access to the metadata endpoint using Azure policies or host‑based firewalls.",
+          "Log and alert on any process that contacts 168.63.129.16, especially non‑system processes."
+        ],
+        "_original_llm_confidence": 0.91
+      },
+      {
+        "event_id": "11",
+        "event_description": "File created: C:\\Users\\wardog\\AppData\\Local\\Temp\\art.bat by cmd.exe.",
+        "mitre_technique": "T1037.001",
+        "technique_name": "Logon Script (Windows)",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.73,
+        "mapping_rationale": "The batch file is the payload referenced by the UserInitMprLogonScript registry entry, completing the persistence chain described by T1037.001.",
+        "recommendations": [
+          "Quarantine and analyze the created batch file for malicious commands.",
+          "Enforce file‑creation monitoring for the %TEMP% directory and block execution of scripts from that path."
+        ],
+        "_original_llm_confidence": 0.66
+      }
+    ],
+    "unmapped_events": [
+      "4689",
+      "5158"
+    ],
+    "overall_recommendations": [
+      "Implement centralized log collection with tamper‑evident storage to detect and prevent log clearing.",
+      "Enforce least‑privilege for registry modifications and monitor critical persistence locations (e.g., UserInitMprLogonScript).",
+      "Apply network segmentation and outbound firewall rules that limit VM access to cloud metadata services unless explicitly required.",
+      "Deploy an endpoint detection and response (EDR) solution that can correlate registry changes, file creation, and suspicious outbound connections in real time."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T10:07:17.114413",
+    "overall_assessment": "SUSPICIOUS",
+    "total_abnormal_events": 6,
+    "total_techniques_retrieved": 4
+  }
+}

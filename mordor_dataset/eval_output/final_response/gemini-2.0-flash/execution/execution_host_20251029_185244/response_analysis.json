@@ -1,0 +1,118 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "The analysis focused on creating high-confidence mappings between log events and MITRE ATT&CK techniques. The retrieved techniques were prioritized, and direct semantic matches were sought. Events with insufficient correlation were added to the unmapped_events list. The overall mapping quality is considered medium due to the need for some inferential reasoning, but the confidence in the selected mappings is high.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 9,
+    "total_techniques_retrieved": 6,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4672",
+        "event_description": "Special privileges assigned to new logon. Account Name: MORDORDC$",
+        "mitre_technique": "T1078.002",
+        "technique_name": "Domain Accounts",
+        "tactic": [
+          "credential_access",
+          "lateral_movement"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "The event describes the assignment of special privileges to a domain account (MORDORDC$), which aligns with the technique of abusing domain accounts for lateral movement and gaining access. The assignment of multiple privileges suggests a potential privilege escalation attempt.",
+        "recommendations": [
+          "Monitor the MORDORDC$ account for unusual activity.",
+          "Review the assigned privileges and remove any unnecessary ones.",
+          "Investigate the reason for the privilege assignment."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4688",
+        "event_description": "Process Creation: PowerShell with encoded command",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event clearly indicates the use of PowerShell with an encoded command, which is a direct match for the PowerShell technique. The decoded command's attempt to disable AMSI and download/execute code further strengthens this mapping.",
+        "recommendations": [
+          "Analyze the decoded PowerShell command for malicious intent.",
+          "Block the remote server from which the code is being downloaded.",
+          "Implement PowerShell execution policies to prevent the execution of unsigned scripts."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted: HKU\\S-1-5-21-2079883792-3656946353-945924832-1104\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.vbs",
+        "mitre_technique": "T1546.001",
+        "technique_name": "Change Default File Association",
+        "tactic": [
+          "persistence",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.888,
+        "mapping_rationale": "The event describes a registry modification related to the .vbs file extension, which directly aligns with the technique of changing default file associations to execute malicious code. This is a clear attempt at persistence.",
+        "recommendations": [
+          "Monitor registry modifications related to file extensions.",
+          "Restrict user permissions to modify file associations.",
+          "Investigate the purpose of the .vbs file and its associated script."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted: HKU\\S-1-5-21-2079883792-3656946353-945924832-1104\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\FileExts\\.vbs",
+        "mitre_technique": "T1112.001",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The event describes a registry modification related to the .vbs file extension, which aligns with the technique of modifying the registry for persistence. While T1546.001 is a more specific match, T1112.001 is still relevant.",
+        "recommendations": [
+          "Monitor registry modifications related to file extensions.",
+          "Restrict user permissions to modify file associations.",
+          "Investigate the purpose of the .vbs file and its associated script."
+        ],
+        "_original_llm_confidence": 0.7
+      },
+      {
+        "event_id": "13",
+        "event_description": "Registry value set: HKU\\S-1-5-21-2079883792-3656946353-945924832-1104_Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\MuiCache\\C:\\windows\\System32\\WScript.exe.FriendlyAppName",
+        "mitre_technique": "T1112.001",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "persistance"
+        ],
+        "confidence_score": 0.812,
+        "mapping_rationale": "The event describes a registry modification related to the .vbs file extension, which aligns with the technique of modifying the registry for persistence. While not directly related to file association, it's still a registry modification for persistence.",
+        "recommendations": [
+          "Monitor registry modifications related to file extensions.",
+          "Restrict user permissions to modify file associations.",
+          "Investigate the purpose of the .vbs file and its associated script."
+        ],
+        "_original_llm_confidence": 0.7
+      }
+    ],
+    "unmapped_events": [
+      "1",
+      "11",
+      "10",
+      "5156",
+      "5158"
+    ],
+    "overall_recommendations": [
+      "Implement stricter PowerShell execution policies.",
+      "Monitor registry modifications related to file associations.",
+      "Investigate the MORDORDC$ account and its assigned privileges.",
+      "Block the identified malicious domain."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:52:44.194271",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 9,
+    "total_techniques_retrieved": 6
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "overall_assessment": "ERROR",
+  "total_events_analyzed": 0,
+  "execution_time_seconds": 131.01,
+  "execution_time_formatted": "2m 11.01s",
+  "analysis_summary": "Analysis failed: Error code: 400 - {'error': {'message': \"Tool call validation failed: tool call validation failed: attempted to call tool 'event_id_extractor_with_logs<|channel|>commentary' which was not in request.tools\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '{\"name\": \"event_id_extractor_with_logs<|channel|>commentary\", \"arguments\": {\"suspected_event_id\": \"13\"}}'}}",
+  "agent_reasoning": "",
+  "abnormal_event_ids": [],
+  "abnormal_events": [],
+  "iteration_count": 1
+}

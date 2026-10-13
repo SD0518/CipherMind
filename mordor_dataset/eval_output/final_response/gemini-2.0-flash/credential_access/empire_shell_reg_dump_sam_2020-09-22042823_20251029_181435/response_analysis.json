@@ -1,0 +1,116 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "Analysis focused on creating high-confidence mappings between log events and MITRE ATT&CK techniques. Prioritized retrieved techniques and looked for direct semantic matches. Only mappings with confidence >= 0.5 were created. Several events remain unmapped due to insufficient information or lack of a clear connection to the retrieved techniques.",
+    "mapping_confidence": "MEDIUM",
+    "total_events_analyzed": 6,
+    "total_techniques_retrieved": 6,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "800",
+        "event_description": "Pipeline execution details for a PowerShell command with -enc flag, indicating an encoded command.",
+        "mitre_technique": "T1027.010",
+        "technique_name": "Command Obfuscation",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.888,
+        "mapping_rationale": "The event description explicitly mentions the use of the '-enc' flag in PowerShell, which is a common method for command obfuscation. The failed decoding further supports this mapping.",
+        "recommendations": [
+          "Investigate the PowerShell command execution by user THESHIRE\\pgustavo.",
+          "Implement PowerShell logging and monitoring to detect and analyze obfuscated commands.",
+          "Implement stricter PowerShell execution policies to prevent the execution of unsigned or untrusted scripts."
+        ],
+        "_original_llm_confidence": 0.85
+      },
+      {
+        "event_id": "800",
+        "event_description": "Pipeline execution details for a PowerShell command with -enc flag, indicating an encoded command.",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.838,
+        "mapping_rationale": "The event clearly indicates the use of PowerShell for command execution, making it a relevant mapping to the PowerShell technique. The use of -enc also suggests defense evasion.",
+        "recommendations": [
+          "Monitor PowerShell execution for suspicious activity.",
+          "Implement PowerShell Constrained Language Mode to limit the capabilities of PowerShell scripts.",
+          "Review and audit PowerShell scripts for potential malicious code."
+        ],
+        "_original_llm_confidence": 0.75
+      },
+      {
+        "event_id": "4103",
+        "event_description": "Microsoft-Windows-PowerShell event indicating execution of a command, cmdlet, or script. These events are related to the encoded PowerShell command.",
+        "mitre_technique": "T1059.001",
+        "technique_name": "PowerShell",
+        "tactic": [
+          "execution",
+          "defense_evasion"
+        ],
+        "confidence_score": 0.863,
+        "mapping_rationale": "Event 4103 directly relates to PowerShell execution, providing context for the encoded command. This aligns with the PowerShell technique.",
+        "recommendations": [
+          "Correlate Event ID 4103 with other PowerShell-related events to gain a comprehensive view of PowerShell activity.",
+          "Implement PowerShell logging and auditing to track command execution and script usage.",
+          "Analyze PowerShell scripts for potential malicious code or suspicious behavior."
+        ],
+        "_original_llm_confidence": 0.8
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted by PowerShell, modifying Internet Settings Connections.",
+        "mitre_technique": "T1112",
+        "technique_name": "Modify Registry",
+        "tactic": [
+          "defense_evasion",
+          "persistance"
+        ],
+        "confidence_score": 0.912,
+        "mapping_rationale": "The event description explicitly states that a registry object was added or deleted, directly matching the 'Modify Registry' technique. The modification of Internet Settings Connections suggests potential defense evasion.",
+        "recommendations": [
+          "Monitor registry modifications related to Internet Settings Connections.",
+          "Implement registry auditing to track changes made by PowerShell.",
+          "Restrict user permissions to prevent unauthorized registry modifications."
+        ],
+        "_original_llm_confidence": 0.9
+      },
+      {
+        "event_id": "12",
+        "event_description": "Registry object added or deleted by PowerShell, modifying Internet Settings Connections.",
+        "mitre_technique": "T1562.001",
+        "technique_name": "Impair Defenses: Disable or Modify Tools",
+        "tactic": [
+          "defense_evasion"
+        ],
+        "confidence_score": 0.763,
+        "mapping_rationale": "Modifying Internet Settings Connections can be used to disable or modify security tools, aligning with the 'Impair Defenses' technique.",
+        "recommendations": [
+          "Monitor registry modifications related to Internet Settings Connections.",
+          "Implement registry auditing to track changes made by PowerShell.",
+          "Restrict user permissions to prevent unauthorized registry modifications."
+        ],
+        "_original_llm_confidence": 0.6
+      }
+    ],
+    "unmapped_events": [
+      "5156",
+      "5158",
+      "13"
+    ],
+    "overall_recommendations": [
+      "Focus on investigating PowerShell activity, especially encoded commands and registry modifications.",
+      "Implement robust PowerShell logging and monitoring to detect and analyze suspicious activity.",
+      "Strengthen registry security by restricting user permissions and implementing auditing.",
+      "Investigate the network connections originating from multiple hosts to the Microsoft IP address 168.63.129.16 to determine if it is legitimate Azure activity or potential command and control."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-29T18:14:35.348766",
+    "overall_assessment": "ABNORMAL",
+    "total_abnormal_events": 6,
+    "total_techniques_retrieved": 6
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "correlation_analysis": {
+    "analysis_summary": "Four events showed clear, direct alignment with the retrieved MITRE ATT&CK techniques. Each mapping is supported by explicit event details (process creation, handle duplication, token adjustment, and a valid account logon) that match the technique descriptions. Confidence scores are high (≥0.8) for three mappings and medium‑high (0.7) for the handle‑duplication case. All other events are routine system activity with no reliable ATT&CK correlation, so they are listed as unmapped.",
+    "mapping_confidence": "HIGH",
+    "total_events_analyzed": 12,
+    "total_techniques_retrieved": 5,
+    "retrieval_success": true,
+    "direct_mappings": [
+      {
+        "event_id": "4688",
+        "event_description": "A new process (C:\\Windows\\System32\\cmd.exe) was created (PID 0xef0) by C:\\Windows\\explorer.exe (PID 0x828).",
+        "mitre_technique": "T1059.003",
+        "technique_name": "Windows Command Shell",
+        "tactic": [
+          "execution"
+        ],
+        "confidence_score": 0.797,
+        "mapping_rationale": "The event records the launch of cmd.exe, the Windows command shell, which is the exact behavior described by T1059.003. The parent process (explorer.exe) is a common launch vector for interactive command sessions.",
+        "recommendations": [
+          "Enable detailed command‑line auditing (Process Creation with command line) and forward logs to a SIEM.",
+          "Restrict execution of cmd.exe to authorized accounts via AppLocker or Windows Defender Application Control.",
+          "Deploy a behavior‑based detection rule that flags cmd.exe launches from non‑interactive parent processes."
+        ],
+        "_original_llm_confidence": 0.92
+      },
+      {
+        "event_id": "4690",
+        "event_description": "An attempt was made to duplicate a handle to an object (source handle 0x2098, source PID 0x828, target PID 0x4).",
+        "mitre_technique": "T1055.013",
+        "technique_name": "Process Doppelgänging",
+        "tactic": [
+          "defense_evasion",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.693,
+        "mapping_rationale": "Handle duplication is a low‑level operation used by Process Doppelgänging to create a surrogate process. The event explicitly logs a handle duplication, matching the technique’s description of manipulating handles for process injection.",
+        "recommendations": [
+          "Monitor and alert on handle‑duplication events (Event ID 4690) especially when the target PID belongs to a high‑privilege service.",
+          "Correlate handle duplication with subsequent process creation events to detect possible Doppelgänging activity.",
+          "Limit the ability to duplicate handles to privileged accounts through least‑privilege configuration."
+        ],
+        "_original_llm_confidence": 0.71
+      },
+      {
+        "event_id": "4703",
+        "event_description": "A token right was adjusted for lsass.exe (Process ID 0x258).",
+        "mitre_technique": "T1134.001",
+        "technique_name": "Token Impersonation/Theft",
+        "tactic": [
+          "defense_evasion",
+          "privilege_escalation"
+        ],
+        "confidence_score": 0.807,
+        "mapping_rationale": "Adjusting token rights for LSASS directly corresponds to the Token Impersonation/Theft technique, which describes manipulation of access tokens to gain elevated privileges.",
+        "recommendations": [
+          "Enable and monitor privileged token manipulation events (Event ID 4703) and generate alerts for LSASS or other security‑critical processes.",
+          "Deploy Credential Guard and enable Protected Process Light (PPL) for LSASS to prevent token tampering.",
+          "Regularly review privileged account activity and enforce MFA for accounts that can modify token rights."
+        ],
+        "_original_llm_confidence": 0.94
+      },
+      {
+        "event_id": "4624",
+        "event_description": "A successful network logon (Logon Type 3) for the computer account DC01$ using Kerberos.",
+        "mitre_technique": "T1078",
+        "technique_name": "Valid Accounts",
+        "tactic": [
+          "defense_evasion",
+          "persistence",
+          "privilege_escalation",
+          "lateral_movement"
+        ],
+        "confidence_score": 0.818,
+        "mapping_rationale": "The event documents a network logon using a domain computer account, which is a classic example of the Valid Accounts technique where adversaries leverage legitimate credentials for lateral movement and persistence.",
+        "recommendations": [
+          "Implement strict monitoring of computer‑account logons (Logon Type 3) and alert on atypical source IPs or times.",
+          "Enforce tiered admin model and limit the privileges of computer accounts; use Managed Service Accounts where possible.",
+          "Deploy anomaly‑based detection to flag unusual Kerberos ticket usage for privileged accounts."
+        ],
+        "_original_llm_confidence": 0.96
+      }
+    ],
+    "unmapped_events": [
+      "412 (WebCache ESENT read error)",
+      "412 (SRU ESENT read error)",
+      "4688 (conhost.exe creation by cmd.exe)",
+      "4658 (handle close by explorer.exe – first instance)",
+      "4658 (handle close by explorer.exe – second instance)",
+      "4656 (handle request to WinSxS file – first instance)",
+      "4656 (handle request to WinSxS file – second instance)"
+    ],
+    "overall_recommendations": [
+      "Consolidate Windows Event Log collection (Security, System, and Application) into a centralized SIEM with real‑time alerting for the four confirmed techniques.",
+      "Establish a baseline of normal process creation, handle operations, and token adjustments on this host to reduce false positives.",
+      "Apply least‑privilege principles to Explorer, cmd.exe, and service accounts to limit the impact of any future misuse of these legitimate processes.",
+      "Regularly review and harden Kerberos delegation and computer‑account permissions to mitigate abuse of valid accounts."
+    ]
+  },
+  "metadata": {
+    "analysis_timestamp": "2025-10-30T09:18:23.860700",
+    "overall_assessment": "NORMAL",
+    "total_abnormal_events": 11,
+    "total_techniques_retrieved": 5
+  }
+}
