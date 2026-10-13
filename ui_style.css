@@ -1,0 +1,90 @@
+/* CipherMind UI styling (dark theme, one accent colour). Loaded by app.py. */
+
+:root {
+  --cm-accent: #10b981;          /* emerald: the single accent colour */
+  --cm-accent-soft: rgba(16, 185, 129, 0.12);
+  --cm-card: #1e293b;            /* slate-800 */
+  --cm-card-border: #334155;     /* slate-700 */
+  --cm-muted: #94a3b8;           /* slate-400 */
+  --cm-text: #e2e8f0;            /* slate-200 */
+  --cm-high: #ef4444;
+  --cm-medium: #f59e0b;
+  --cm-low: #64748b;
+  --cm-radius: 10px;
+  --cm-gap: 12px;
+}
+
+/* Hide the Gradio footer ("Use via API / Built with Gradio / Settings") */
+footer { display: none !important; }
+
+.gradio-container { max-width: 1280px !important; margin: 0 auto !important; }
+
+/* Header */
+.cm-header h1 { margin: 0 0 2px 0; font-size: 1.6rem; letter-spacing: .2px; }
+.cm-header p { margin: 0; color: var(--cm-muted); }
+
+/* Section headings in the input column (plain text, not pills) */
+.cm-section h4 { margin: 14px 0 6px 0; font-size: .82rem; font-weight: 600; text-transform: uppercase;
+                 letter-spacing: .06em; color: var(--cm-muted); }
+
+/* Status badges */
+.cm-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 4px 0; }
+.cm-badge { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: 999px;
+            border: 1px solid var(--cm-card-border); background: var(--cm-card); color: var(--cm-text);
+            font-size: .82rem; }
+.cm-badge small { color: var(--cm-muted); }
+
+/* Coloured dots (status badges + pipeline steps) */
+.cm-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 8px; background: var(--cm-low); }
+.cm-dot.ok, .cm-dot.done { background: var(--cm-accent); }
+.cm-dot.warn { background: var(--cm-medium); }
+.cm-dot.bad, .cm-dot.error { background: var(--cm-high); }
+.cm-dot.active { background: var(--cm-accent); box-shadow: 0 0 0 4px var(--cm-accent-soft);
+                 animation: cm-pulse 1.2s ease-in-out infinite; }
+@keyframes cm-pulse { 50% { opacity: .35; } }
+
+/* Pipeline steps */
+.cm-steps { list-style: none; margin: 6px 0 0 0; padding: 0; }
+.cm-steps li { display: flex; align-items: center; gap: 10px; padding: 6px 0; color: var(--cm-muted);
+               font-size: .9rem; }
+.cm-steps li.done, .cm-steps li.active { color: var(--cm-text); }
+.cm-steps li b { font-weight: 600; min-width: 64px; }
+.cm-note { color: var(--cm-muted); font-size: .85rem; margin-top: 6px; }
+
+/* Stat cards */
+.cm-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--cm-gap); }
+.cm-stat { background: var(--cm-card); border: 1px solid var(--cm-card-border); border-radius: var(--cm-radius);
+           padding: 12px 14px; }
+.cm-stat .v { font-size: 1.45rem; font-weight: 700; color: var(--cm-text); line-height: 1.2; }
+.cm-stat .l { font-size: .78rem; color: var(--cm-muted); text-transform: uppercase; letter-spacing: .05em; }
+@media (max-width: 720px) { .cm-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Technique cards */
+.cm-heading { margin: 18px 0 8px 0; font-size: .82rem; font-weight: 600; text-transform: uppercase;
+              letter-spacing: .06em; color: var(--cm-muted); }
+.cm-techs { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--cm-gap); }
+.cm-tech { background: var(--cm-card); border: 1px solid var(--cm-card-border); border-left: 4px solid var(--cm-low);
+           border-radius: var(--cm-radius); padding: 12px 14px; }
+.cm-tech.high { border-left-color: var(--cm-high); }
+.cm-tech.medium { border-left-color: var(--cm-medium); }
+.cm-tech .id { font-family: ui-monospace, Consolas, monospace; font-weight: 700; color: var(--cm-accent); }
+.cm-tech .name { color: var(--cm-text); margin: 3px 0 8px 0; font-size: .92rem; }
+.cm-tech .meta { display: flex; justify-content: space-between; align-items: center; color: var(--cm-muted);
+                 font-size: .8rem; }
+.cm-level { padding: 1px 8px; border-radius: 999px; font-size: .74rem; font-weight: 600; }
+.cm-level.high { background: rgba(239, 68, 68, .15); color: #fca5a5; }
+.cm-level.medium { background: rgba(245, 158, 11, .15); color: #fcd34d; }
+.cm-level.low { background: rgba(100, 116, 139, .2); color: #cbd5e1; }
+
+/* Details / checks list */
+.cm-checks { list-style: none; padding: 0; margin: 12px 0 0 0; }
+.cm-checks li { display: flex; align-items: center; gap: 10px; padding: 4px 0; color: var(--cm-text);
+                font-size: .88rem; }
+
+/* Empty state */
+.cm-empty { border: 1px dashed var(--cm-card-border); border-radius: var(--cm-radius); padding: 40px 20px;
+            text-align: center; color: var(--cm-muted); }
+
+/* Report preview */
+.cm-preview { background: var(--cm-card); border: 1px solid var(--cm-card-border); border-radius: var(--cm-radius);
+              padding: 4px 16px; }
